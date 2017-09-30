@@ -33,6 +33,10 @@ Image showing a heatmap rendered using RAWSim-O that shows the locations robots 
 
 A short video of the demonstrator application done with RAWSim-O and vacuum cleaning robots can be found here: https://youtu.be/bZHIXCxpXyc
 
+## GnuPlot
+
+Some of the functionality of RAWSim-O requires an installation of GnuPlot (see http://www.gnuplot.info/). GnuPlot's bin path must be added to the environment path variable.
+
 # License
 
 This program is free software: you can redistribute it and/or modify
