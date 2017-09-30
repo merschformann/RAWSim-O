@@ -57,6 +57,12 @@ The work was financed by a scholarship of the International Graduate School - Dy
 
 Marius Merschformann, Lin Xie, Hanyi Li, Tim Lamballais Tessensohn, Daniel Erdmann, Lena Knickmeier, Jonas König, Maik Herbort, Marcel Grawe
 
+# Alphabet Soup
+
+Special thanks go to the authors of the Alphabet Soup framework that was used as a basis for implementation of RAWSim-O:
+
+Hazard, Christopher J., Peter R. Wurman, and Raffaello D’Andrea. "Alphabet soup: A testbed for studying resource allocation in multi-vehicle systems." Proceedings of the 2006 AAAI Workshop on Auction Mechanisms for Robot Coordination. 2006.
+
 # Used software:
 Thanks go out to the developers of the following software for enabling a more easy implementation of RAWSim-O.
 ## Helix Toolkit: ##
