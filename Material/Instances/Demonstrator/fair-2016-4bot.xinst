@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Instance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="office">
+  <Bots>
+    <Bot ID="0" PodTransferTime="3" MaxAcceleration="0.5" MaxDeceleration="0.5" MaxVelocity="0.14" TurnSpeed="6.5" CollisionPenaltyTime="0.5" X="0.825" Y="1.275" Radius="0.16" Orientation="0" Tier="0" />
+    <Bot ID="1" PodTransferTime="3" MaxAcceleration="0.5" MaxDeceleration="0.5" MaxVelocity="0.14" TurnSpeed="6.5" CollisionPenaltyTime="0.5" X="1.275" Y="1.275" Radius="0.16" Orientation="0" Tier="0" />
+    <Bot ID="2" PodTransferTime="3" MaxAcceleration="0.5" MaxDeceleration="0.5" MaxVelocity="0.14" TurnSpeed="6.5" CollisionPenaltyTime="0.5" X="1.725" Y="1.275" Radius="0.16" Orientation="0" Tier="0" />
+    <Bot ID="3" PodTransferTime="3" MaxAcceleration="0.5" MaxDeceleration="0.5" MaxVelocity="0.14" TurnSpeed="6.5" CollisionPenaltyTime="0.5" X="2.175" Y="1.275" Radius="0.16" Orientation="0" Tier="0" />
+  </Bots>
+  <Pods>
+    <Pod ID="0" X="0.375" Y="1.275" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+    <Pod ID="1" X="0.375" Y="1.725" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+    <Pod ID="2" X="0.375" Y="2.175" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+    <Pod ID="3" X="0.375" Y="2.625" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+    <Pod ID="4" X="0.375" Y="3.075" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+    <Pod ID="5" X="0.375" Y="3.525" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+	<Pod ID="6" X="2.175" Y="2.175" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+    <Pod ID="7" X="2.175" Y="2.625" Radius="0.18" Orientation="0" Tier="0" Capacity="50" />
+  </Pods>
+  <Elevators />
+  <InputStations>
+    <InputStation ID="0" X="0.825" Y="0.375" Radius="0.22" Tier="0" Capacity="100" ItemBundleTransferTime="2">
+      <Queues>
+        <Queues>2/2</Queues>
+        <Queues>2/1</Queues>
+        <Queues>2/6</Queues>
+        <Queues>2/7</Queues>
+      </Queues>
+    </InputStation>
+  </InputStations>
+  <OutputStations>
+    <OutputStation ID="0" X="1.725" Y="0.375" Radius="0.22" Tier="0" Capacity="20" ItemTransferTime="2">
+      <Queues>
+        <Queues>4/4</Queues>
+        <Queues>4/5</Queues>
+        <Queues>4/10</Queues>
+        <Queues>4/9</Queues>
+      </Queues>
+    </OutputStation>
+  </OutputStations>
+  <Tiers>
+    <Tier ID="0" Length="2.525" Width="3.875" RelativePositionX="0" RelativePositionY="0" RelativePositionZ="0" />
+  </Tiers>
+  <Waypoints>
+    <Waypoint ID="1" X="0.375" Y="0.375" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>2</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="2" X="0.825" Y="0.375" Tier="0" OutputStation="-1" InputStation="0" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>3</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="3" X="1.275" Y="0.375" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>8</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="4" X="1.725" Y="0.375" Tier="0" OutputStation="0" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>3</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="5" X="2.175" Y="0.375" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>4</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="6" X="0.375" Y="0.825" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>1</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="7" X="0.825" Y="0.825" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>6</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="8" X="1.275" Y="0.825" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>13</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="9" X="1.725" Y="0.825" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>10</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="10" X="2.175" Y="0.825" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="true">
+      <Paths>
+        <Waypoint>5</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="11" X="0.375" Y="1.275" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="0" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>12</Waypoint>
+        <Waypoint>16</Waypoint>
+        <Waypoint>6</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="12" X="0.825" Y="1.275" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>11</Waypoint>
+        <Waypoint>13</Waypoint>
+        <Waypoint>17</Waypoint>
+        <Waypoint>7</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="13" X="1.275" Y="1.275" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>12</Waypoint>
+        <Waypoint>14</Waypoint>
+        <Waypoint>18</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="14" X="1.725" Y="1.275" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>13</Waypoint>
+        <Waypoint>15</Waypoint>
+        <Waypoint>19</Waypoint>
+        <Waypoint>9</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="15" X="2.175" Y="1.275" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>14</Waypoint>
+        <Waypoint>20</Waypoint>
+        <Waypoint>10</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="16" X="0.375" Y="1.725" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="1" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>17</Waypoint>
+        <Waypoint>21</Waypoint>
+        <Waypoint>11</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="17" X="0.825" Y="1.725" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>16</Waypoint>
+        <Waypoint>18</Waypoint>
+        <Waypoint>22</Waypoint>
+        <Waypoint>12</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="18" X="1.275" Y="1.725" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>17</Waypoint>
+        <Waypoint>19</Waypoint>
+        <Waypoint>23</Waypoint>
+        <Waypoint>13</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="19" X="1.725" Y="1.725" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>18</Waypoint>
+        <Waypoint>20</Waypoint>
+        <Waypoint>24</Waypoint>
+        <Waypoint>14</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="20" X="2.175" Y="1.725" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>19</Waypoint>
+        <Waypoint>25</Waypoint>
+        <Waypoint>15</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="21" X="0.375" Y="2.175" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="2" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>22</Waypoint>
+        <Waypoint>26</Waypoint>
+        <Waypoint>16</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="22" X="0.825" Y="2.175" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>21</Waypoint>
+        <Waypoint>23</Waypoint>
+        <Waypoint>27</Waypoint>
+        <Waypoint>17</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="23" X="1.275" Y="2.175" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>22</Waypoint>
+        <Waypoint>24</Waypoint>
+        <Waypoint>28</Waypoint>
+        <Waypoint>18</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="24" X="1.725" Y="2.175" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>23</Waypoint>
+        <Waypoint>25</Waypoint>
+        <Waypoint>29</Waypoint>
+        <Waypoint>19</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="25" X="2.175" Y="2.175" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="6" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>24</Waypoint>
+        <Waypoint>30</Waypoint>
+        <Waypoint>20</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="26" X="0.375" Y="2.625" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="3" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>27</Waypoint>
+        <Waypoint>31</Waypoint>
+        <Waypoint>21</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="27" X="0.825" Y="2.625" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>26</Waypoint>
+        <Waypoint>28</Waypoint>
+        <Waypoint>32</Waypoint>
+        <Waypoint>22</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="28" X="1.275" Y="2.625" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>27</Waypoint>
+        <Waypoint>29</Waypoint>
+        <Waypoint>33</Waypoint>
+        <Waypoint>23</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="29" X="1.725" Y="2.625" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>28</Waypoint>
+        <Waypoint>30</Waypoint>
+        <Waypoint>24</Waypoint>
+        <Waypoint>34</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="30" X="2.175" Y="2.625" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="7" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>29</Waypoint>
+        <Waypoint>25</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="31" X="0.375" Y="3.075" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="4" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>32</Waypoint>
+        <Waypoint>26</Waypoint>
+        <Waypoint>35</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="32" X="0.825" Y="3.075" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>31</Waypoint>
+        <Waypoint>33</Waypoint>
+        <Waypoint>27</Waypoint>
+        <Waypoint>36</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="33" X="1.275" Y="3.075" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>32</Waypoint>
+        <Waypoint>34</Waypoint>
+        <Waypoint>28</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="34" X="1.725" Y="3.075" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>33</Waypoint>
+        <Waypoint>29</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="35" X="0.375" Y="3.525" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="5" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>31</Waypoint>
+        <Waypoint>36</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="36" X="0.825" Y="3.525" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>35</Waypoint>
+        <Waypoint>32</Waypoint>
+      </Paths>
+    </Waypoint>
+  </Waypoints>
+  <Semaphores />
+</Instance>

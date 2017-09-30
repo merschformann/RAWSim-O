@@ -1,0 +1,40 @@
+Instructions:
+Setup waypoint system using the following coordinates (in m). At best start with a square with the corner points: {(0.375,0.375),(2.625,0.375),(0.375,2.625),(2.625,2.625)} Hence, build a square of tape lines with the dimensions 2.25m x 2.25m. Then add 4 rows and 4 columns with equal distance to each other and the outer lines.
+Waypoints:
+WaypointID;X;Y;Remarks
+1;0.375;0.375;Mark as input-station waypoint
+2;0.825;0.375;n.a.
+3;1.275;0.375;n.a.
+4;1.725;0.375;n.a.
+5;2.175;0.375;n.a.
+6;2.625;0.375;Mark as output-station waypoint
+7;0.375;0.825;n.a.
+8;0.825;0.825;n.a.
+9;1.275;0.825;n.a.
+10;1.725;0.825;n.a.
+11;2.175;0.825;n.a.
+12;2.625;0.825;n.a.
+13;0.375;1.275;n.a.
+14;0.825;1.275;Starting position bot 0
+15;1.275;1.275;Starting position bot 1
+16;1.725;1.275;Starting position bot 2
+17;2.175;1.275;Starting position bot 3
+18;2.625;1.275;n.a.
+19;0.375;1.725;n.a.
+20;0.825;1.725;Mark as pod storage location
+21;1.275;1.725;Mark as pod storage location
+22;1.725;1.725;Mark as pod storage location
+23;2.175;1.725;Mark as pod storage location
+24;2.625;1.725;n.a.
+25;0.375;2.175;n.a.
+26;0.825;2.175;Mark as pod storage location
+27;1.275;2.175;Mark as pod storage location
+28;1.725;2.175;Mark as pod storage location
+29;2.175;2.175;Mark as pod storage location
+30;2.625;2.175;n.a.
+31;0.375;2.625;n.a.
+32;0.825;2.625;n.a.
+33;1.275;2.625;n.a.
+34;1.725;2.625;n.a.
+35;2.175;2.625;n.a.
+36;2.625;2.625;n.a.

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7B7953FD-C0ED-4261-B32F-E0D160140546}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RAWSimO.MultiAgendPathFinding</RootNamespace>
+    <AssemblyName>RAWSimO.MultiAgendPathFinding</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Mono\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Mono\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\AStar\AStarBase.cs" />
+    <Compile Include="Algorithms\AStar\SpaceAStar.cs" />
+    <Compile Include="Algorithms\AStar\ElevatorAStar.cs" />
+    <Compile Include="Algorithms\AStar\ReverseResumableAStar.cs" />
+    <Compile Include="Algorithms\AStar\SpaceTimeAStar.cs" />
+    <Compile Include="Algorithms\ID\IndependenceDetection.cs" />
+    <Compile Include="Algorithms\OD\OperatorDecomposition.cs" />
+    <Compile Include="Algorithms\OD\SpaceTimeAStarSteper.cs" />
+    <Compile Include="DataStructures\BinaryHeap.cs" />
+    <Compile Include="DataStructures\ConflictTree.cs" />
+    <Compile Include="DataStructures\DisjointIntervallTree.cs" />
+    <Compile Include="DataStructures\FibonacciHeapJ.cs" />
+    <Compile Include="DataStructures\FibonacciHeap.cs" />
+    <Compile Include="DataStructures\ReservationTable.cs" />
+    <Compile Include="Elements\Agent.cs" />
+    <Compile Include="Elements\Graph.cs" />
+    <Compile Include="Elements\Edge.cs" />
+    <Compile Include="Elements\NodeInfo.cs" />
+    <Compile Include="Methods\DummyMethod.cs" />
+    <Compile Include="Methods\FARMethod.cs" />
+    <Compile Include="Methods\ODIDMethod.cs" />
+    <Compile Include="Methods\CBSMethod.cs" />
+    <Compile Include="Methods\BCPMethod.cs" />
+    <Compile Include="Methods\WHCAnMethod.cs" />
+    <Compile Include="Methods\PASMethod.cs" />
+    <Compile Include="Methods\WHCAvMethod.cs" />
+    <Compile Include="IPathFinder.cs" />
+    <Compile Include="Physics\Physics.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\EvadeProblemTest.cs" />
+    <Compile Include="Test\FibbonacciTest.cs" />
+    <Compile Include="Test\TestInstanceAreaEraser.cs" />
+    <Compile Include="Toolbox\AgentInfoExtractor.cs" />
+    <Compile Include="Toolbox\DeadlockDetector.cs" />
+    <Compile Include="Toolbox\ElevatorSequenceFinder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libs\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj">
+      <Project>{8E44D50D-E2AA-4DDA-A6FA-F0E57C37206C}</Project>
+      <Name>RAWSimO.Toolbox</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

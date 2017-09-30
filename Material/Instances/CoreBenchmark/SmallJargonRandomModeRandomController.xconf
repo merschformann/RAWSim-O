@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>SmallJargonRandomModeRandomController</Name>
+  <PathPlanningType>Simple</PathPlanningType>
+  <PathPlanningConfig xsi:type="SimplePathPlanningConfiguration">
+    <SimpleWaitingEnabled>true</SimpleWaitingEnabled>
+    <SimpleWaitingExtendedEnabled>true</SimpleWaitingExtendedEnabled>
+    <SimpleWaitingD2Enabled>true</SimpleWaitingD2Enabled>
+    <PingPongWaitingEnabled>true</PingPongWaitingEnabled>
+  </PathPlanningConfig>
+  <TaskAllocationType>Random</TaskAllocationType>
+  <TaskAllocationConfig xsi:type="RandomTaskAllocationConfiguration">
+    <SwitchModeIfNoWork>true</SwitchModeIfNoWork>
+    <StickToModeProbability>0.8</StickToModeProbability>
+    <StickToPodProbability>0.8</StickToPodProbability>
+  </TaskAllocationConfig>
+  <ItemStorageType>Random</ItemStorageType>
+  <ItemStorageConfig xsi:type="RandomItemStorageConfiguration" />
+  <PodStorageType>Random</PodStorageType>
+  <PodStorageConfig xsi:type="RandomPodStorageConfiguration" />
+  <OrderBatchingType>Random</OrderBatchingType>
+  <OrderBatchingConfig xsi:type="RandomOrderBatchingConfiguration" />
+  <ReplenishmentBatchingType>Random</ReplenishmentBatchingType>
+  <ReplenishmentBatchingConfig xsi:type="RandomReplenishmentBatchingConfiguration">
+    <Reactive>false</Reactive>
+  </ReplenishmentBatchingConfig>
+</ControlConfiguration>

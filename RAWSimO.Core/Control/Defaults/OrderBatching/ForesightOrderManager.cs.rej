@@ -1,0 +1,10 @@
+--- AWSimOpt.Core/Control/Defaults/OrderBatching/ForesightOrderManager.cs	
++++ AWSimOpt.Core/Control/Defaults/OrderBatching/ForesightOrderManager.cs	
+@@ -44,7 +44,6 @@
+                 // Choose a random station
+                 OutputStation chosenStation = Instance.OutputStations
+                     .Where(s => s.Active && s.FitsForReservation(order)) // There has to be sufficient capacity left at the station and the station needs to be active
+-                    .OrderBy(s => Instance.Randomizer.NextDouble()) // this one is to be edited  (i have to create a function that sorts the orders in the most fitting way)
+                     .FirstOrDefault();
+                 // If we found a station, assign the bundle to it
+                 if (chosenStation != null)  //this one can stay

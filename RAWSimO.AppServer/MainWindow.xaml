@@ -1,0 +1,46 @@
+﻿<Window x:Class="RAWSimO.AppServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AppServer" Height="450" Width="725" Closing="Window_Closing" Icon="bot-red.ico">
+    <Grid>
+        <GroupBox Header="Comm">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <!-- Controls -->
+                    <ColumnDefinition Width="Auto" />
+                    <!-- Output -->
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" Width="230" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ButtonStartStopServer" Margin="2" Width="70" Click="ButtonStartStopServer_Click">
+                            Start Server
+                        </Button>
+                        <TextBlock Margin="2"  VerticalAlignment="Center" Text="Port: " />
+                        <TextBox x:Name="TextBoxPortNumber" Margin="2" Text="888" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ButtonLoadWaypoints" Margin="2" Click="ButtonLoadWaypoints_Click">
+                            Load waypoints
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="TextBoxMessage" Margin="2" Width="120" Text="" />
+                        <Button x:Name="ButtonSendMessage" Margin="2">
+                            Send
+                        </Button>
+                    </StackPanel>
+                    <GroupBox Header="Clients">
+                        <TreeView>
+                            <TreeViewItem x:Name="TreeViewItemControllers" Header="Control" IsExpanded="True" />
+                            <TreeViewItem x:Name="TreeViewItemRobots" Header="Robots" IsExpanded="True" />
+                            <TreeViewItem x:Name="TreeViewItemOStations" Header="OStations" IsExpanded="True" />
+                            <TreeViewItem x:Name="TreeViewItemIStations" Header="IStations" IsExpanded="True" />
+                        </TreeView>
+                    </GroupBox>
+                </StackPanel>
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="TextBoxOutputLog" Focusable="False"  />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

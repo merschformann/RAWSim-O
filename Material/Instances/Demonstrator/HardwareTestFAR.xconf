@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>PPFAR-TABalanced-ISRandom-BSRandom-OBRandom-RBRandom</Name>
+  <PathPlanningType>FAR</PathPlanningType>
+  <PathPlanningConfig xsi:type="FARPathPlanningConfiguration">
+    <AutoSetParameter>false</AutoSetParameter>
+    <LengthOfAWaitStep>2</LengthOfAWaitStep>
+    <RuntimeLimitPerAgent>0.25</RuntimeLimitPerAgent>
+    <Clocking>3</Clocking>
+    <MaximumNumberOfBreakingManeuverTries>4</MaximumNumberOfBreakingManeuverTries>
+    <evadingStrategy>EvadeByRerouting</evadingStrategy>
+    <NoBackEvading>true</NoBackEvading>
+  </PathPlanningConfig>
+  <TaskAllocationType>Balanced</TaskAllocationType>
+  <TaskAllocationConfig xsi:type="BalancedTaskAllocationConfiguration">
+    <BotReallocationTimeout>60</BotReallocationTimeout>
+    <WeightInventoryFeedback>false</WeightInventoryFeedback>
+    <InventoryFillDesired>0.7</InventoryFillDesired>
+    <WeightInputStations>1</WeightInputStations>
+    <WeightOutputStations>1</WeightOutputStations>
+    <PreferSameTier>true</PreferSameTier>
+    <ExtendSearch>true</ExtendSearch>
+    <ExtendedSearchRadius>5</ExtendedSearchRadius>
+    <OutputPodOrderType>WorkAmountSameTier</OutputPodOrderType>
+    <InputPodOrderType>WorkAmountSameTier</InputPodOrderType>
+    <OutputStationExtendedSearchOrderType>WorkAmount</OutputStationExtendedSearchOrderType>
+    <InputStationExtendedSearchOrderType>WorkAmount</InputStationExtendedSearchOrderType>
+    <RestLocationOrderType>Nearest</RestLocationOrderType>
+    <Solver>Gurobi</Solver>
+  </TaskAllocationConfig>
+  <ItemStorageType>Random</ItemStorageType>
+  <ItemStorageConfig xsi:type="RandomItemStorageConfiguration" />
+  <PodStorageType>Random</PodStorageType>
+  <PodStorageConfig xsi:type="RandomPodStorageConfiguration">
+    <PreferSameTier>true</PreferSameTier>
+  </PodStorageConfig>
+  <OrderBatchingType>Random</OrderBatchingType>
+  <OrderBatchingConfig xsi:type="RandomOrderBatchingConfiguration" />
+  <ReplenishmentBatchingType>Random</ReplenishmentBatchingType>
+  <ReplenishmentBatchingConfig xsi:type="RandomReplenishmentBatchingConfiguration" />
+</ControlConfiguration>

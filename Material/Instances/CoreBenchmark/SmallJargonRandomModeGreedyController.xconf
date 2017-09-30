@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>SmallJargonRandomModeGreedyController</Name>
+  <PathPlanningType>Simple</PathPlanningType>
+  <PathPlanningConfig xsi:type="SimplePathPlanningConfiguration">
+    <SimpleWaitingEnabled>true</SimpleWaitingEnabled>
+    <SimpleWaitingExtendedEnabled>true</SimpleWaitingExtendedEnabled>
+    <SimpleWaitingD2Enabled>true</SimpleWaitingD2Enabled>
+    <PingPongWaitingEnabled>true</PingPongWaitingEnabled>
+  </PathPlanningConfig>
+  <TaskAllocationType>BruteForce</TaskAllocationType>
+  <TaskAllocationConfig xsi:type="BruteForceTaskAllocationConfiguration" />
+  <ItemStorageType>Dummy</ItemStorageType>
+  <ItemStorageConfig xsi:type="DummyItemStorageConfiguration" />
+  <PodStorageType>Dummy</PodStorageType>
+  <PodStorageConfig xsi:type="DummyPodStorageConfiguration" />
+  <OrderBatchingType>Random</OrderBatchingType>
+  <OrderBatchingConfig xsi:type="RandomOrderBatchingConfiguration" />
+  <ReplenishmentBatchingType>Random</ReplenishmentBatchingType>
+  <ReplenishmentBatchingConfig xsi:type="RandomReplenishmentBatchingConfiguration">
+    <Reactive>false</Reactive>
+  </ReplenishmentBatchingConfig>
+</ControlConfiguration>

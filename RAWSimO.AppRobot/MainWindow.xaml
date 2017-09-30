@@ -1,0 +1,401 @@
+﻿<Window x:Class="RAWSimO.AppRobot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:emgu="clr-namespace:Emgu.CV.UI;assembly=Emgu.CV.UI"
+        Title="AppRobot" Height="800" Width="1100" Closing="Window_Closing" Icon="bot-blue.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Camera image -->
+            <ColumnDefinition Width="*" />
+            <!-- CV image -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <!-- Camera images -->
+            <RowDefinition Height="Auto" />
+            <!-- Status -->
+            <RowDefinition Height="*" />
+            <!-- Splitter -->
+            <RowDefinition Height="Auto" />
+            <!-- Controls and Log -->
+            <RowDefinition Height="1.5*" />
+        </Grid.RowDefinitions>
+
+        <WindowsFormsHost Grid.Column="0" Grid.Row="0" Width="364" Height="244">
+            <emgu:ImageBox x:Name="ImageBoxCamImage" />
+        </WindowsFormsHost>
+
+        <!-- CV image -->
+        <WindowsFormsHost Grid.Column="1" Grid.Row="0" Width="364" Height="244">
+            <emgu:ImageBox x:Name="ImageBoxCVImage" />
+        </WindowsFormsHost>
+
+        <!-- Visual status feedback -->
+        <Canvas x:Name="CanvasBotStatus"  Grid.Column="0" Grid.Row="1" Background="DarkGray"/>
+
+        <!-- Visual pod feedback -->
+        <Canvas x:Name="CanvasBotPod"  Grid.Column="1" Grid.Row="1" Background="DarkGray"/>
+
+        <!-- Status information -->
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left">
+            <TextBlock x:Name="TextBlockRobotInfo" Margin="2" FontFamily="Consolas" FontSize="16" Text="Bot0 (Dummy)" />
+            <TextBlock x:Name="TextBlockCurrentRFIDTag" Margin="2" FontFamily="Consolas" FontSize="16" Text="CurrentRFIDTag" />
+            <TextBlock x:Name="TextBlockBotStatus" Margin="2" FontFamily="Consolas" FontSize="16" Text="Status" />
+            <TextBlock x:Name="TextBlockFPSIPHough" Margin="2" FontFamily="Consolas" FontSize="16" Text="CV (FPS/IP/Hough): 0 / 0 / 0" />
+            <TextBlock x:Name="TextBlockPIDPerformance" Margin="2" FontFamily="Consolas" FontSize="16" Text="PID: 0" />
+            <TextBlock x:Name="TextBlockBatteryState" Margin="2" FontFamily="Consolas" FontSize="16" Text="Battery: 0 / 0 mAh (0°C)" />
+        </StackPanel>
+        <!-- Gridsplitter -->
+        <GridSplitter Name="GridSplitterInfoAndControls" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" ShowsPreview="true" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="5" Visibility="Visible"/>
+
+        <!-- Control and output -->
+        <TabControl x:Name="tabControl" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" >
+            <TabItem Header="Main" >
+                <StackPanel Orientation="Vertical">
+                    <WrapPanel Orientation="Horizontal">
+                        <GroupBox Header="Activation">
+                            <WrapPanel VerticalAlignment="Center">
+                                <CheckBox x:Name="CheckBoxActive" Margin="2" Checked="CheckBoxActive_Checked" Unchecked="CheckBoxActive_Checked" Content="Active" />
+                                <CheckBox x:Name="CheckBoxDummy" Margin="2" Checked="CheckBoxDummy_Checked" Unchecked="CheckBoxDummy_Checked" Content="Dummy" />
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Connection">
+                            <WrapPanel>
+                                <TextBlock Margin="2" VerticalAlignment="Center" Text="IP: " />
+                                <ComboBox x:Name="ComboBoxServerIP" Margin="2"  SelectedIndex="0" IsEditable="True">
+                                    <ComboBoxItem Content="127.0.0.1"/>
+                                    <ComboBoxItem Content="192.168.1.2"/>
+                                    <ComboBoxItem Content="131.234.154.80"/>
+                                </ComboBox>
+                                <TextBlock Margin="2" VerticalAlignment="Center" Text="Port: " />
+                                <TextBox x:Name="TextBoxServerPort" Margin="2" Text="888" />
+                                <Button x:Name="ButtonConnectServer" Click="ButtonConnectServer_Click" Content="Connect" />
+                            </WrapPanel>
+                        </GroupBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <GroupBox Header="COM">
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="ButtonCOMRefresh" Margin="2" Click="ButtonCOMRefresh_Click" Content="Refresh"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Camera">
+                            <WrapPanel>
+                                <ComboBox x:Name="ComboBoxCameraName" SelectedIndex="0"/>
+                                <Button x:Name="ButtonStartCapture" Click="ButtonStartCapture_Click" Content="Start"/>
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="iRobot">
+                            <WrapPanel>
+                                <ComboBox x:Name="ComboBoxRobotCOMPort" />
+                                <Button x:Name="ButtonOpenCloseRobot" Width="50" Click="ButtonOpenCloseRobot_Click" Content="Open"/>
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="RFID reader">
+                            <WrapPanel>
+                                <ComboBox x:Name="ComboBoxRFIDCOMPort" />
+                                <Button x:Name="ButtonOpenCloseRFID" Width="50" Click="ButtonOpenCloseRFID_Click" Content="Open" />
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Filter Factory Settings">
+                            <Menu>
+                                <MenuItem Header="Color preset">
+                                    <MenuItem x:Name="MenuItemColorPresetMediumBlue" Header="Medium blue" Click="MenuItemColorPresetMediumBlue_Click" />
+                                    <MenuItem x:Name="MenuItemColorPresetMediumGreen" Header="Medium green" Click="MenuItemColorPresetMediumGreen_Click" />
+                                    <MenuItem x:Name="MenuItemColorPresetBlack" Header="Black" Click="MenuItemColorPresetBlack_Click" />
+                                    <MenuItem x:Name="MenuItemColorPresetBlackStrict" Header="Black (strict)" Click="MenuItemColorPresetBlackStrict_Click" />
+                                    <MenuItem x:Name="MenuItemColorPresetBlackQuietStrict" Header="Black (quite strict)" Click="MenuItemColorPresetBlackQuietStrict_Click" />
+                                </MenuItem>
+                            </Menu>
+                        </GroupBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <GroupBox Header="Bot commands">
+                            <WrapPanel>
+                                <Button x:Name="ButtonManualGoLeft" Width="55" Click="ButtonManualGoLeft_Click" Content="Left" />
+                                <Button x:Name="ButtonManualGoForward" Width="55" Click="ButtonManualGoForward_Click" Content="Forward" />
+                                <Button x:Name="ButtonManualGoBackward" Width="55" Click="ButtonManualGoBackward_Click" Content="Backward" />
+                                <Button x:Name="ButtonManualGoRight" Width="55" Click="ButtonManualGoRight_Click" Content="Right" />
+                                <Button x:Name="ButtonManualGoStop" Width="55" Click="ButtonManualGoStop_Click" Content="Stop" />
+                                <Button x:Name="ButtonManualGoFourForward" Width="70" Click="ButtonManualGoFourForward_Click" Content="4 Forward" />
+                                <Button x:Name="ButtonManualDriveDirect" Width="70" Click="ButtonManualTestDrive_Click" Content="Testdrive" />
+                                <Button x:Name="ButtonRandomWalk" Width="80" Click="ButtonRandomWalk_Click" Content="Random walk"/>
+                                <Button x:Name="ButtonManualGoEvaluation" Width="70" Click="ButtonManualGoEvaluation_Click" Content="Evaluation" />
+                            </WrapPanel>
+                        </GroupBox>
+                    </WrapPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Filter Settings" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="99">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <WrapPanel Orientation="Horizontal">
+                    <GroupBox Header="Mode">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox x:Name="ComboBoxImageProcessingMode" Margin="2" SelectedIndex="1" SelectedValuePath="Content" SelectionChanged="ComboBoxImageProcessingMode_SelectionChanged">
+                                <ComboBoxItem Content="Blocks"/>
+                                <ComboBoxItem Content="Contours"/>
+                                <ComboBoxItem Content="RevisedContour"/>
+                                <ComboBoxItem Content="Hough"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Hue-Filter" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" Text="Low: "/>
+                            <Slider x:Name="SliderHLow"  Width="70" TickFrequency="1" IsSnapToTickEnabled="True" Value="180" Maximum="360" ValueChanged="SliderHLow_ValueChanged" />
+                            <TextBox x:Name="TextBoxHLow" Width="30" Text="{Binding Value, ElementName=SliderHLow, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2" Text="High: "/>
+                            <Slider x:Name="SliderHHigh"  Width="70" TickFrequency="1" IsSnapToTickEnabled="True" Value="230" Maximum="360" ValueChanged="SliderHHigh_ValueChanged" />
+                            <TextBox x:Name="TextBoxHHigh" Width="30" Text="{Binding Value, ElementName=SliderHHigh, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Saturation-Filter">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" Text="S-Low: "/>
+                            <Slider x:Name="SliderSLow"  Width="70" TickFrequency="1" IsSnapToTickEnabled="True" Value="0" Maximum="100" ValueChanged="SliderSLow_ValueChanged" />
+                            <TextBox x:Name="TextBoxSLow" Width="30" Text="{Binding Value, ElementName=SliderSLow, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2" Text="S-High: "/>
+                            <Slider x:Name="SliderSHigh"  Width="70" TickFrequency="1" IsSnapToTickEnabled="True" Value="100" Maximum="100" ValueChanged="SliderSHigh_ValueChanged" />
+                            <TextBox x:Name="TextBoxSHigh" Width="30" Text="{Binding Value, ElementName=SliderSHigh, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Value-Filter">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" Text="V-Low: "/>
+                            <Slider x:Name="SliderVLow"  Width="70" TickFrequency="1" IsSnapToTickEnabled="True" Value="0" Maximum="100" ValueChanged="SliderVLow_ValueChanged" />
+                            <TextBox x:Name="TextBoxVLow" Width="30" Text="{Binding Value, ElementName=SliderVLow, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Margin="2" Text="V-High: "/>
+                            <Slider x:Name="SliderVHigh"  Width="70" TickFrequency="1" IsSnapToTickEnabled="True" Value="100" Maximum="100" ValueChanged="SliderVHigh_ValueChanged" />
+                            <TextBox x:Name="TextBoxVHigh" Width="30" Text="{Binding Value, ElementName=SliderVHigh, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="View area and blocks" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Area (l,r,b,t): "/>
+                            <TextBox x:Name="TextBoxViewAreaLeft" Margin="2" Text="0.15" />
+                            <TextBox x:Name="TextBoxViewAreaRight" Margin="2" Text="0.15" />
+                            <TextBox x:Name="TextBoxViewAreaBottom" Margin="2" Text="0.2" />
+                            <TextBox x:Name="TextBoxViewAreaTop" Margin="2" Text="0.2" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="#Vert: " />
+                            <TextBox x:Name="TextBoxBlockVerticalCount" Margin="2" Text="2" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="#Horiz: " />
+                            <TextBox x:Name="TextBoxBlockHorizontalCount" Margin="2" Text="5" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Threshold: " />
+                            <TextBox x:Name="TextBoxBlockThreshold" Margin="2" Text="0.2" />
+                            <Button x:Name="ButtonSetViewAreaAndBlockParams" Click="ButtonSetViewAreaAndBlockParams_Click" Content="Set"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Focus area (turning)">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Focus (l,r,b,t): "/>
+                            <TextBox x:Name="TextBoxFocusAreaLeft" Margin="2" Text="0.2" />
+                            <TextBox x:Name="TextBoxFocusAreaRight" Margin="2" Text="0.2" />
+                            <TextBox x:Name="TextBoxFocusAreaBottom" Margin="2" Text="0.1" />
+                            <TextBox x:Name="TextBoxFocusAreaTop" Margin="2" Text="0.65" />
+                            <Button x:Name="ButtonSetTurningParams" Click="ButtonSetTurningParams_Click" Content="Set"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Morphing">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="CheckBoxEqualizeImage" Margin="2" IsChecked="False" Checked="CheckBoxEqualizeImage_Checked" Unchecked="CheckBoxEqualizeImage_Checked" Content="Equalize"/>
+                            <CheckBox x:Name="CheckBoxInvertImage" Margin="2" IsChecked="True" Checked="CheckBoxInvertImage_Checked" Unchecked="CheckBoxInvertImage_Checked" Content="Invert"/>
+                            <TextBlock Margin="2" Text="Smooth (bilateral): "/>
+                            <ComboBox x:Name="ComboBoxBilateralSmoothImageSigmas" Margin="2" SelectedIndex="0" SelectedValuePath="Content" SelectionChanged="ComboBoxBilateralSmoothImageSigmas_SelectionChanged">
+                                <ComboBoxItem Content="0"/>
+                                <ComboBoxItem Content="25"/>
+                                <ComboBoxItem Content="50"/>
+                                <ComboBoxItem Content="75"/>
+                                <ComboBoxItem Content="100"/>
+                                <ComboBoxItem Content="125"/>
+                                <ComboBoxItem Content="150"/>
+                                <ComboBoxItem Content="175"/>
+                                <ComboBoxItem Content="200"/>
+                                <ComboBoxItem Content="225"/>
+                                <ComboBoxItem Content="250"/>
+                                <ComboBoxItem Content="275"/>
+                                <ComboBoxItem Content="300"/>
+                            </ComboBox>
+                            <TextBlock Margin="2" Text="Smooth (median): "/>
+                            <ComboBox x:Name="ComboBoxMedianSmoothImageSize" Margin="2" SelectedIndex="0" SelectedValuePath="Content" SelectionChanged="ComboBoxMedianSmoothImageSize_SelectionChanged">
+                                <ComboBoxItem Content="0"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="9"/>
+                                <ComboBoxItem Content="11"/>
+                                <ComboBoxItem Content="15"/>
+                                <ComboBoxItem Content="19"/>
+                                <ComboBoxItem Content="23"/>
+                                <ComboBoxItem Content="29"/>
+                                <ComboBoxItem Content="35"/>
+                                <ComboBoxItem Content="43"/>
+                                <ComboBoxItem Content="49"/>
+                                <ComboBoxItem Content="55"/>
+                                <ComboBoxItem Content="65"/>
+                                <ComboBoxItem Content="75"/>
+                                <ComboBoxItem Content="85"/>
+                                <ComboBoxItem Content="95"/>
+                                <ComboBoxItem Content="105"/>
+                            </ComboBox>
+                            <TextBlock Margin="2" Text="Erode: "/>
+                            <ComboBox x:Name="ComboBoxErodeImagePasses" Margin="2" SelectedIndex="4" SelectedValuePath="Content" SelectionChanged="ComboBoxErodeImagePasses_SelectionChanged">
+                                <ComboBoxItem Content="0"/>
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="6"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="8"/>
+                                <ComboBoxItem Content="9"/>
+                                <ComboBoxItem Content="10"/>
+                            </ComboBox>
+                            <TextBlock Margin="2" Text="Dilate: "/>
+                            <ComboBox x:Name="ComboBoxDilateImagePasses" Margin="2" SelectedIndex="0" SelectedValuePath="Content" SelectionChanged="ComboBoxDilateImagePasses_SelectionChanged">
+                                <ComboBoxItem Content="0"/>
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="6"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="8"/>
+                                <ComboBoxItem Content="9"/>
+                                <ComboBoxItem Content="10"/>
+                            </ComboBox>
+                            <TextBlock Margin="2" Text="Closing: "/>
+                            <ComboBox x:Name="ComboBoxClosingIterations" Margin="2" SelectedIndex="0" SelectedValuePath="Content" SelectionChanged="ComboBoxClosingIterations_SelectionChanged">
+                                <ComboBoxItem Content="0"/>
+                                <ComboBoxItem Content="1"/>
+                                <ComboBoxItem Content="2"/>
+                                <ComboBoxItem Content="3"/>
+                                <ComboBoxItem Content="4"/>
+                                <ComboBoxItem Content="5"/>
+                                <ComboBoxItem Content="6"/>
+                                <ComboBoxItem Content="7"/>
+                                <ComboBoxItem Content="8"/>
+                                <ComboBoxItem Content="9"/>
+                                <ComboBoxItem Content="10"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Contouring" Height="51">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="CheckBoxContourPostProcessing" Margin="2" IsChecked="True" Checked="CheckBoxContourPostProcessing_Checked" Unchecked="CheckBoxContourPostProcessing_Checked" Content="Postprocess"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Camera Improvement" >
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="ButtonSetFilterByTestPoints" Click="ButtonSetFilterByTestPoints_Click" Content="Autoset"/>
+                            <Button x:Name="ButtonResetRecognition" Click="ButtonResetRecognition_Click" Content="Reset"/>
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Color similarity (&#916;E): " />
+                            <TextBox x:Name="TextBoxColorSimilarity" Width="25" Margin="2" Text="10" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Delay (s): " />
+                            <TextBox x:Name="TextBoxImprovementDelay" Width="25" Margin="2" Text="5" />
+                            <CheckBox x:Name="CheckBoxAutosetFilter" Margin="2" IsChecked="False" Checked="CheckBoxAutosetFilter_Checked" Unchecked="CheckBoxAutosetFilter_Checked" Content="Auto improvement"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Log Error" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Width of Line: " />
+                            <TextBox x:Name="TextBoxWidthOfLine" Width="30" Margin="2" Text="100" IsEnabled="True" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Margin: " />
+                            <TextBox x:Name="TextBoxMargin" Width="30" Margin="2" Text="25" IsEnabled="True" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Delay (s): " />
+                            <TextBox x:Name="TextBoxImprovementErrorLogDelay" Width="25" Margin="2" Text="5" IsEnabled="True" />
+                            <Button x:Name="ButtonSetErrorSettings" Click="ButtonSetErrorSettings_Click" Content="Set" IsEnabled="True"/>
+                            <Button x:Name="ButtonStartLogging" Click="ButtonStartLogging_Click" Content="Start Logging" IsEnabled="False"/>
+                        </StackPanel>
+                    </GroupBox>
+                </WrapPanel>
+            </TabItem>
+            <TabItem Header="General Settings" HorizontalAlignment="Left" Height="22" VerticalAlignment="Bottom" Width="102" >
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <WrapPanel Orientation="Horizontal">
+                    <GroupBox Header="PID-Control">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="CheckBoxPIDResolveByTurning" Margin="2" IsChecked="True" Checked="CheckBoxPIDResolveByTurning_Checked" Unchecked="CheckBoxPIDResolveByTurning_Checked" Content="Resolve"/>
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="LoopDelay (ms): "/>
+                            <TextBox x:Name="TextBoxPIDLoopDelay" Margin="2" Text="5" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="ResolveDelay (s): "/>
+                            <TextBox x:Name="TextBoxPIDResolveDelay" Margin="2" Text="5.0" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Kp: "/>
+                            <TextBox x:Name="TextBoxPIDKp" Margin="2" Text="2" />
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Ki: "/>
+                            <TextBox x:Name="TextBoxPIDKi" Margin="2" Text="6" />
+                            <Button x:Name="ButtonSetPIDParams" Click="ButtonSetPIDParams_Click" Content="Set"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Turning" >
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="CheckBoxTurningTimed" Margin="2" IsChecked="False" Content="Timed"/>
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Delay (s): "/>
+                            <TextBox x:Name="TextBoxTurningDelay" Margin="2" Text="0.5" />
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Visuals" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="2" VerticalAlignment="Center" Text="Refresh (ms): "/>
+                            <TextBox x:Name="TextBoxFrameUpdateDelay" Margin="2" Text="100" />
+                            <Button x:Name="ButtonSetFrameUpdateDelay" Click="ButtonSetFrameUpdateDelay_Click" Content="Set"/>
+                            <CheckBox x:Name="CheckBoxTakeSnapshots" Margin="2" IsChecked="False" Checked="CheckBoxTakeSnapshots_Checked" Unchecked="CheckBoxTakeSnapshots_Checked" Content="Snapshots"/>
+                            <Button x:Name="ButtonTakeDebugSnapshot" Click="ButtonTakeDebugSnapshot_Click" Content="DebugSnapshot"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="LED status">
+                        <StackPanel>
+                            <CheckBox x:Name="CheckBoxLEDFlipMode" Margin="2" IsChecked="False" Checked="CheckBoxLEDFlipMode_Checked" Unchecked="CheckBoxLEDFlipMode_Checked" Content="FlipMode"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Bot Speed">
+                        <WrapPanel>
+                            <TextBlock TextWrapping="Wrap" Margin="2" Text="Turnspeed: "/>
+                            <TextBox x:Name="TextBoxBotTurnSpeed" HorizontalAlignment="Left" TextWrapping="Wrap" Text="150" Width="30" Height="19" VerticalAlignment="Top" TextChanged="TextBoxBotTurnSpeed_TextChanged"/>
+                            <TextBlock TextWrapping="Wrap" Margin="2" Text="Speed: "/>
+                            <TextBox x:Name="TextBoxBotSpeed" HorizontalAlignment="Left" TextWrapping="Wrap" Text="200" Width="30" Height="19" VerticalAlignment="Top" TextChanged="TextBoxBotSpeed_TextChanged"/>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="Debug">
+                        <StackPanel>
+                            <CheckBox x:Name="CheckBoxLogRFIDTags" Margin="2" IsChecked="False" Content="Log RFID tags"/>
+                        </StackPanel>
+                    </GroupBox>
+                </WrapPanel>
+            </TabItem>
+            <TabItem Header="Log" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="54" >
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <!-- Controls -->
+                        <RowDefinition Height="*" />
+                        <!-- Output -->
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="TextBoxOutput" VerticalAlignment="Stretch" Grid.Row="0" FontFamily="Consolas" Focusable="False"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <!-- Server chat -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- Robot commands -->
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="TextBoxChat" Grid.Column="0" FontFamily="Consolas" KeyDown="TextBoxChat_KeyDown" ToolTip="Sends messages to the server, if connected" />
+                        <TextBox x:Name="TextBoxDirectCommands" Grid.Column="1" FontFamily="Consolas" KeyDown="TextBoxDirectCommands_KeyDown" ToolTip="Submits a list of actions to the robot control" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

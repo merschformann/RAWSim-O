@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Instance xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="desk">
+  <Bots>
+    <Bot ID="0" PodTransferTime="3" MaxAcceleration="0.25" MaxDeceleration="0.25" MaxVelocity="1" TurnSpeed="1" CollisionPenaltyTime="0.5" X="0.5" Y="0.5" Radius="0.15" Orientation="0" Tier="0" />
+  </Bots>
+  <Pods>
+    <Pod ID="0" X="2.5" Y="0.5" Radius="0.2" Orientation="0" Tier="0" Capacity="250" />
+  </Pods>
+  <Elevators />
+  <InputStations>
+    <InputStation ID="0" X="0.5" Y="0.5" Radius="0.22" Tier="0" Capacity="100" ItemBundleTransferTime="2">
+      <Queues>
+        <Queues>40/40</Queues>
+      </Queues>
+    </InputStation>
+  </InputStations>
+  <OutputStations>
+    <OutputStation ID="0" X="2.5" Y="2.5" Radius="0.22" Tier="0" Capacity="20" ItemTransferTime="2">
+      <Queues>
+        <Queues>44/44</Queues>
+      </Queues>
+    </OutputStation>
+  </OutputStations>
+  <Tiers>
+    <Tier ID="0" Length="3" Width="3" RelativePositionX="0" RelativePositionY="0" RelativePositionZ="0" />
+  </Tiers>
+  <Waypoints>
+    <Waypoint ID="40" X="0.5" Y="0.5" Tier="0" OutputStation="-1" InputStation="0" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>41</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="41" X="1.5" Y="0.5" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>40</Waypoint>
+        <Waypoint>42</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="42" X="2.5" Y="0.5" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="0" PodStorageLocation="true" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>41</Waypoint>
+        <Waypoint>43</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="43" X="2.5" Y="1.5" Tier="0" OutputStation="-1" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>42</Waypoint>
+        <Waypoint>44</Waypoint>
+      </Paths>
+    </Waypoint>
+    <Waypoint ID="44" X="2.5" Y="2.5" Tier="0" OutputStation="0" InputStation="-1" Elevator="-1" Pod="-1" PodStorageLocation="false" IsQueueWaypoint="false">
+      <Paths>
+        <Waypoint>43</Waypoint>
+      </Paths>
+    </Waypoint>
+  </Waypoints>
+  <Semaphores />
+</Instance>

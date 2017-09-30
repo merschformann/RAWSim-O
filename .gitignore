@@ -1,0 +1,12 @@
+*/obj/*
+*/bin/*
+bin/*
+*.suo
+desktop.ini
+*Thumbs.db
+*.user
+packages/*
+*.psess
+*.vsp
+*.orig
+.vs/*

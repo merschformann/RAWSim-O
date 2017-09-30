@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{29343612-CCD6-4E65-9F95-A6A34E7059EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RAWSimO.Core</RootNamespace>
+    <AssemblyName>RAWSimO.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Mono\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <DocumentationFile>bin\x64\Debug\RAWSimO.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mono|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Mono\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bots\BotCrashHandler.cs" />
+    <Compile Include="Bots\BotStateType.cs" />
+    <Compile Include="Configurations\MethodConfigurationShared.cs" />
+    <Compile Include="Configurations\MethodConfigurationsPC.cs" />
+    <Compile Include="Configurations\MethodConfigurationsIS.cs" />
+    <Compile Include="Configurations\MethodConfigurationsMM.cs" />
+    <Compile Include="Configurations\MethodConfigurationsOB.cs" />
+    <Compile Include="Configurations\MethodConfigurationsPP.cs" />
+    <Compile Include="Configurations\MethodConfigurationsPS.cs" />
+    <Compile Include="Configurations\MethodConfigurationsRB.cs" />
+    <Compile Include="Configurations\MethodConfigurationsRP.cs" />
+    <Compile Include="Configurations\MethodConfigurationsSA.cs" />
+    <Compile Include="Configurations\MethodConfigurationsTA.cs" />
+    <Compile Include="Configurations\OverrideConfiguration.cs" />
+    <Compile Include="Configurations\SettingConfiguration.cs" />
+    <Compile Include="Configurations\ConfigurationElements.cs" />
+    <Compile Include="Configurations\ItemConfiguration.cs" />
+    <Compile Include="Configurations\InventoryConfiguration.cs" />
+    <Compile Include="Configurations\LayoutConfiguration.cs" />
+    <Compile Include="Configurations\MethodConfiguration.cs" />
+    <Compile Include="Control\BotManagerPodSelection.cs" />
+    <Compile Include="Control\BotTask.cs" />
+    <Compile Include="Control\Allocator.cs" />
+    <Compile Include="Control\BotManagerCore.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\EmptiestStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\LeastDemandStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\ReactiveStorageManager.cs" />
+    <Compile Include="Control\Defaults\MethodManagement\ScheduleMethodManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\DefaultOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\ForesightOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\LinesInCommonOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\NearBestPodOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\PodMatchingOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\QueueOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\RelatedOrderManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\WorkloadOrderManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\CachePodStorageManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\UtilityPodStorageManager.cs" />
+    <Compile Include="Control\Defaults\Repositioning\CacheDropoffRepositioningManager.cs" />
+    <Compile Include="Control\Defaults\Repositioning\ConceptRepositioningManager.cs" />
+    <Compile Include="Control\Defaults\Repositioning\CacheRepositioningManager.cs" />
+    <Compile Include="Control\Defaults\Repositioning\UtilityRepositioningManager.cs" />
+    <Compile Include="Control\Defaults\StationActivation\BacklogThresholdStationManager.cs" />
+    <Compile Include="Control\Defaults\StationActivation\ConstantRatioStationActivation.cs" />
+    <Compile Include="Control\Defaults\StationActivation\WorkShiftStationActivationManager.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\ConceptBotManager.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\ConstantRatioBotManager.cs" />
+    <Compile Include="Control\PodStorageManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\StationBasedPodStorageManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\TurnoverPodStorageManager.cs" />
+    <Compile Include="Control\BundleManager.cs" />
+    <Compile Include="Control\Controller.cs" />
+    <Compile Include="Control\Defaults\PodStorage\DummyPodStorageManager.cs" />
+    <Compile Include="Control\ItemStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\ClosestLocationStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\CorrelativeStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\DummyStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\TurnoverStorageManager.cs" />
+    <Compile Include="Control\Defaults\MethodManagement\NoChangeMethodManager.cs" />
+    <Compile Include="Control\Defaults\MethodManagement\RandomMethodManager.cs" />
+    <Compile Include="Control\MethodManager.cs" />
+    <Compile Include="Control\OrderManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\DummyPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\PASPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\CBSPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\BCPPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\FARPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\ODIDPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\WHCAnStarPathManager.cs" />
+    <Compile Include="Control\Defaults\PathPlanning\WHCAvStarPathManager.cs" />
+    <Compile Include="Control\Defaults\ReplenishmentBatching\SamePodBundleManager.cs" />
+    <Compile Include="Control\Defaults\ReplenishmentBatching\RandomBundleManager.cs" />
+    <Compile Include="Control\RepositioningManager.cs" />
+    <Compile Include="Control\Shared\PodUtilityManager.cs" />
+    <Compile Include="Control\Shared\SharedTypes.cs" />
+    <Compile Include="Control\Shared\StoragePartitioner.cs" />
+    <Compile Include="Control\Defaults\Repositioning\DummyRepositioningManager.cs" />
+    <Compile Include="Control\Defaults\StationActivation\ActivateAllStationManager.cs" />
+    <Compile Include="Control\Shared\SharedControlElementsContainer.cs" />
+    <Compile Include="Control\Shared\TurnoverClassBuilder.cs" />
+    <Compile Include="Control\StationManager.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\BalancedBotManager.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\SwarmBotManager.cs" />
+    <Compile Include="Generator\LayoutGenerator.cs" />
+    <Compile Include="Generator\SemaphoreGenerator.cs" />
+    <Compile Include="Generator\StationGenerator.cs" />
+    <Compile Include="Generator\StorageAreaAndHallsGenerator.cs" />
+    <Compile Include="Geometrics\SimpleRectangle.cs" />
+    <Compile Include="Helper\GnuPlotter.cs" />
+    <Compile Include="Info\IIdentifiableObjectInfo.cs" />
+    <Compile Include="InstanceEvents.cs" />
+    <Compile Include="InstanceSanity.cs" />
+    <Compile Include="Interfaces\IBotEventListener.cs" />
+    <Compile Include="Interfaces\IStatTracker.cs" />
+    <Compile Include="Items\SimpleItemBundle.cs" />
+    <Compile Include="Items\SimpleItemDescription.cs" />
+    <Compile Include="Management\MetaInformationManager.cs" />
+    <Compile Include="Management\StockInformation.cs" />
+    <Compile Include="Metrics\Distances.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\RandomBotManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\FixedPodStorageManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\NearestPodStorageManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\RandomPodStorageManager.cs" />
+    <Compile Include="Control\Defaults\OrderBatching\RandomOrderManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\RandomStorageManager.cs" />
+    <Compile Include="Bots\BotHazard.cs" />
+    <Compile Include="Bots\BotNormal.cs" />
+    <Compile Include="Elements\Bot.cs" />
+    <Compile Include="Elements\Pod.cs" />
+    <Compile Include="Elements\Elevator.cs" />
+    <Compile Include="Elements\Compound.cs" />
+    <Compile Include="Elements\InputStation.cs" />
+    <Compile Include="Elements\OutputStation.cs" />
+    <Compile Include="Elements\Tier.cs" />
+    <Compile Include="Generator\InstanceGenerator.cs" />
+    <Compile Include="Generator\OrderGenerator.cs" />
+    <Compile Include="Geometrics\Circle.cs" />
+    <Compile Include="Geometrics\QuadDirections.cs" />
+    <Compile Include="Geometrics\QuadNode.cs" />
+    <Compile Include="Geometrics\QuadTree.cs" />
+    <Compile Include="Control\PathManager.cs" />
+    <Compile Include="Info\IElevatorInfo.cs" />
+    <Compile Include="Info\IGeneralObjectInfo.cs" />
+    <Compile Include="Info\IItemInfo.cs" />
+    <Compile Include="Info\IItemManagerInfo.cs" />
+    <Compile Include="Info\IOrderInfo.cs" />
+    <Compile Include="Info\IGuardInfo.cs" />
+    <Compile Include="Info\ISemaphoreInfo.cs" />
+    <Compile Include="Info\IWaypointInfo.cs" />
+    <Compile Include="InstanceCore.cs" />
+    <Compile Include="InstanceCreation.cs" />
+    <Compile Include="InstanceElement.cs" />
+    <Compile Include="Info\IBotInfo.cs" />
+    <Compile Include="InstanceMetaInfo.cs" />
+    <Compile Include="InstanceStatistics.cs" />
+    <Compile Include="Interfaces\IBotState.cs" />
+    <Compile Include="Info\IPodInfo.cs" />
+    <Compile Include="Info\IImmovableObjectInfo.cs" />
+    <Compile Include="Info\IInputStationInfo.cs" />
+    <Compile Include="Info\IInstanceInfo.cs" />
+    <Compile Include="Info\IMovableObjectInfo.cs" />
+    <Compile Include="Info\IOutputStationInfo.cs" />
+    <Compile Include="Info\ITierInfo.cs" />
+    <Compile Include="Interfaces\IOptimize.cs" />
+    <Compile Include="Interfaces\IQueueOwner.cs" />
+    <Compile Include="Interfaces\IRandomizer.cs" />
+    <Compile Include="Interfaces\IUpdateable.cs" />
+    <Compile Include="IO\DTOBot.cs" />
+    <Compile Include="IO\DTOPod.cs" />
+    <Compile Include="IO\DTOElevator.cs" />
+    <Compile Include="IO\DTOInputStation.cs" />
+    <Compile Include="IO\DTOInstance.cs" />
+    <Compile Include="IO\DTOOrderList.cs" />
+    <Compile Include="IO\DTOQueueGuard.cs" />
+    <Compile Include="IO\DTOQueueSemaphore.cs" />
+    <Compile Include="IO\DTOWaypoint.cs" />
+    <Compile Include="IO\IDataTransferObject.cs" />
+    <Compile Include="IO\DTOOutputStation.cs" />
+    <Compile Include="IO\DTOTier.cs" />
+    <Compile Include="IO\InstanceIO.cs" />
+    <Compile Include="IO\IOConstants.cs" />
+    <Compile Include="IO\IOHelper.cs" />
+    <Compile Include="Items\ColoredLetterBundle.cs" />
+    <Compile Include="Items\ColoredLetterDescription.cs" />
+    <Compile Include="Items\ItemBundle.cs" />
+    <Compile Include="Items\ItemDescription.cs" />
+    <Compile Include="Items\ItemType.cs" />
+    <Compile Include="Items\LetterColors.cs" />
+    <Compile Include="Items\Order.cs" />
+    <Compile Include="Items\OrderList.cs" />
+    <Compile Include="Management\HeatMode.cs" />
+    <Compile Include="Management\OrderMode.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\BruteForceBotManager.cs" />
+    <Compile Include="Control\SimulationExecutor.cs" />
+    <Compile Include="Management\ItemManager.cs" />
+    <Compile Include="Management\ResourceManager.cs" />
+    <Compile Include="Metrics\Estimators.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Control\BotTaskType.cs" />
+    <Compile Include="Randomization\PoissonGenerator.cs" />
+    <Compile Include="Randomization\RandomizerHelper.cs" />
+    <Compile Include="Randomization\RandomizerSimple.cs" />
+    <Compile Include="Remote\RemoteControlAdapter.cs" />
+    <Compile Include="Statistics\DataPoint.cs" />
+    <Compile Include="Statistics\FrequencyTracker.cs" />
+    <Compile Include="Statistics\ElementMetaInfoTracker.cs" />
+    <Compile Include="Statistics\SimulationObserver.cs" />
+    <Compile Include="Statistics\StatisticsHelper.cs" />
+    <Compile Include="InstanceModification.cs" />
+    <Compile Include="Statistics\UpperBoundHelper.cs" />
+    <Compile Include="Waypoints\QueueGuard.cs" />
+    <Compile Include="Waypoints\QueueSemaphore.cs" />
+    <Compile Include="Waypoints\Waypoint.cs" />
+    <Compile Include="Waypoints\WaypointGraph.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RAWSimO.MultiAgentPathFinding\RAWSimO.MultiAgentPathFinding.csproj">
+      <Project>{7b7953fd-c0ed-4261-b32f-e0d160140546}</Project>
+      <Name>RAWSimO.MultiAgentPathFinding</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj">
+      <Project>{8e44d50d-e2aa-4dda-a6fa-f0e57c37206c}</Project>
+      <Name>RAWSimO.Toolbox</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

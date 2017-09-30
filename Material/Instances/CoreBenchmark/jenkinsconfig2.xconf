@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- Jenkins Configuration number 2 - poisson mode (change config below when a new configuration is desired - keep file and config names) -->
+  <Name>jenkinsconfig2</Name>
+  <PathPlanningConfig xsi:type="WHCAnStarPathPlanningConfiguration">
+    <AutoSetParameter>false</AutoSetParameter>
+    <LengthOfAWaitStep>2</LengthOfAWaitStep>
+    <RuntimeLimitPerAgent>0.1</RuntimeLimitPerAgent>
+    <Clocking>1</Clocking>
+    <LengthOfAWindow>30</LengthOfAWindow>
+    <UseBias>false</UseBias>
+    <UseDeadlockHandler>true</UseDeadlockHandler>
+  </PathPlanningConfig>
+  <TaskAllocationConfig xsi:type="BalancedTaskAllocationConfiguration">
+    <BotReallocationTimeout>30</BotReallocationTimeout>
+    <WeightInventoryFeedback>false</WeightInventoryFeedback>
+    <InventoryFillDesired>0.7</InventoryFillDesired>
+    <WeightInputStations>1</WeightInputStations>
+    <WeightOutputStations>2</WeightOutputStations>
+    <BotsPerStationLimit>7</BotsPerStationLimit>
+    <PreferSameTier>true</PreferSameTier>
+    <ExtendSearch>false</ExtendSearch>
+    <ExtendedSearchRadius>5</ExtendedSearchRadius>
+    <OutputPodOrderType>WorkAmountSameTier</OutputPodOrderType>
+    <InputPodOrderType>WorkAmountSameTier</InputPodOrderType>
+    <OutputStationExtendedSearchOrderType>WorkAmount</OutputStationExtendedSearchOrderType>
+    <InputStationExtendedSearchOrderType>WorkAmount</InputStationExtendedSearchOrderType>
+    <RestLocationOrderType>Nearest</RestLocationOrderType>
+  </TaskAllocationConfig>
+  <StationActivationConfig xsi:type="ActivateAllStationActivationConfiguration" />
+  <ItemStorageConfig xsi:type="RandomItemStorageConfiguration">
+    <StickToPodUntilFull>true</StickToPodUntilFull>
+    <BufferThreshold>0.8</BufferThreshold>
+  </ItemStorageConfig>
+  <PodStorageConfig xsi:type="StationBasedPodStorageConfiguration">
+    <OutputStationMode>true</OutputStationMode>
+    <EuclideanDistanceMetric>true</EuclideanDistanceMetric>
+  </PodStorageConfig>
+  <RepositioningConfig xsi:type="DummyRepositioningConfiguration" />
+  <OrderBatchingConfig xsi:type="RandomOrderBatchingConfiguration">
+    <Recycle>true</Recycle>
+  </OrderBatchingConfig>
+  <ReplenishmentBatchingConfig xsi:type="SamePodReplenishmentBatchingConfiguration" />
+  <MethodManagementConfig xsi:type="NoChangeMethodManagementConfiguration" />
+</ControlConfiguration>
