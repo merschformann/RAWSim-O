@@ -1,7 +1,7 @@
 # RAWSim-O
 
 RAWSim-O is a discrete event-based simulation for Robotic Mobile Fulfillment Systems. The intention of the simulation framework is to provide a tool for researching effects of multiple decision problems that occur when running such a system. For this, the framework enables easy extensibility for implementing new decision methods for the different decision problems.
-Copyright (C) 2016 Marius Merschformann
+Copyright (C) 2017 Marius Merschformann
 
 ## Quick start
 
@@ -11,19 +11,23 @@ Open RAWSimO.sln with Visual Studio and select RAWSimO.Visualization as the proj
 
 Image showing a larger instance being simulated:
 
-![Screenshot](Material/Screenshots/larger-instance-3d.png)
+![Larger instance](Material/Screenshots/larger-instance-3d.png)
 
 Image showing a multi-level instance being simulated:
 
-![Screenshot](Material/Screenshots/multi-floor-3d.png)
+![Multi floor instance](Material/Screenshots/multi-floor-3d.png)
 
 Image showing more detailed information for path planning engines:
 
-![Screenshot](Material/Screenshots/paths-2d.png)
+![Path sample](Material/Screenshots/paths-2d.png)
 
 Image showing a heatmap rendered using RAWSim-O that shows the locations robots were at over time:
 
-![Screenshot](Material/Screenshots/heatmap-sample-small.png)
+![Heatmap](Material/Screenshots/heatmap-sample-small.png)
+
+## Demonstrator video
+
+A short video of the demonstrator application done with RAWSim-O and vacuum cleaning robots can be found here: https://youtu.be/bZHIXCxpXyc
 
 # License
 
