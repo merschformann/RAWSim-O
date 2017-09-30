@@ -7,6 +7,10 @@ Copyright (C) 2017 Marius Merschformann
 
 Open RAWSimO.sln with Visual Studio and select RAWSimO.Visualization as the project to execute. Under the "Instances" press the checkmark button to generate a default instance. Then go to the "Base Controls" tab and press the play button. Depending on the instance size and simulation settings instance generation and simulation initialization may take longer.
 
+## Controller implementation quick start
+
+In the following video you can find a very short tutorial for implementing your own controller logic: https://youtu.be/ClN7NZL930w
+
 ## Screenshots
 
 Image showing a larger instance being simulated:
@@ -51,15 +55,7 @@ The work was financed by a scholarship of the International Graduate School - Dy
 
 ## Contributers of the project
 
-Marius Merschformann
-Lin Xie
-Hanyi Li
-Tim Lamballais Tessensohn
-Daniel Erdmann
-Lena Knickmeier
-Jonas König
-Maik Herbort
-Marcel Grawe
+Marius Merschformann, Lin Xie, Hanyi Li, Tim Lamballais Tessensohn, Daniel Erdmann, Lena Knickmeier, Jonas König, Maik Herbort, Marcel Grawe
 
 # Used software:
 Thanks go out to the developers of the following software for enabling a more easy implementation of RAWSim-O.
