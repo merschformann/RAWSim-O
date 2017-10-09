@@ -408,7 +408,8 @@ namespace RAWSimO.Core.Management
                 _timeGraph = new TimeGraph(_instance);
             return
                 // --> Calculate time needed for turning towards new orientation
-                Math.Abs(Circle.GetOrientationDifference(from.Orientation, to.Orientation)) / TimeGraph.PI2 * _timeGraph.TurnSpeed +
+                Math.Abs(Circle.GetOrientationDifference(from.Orientation,
+                    Circle.GetOrientation(from.OriginalWaypoint.X, from.OriginalWaypoint.Y, to.X, to.Y))) / TimeGraph.PI2 * _timeGraph.TurnSpeed +
                 // --> Calculate time needed for driving the given distance
                 Distances.CalculateEuclid(from.OriginalWaypoint, to, _instance.WrongTierPenaltyDistance) / _timeGraph.Speed;
         }
