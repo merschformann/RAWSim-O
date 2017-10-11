@@ -406,12 +406,20 @@ namespace RAWSimO.Core.Management
             // Init, if not done yet
             if (_timeGraph == null)
                 _timeGraph = new TimeGraph(_instance);
-            return
-                // --> Calculate time needed for turning towards new orientation
-                Math.Abs(Circle.GetOrientationDifference(from.Orientation,
-                    Circle.GetOrientation(from.OriginalWaypoint.X, from.OriginalWaypoint.Y, to.X, to.Y))) / TimeGraph.PI2 * _timeGraph.TurnSpeed +
-                // --> Calculate time needed for driving the given distance
-                Distances.CalculateEuclid(from.OriginalWaypoint, to, _instance.WrongTierPenaltyDistance) / _timeGraph.Speed;
+            // --> Calculate time needed for driving the given distance
+            double travelTime = Distances.CalculateEuclid(from.OriginalWaypoint, to, _instance.WrongTierPenaltyDistance) / _timeGraph.Speed;
+            // Check whether we reached the goal already, thus, eliminating the need for turning
+            if (from.OriginalWaypoint == to)
+                // No turning necessary - only consider time for driving
+                return travelTime;
+            else
+                // In addition to the drive time also consider the effort for turning
+                return
+                    // --> Calculate time needed for turning towards new orientation
+                    Math.Abs(Circle.GetOrientationDifference(from.Orientation,
+                        Circle.GetOrientation(from.OriginalWaypoint.X, from.OriginalWaypoint.Y, to.X, to.Y))) / TimeGraph.PI2 * _timeGraph.TurnSpeed +
+                    // --> Add time for driving
+                    travelTime;
         }
         /// <summary>
         /// Uses A* to find the distance from the startNode to the destinationNode.
