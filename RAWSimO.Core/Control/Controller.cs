@@ -82,6 +82,7 @@ namespace RAWSimO.Core.Control
                 case PodStorageMethodType.Cache: PodStorageManager = new CachePodStorageManager(instance); break;
                 case PodStorageMethodType.Utility: PodStorageManager = new UtilityPodStorageManager(instance); break;
                 case PodStorageMethodType.Random: PodStorageManager = new RandomPodStorageManager(instance); break;
+                case PodStorageMethodType.Test: PodStorageManager = new TestPodStorageManager(instance); break;
                 case PodStorageMethodType.Turnover: PodStorageManager = new TurnoverPodStorageManager(instance); break;
                 default: throw new ArgumentException("Unknown pod manager: " + instance.ControllerConfig.PodStorageConfig.GetMethodType());
             }
