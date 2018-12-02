@@ -99,6 +99,10 @@ namespace RAWSimO.Core.Configurations
         /// </summary>
         Random,
         /// <summary>
+        /// A mainly greedy approach to the task allocation based on first come first serve principle.
+        /// </summary>
+        Greedy,
+        /// <summary>
         /// A method aiming to distribute bots evenly among the stations and only allocate tasks fitting their currently assigned station.
         /// </summary>
         Balanced,
@@ -576,6 +580,7 @@ namespace RAWSimO.Core.Configurations
     /// </summary>
     [XmlInclude(typeof(BruteForceTaskAllocationConfiguration))]
     [XmlInclude(typeof(RandomTaskAllocationConfiguration))]
+    [XmlInclude(typeof(GreedyTaskAllocationConfiguration))]
     [XmlInclude(typeof(BalancedTaskAllocationConfiguration))]
     [XmlInclude(typeof(SwarmTaskAllocationConfiguration))]
     [XmlInclude(typeof(ConstantRatioTaskAllocationConfiguration))]

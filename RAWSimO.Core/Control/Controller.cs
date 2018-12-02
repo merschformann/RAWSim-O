@@ -44,6 +44,7 @@ namespace RAWSimO.Core.Control
             {
                 case TaskAllocationMethodType.BruteForce: BotManager = new BruteForceBotManager(instance); break;
                 case TaskAllocationMethodType.Random: BotManager = new RandomBotManager(instance); break;
+                case TaskAllocationMethodType.Greedy: BotManager = new GreedyBotManager(instance); break;
                 case TaskAllocationMethodType.Balanced: BotManager = new BalancedBotManager(instance); break;
                 case TaskAllocationMethodType.Swarm: BotManager = new SwarmBotManager(instance); break;
                 case TaskAllocationMethodType.ConstantRatio: BotManager = new ConstantRatioBotManager(instance); break;
