@@ -7,7 +7,6 @@ using RAWSimO.Core.Items;
 using RAWSimO.Core.Management;
 using RAWSimO.Core.Metrics;
 using RAWSimO.Core.Waypoints;
-/// default
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +15,7 @@ using System.Threading.Tasks;
 namespace RAWSimO.Core.Control.Defaults.TaskAllocation
 {
     /// <summary>
-    /// Implements a manager randomly assigning tasks to the robots.
+    /// Implements a manager assigning tasks based on first arrival rate to the robots.
     /// </summary>
     public class GreedyBotManager : BotManager
     {
@@ -49,12 +48,13 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
                 List<ExtractRequest> fittingRequests = GetPossibleRequests(pod, oStation, PodSelectionExtractRequestFilteringMode.AssignedOnly);
                 if (fittingRequests.Any())
                 {
+                    ExtractRequest oldestRequest = fittingRequests.OrderBy(o => o.Order.TimeStamp).First();
                     // Simply execute the next task with the pod
                     EnqueueExtract(
                         bot, // The bot itself
                         oStation, // The random station
                         pod, // Keep the pod
-                        fittingRequests); // The requests to serve
+                        new List<ExtractRequest> { oldestRequest }); // The first requests to serve
 
                     // Finished search for next task
                     return true;
@@ -92,65 +92,16 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
             if (Instance.Randomizer.NextDouble() > _config.StickToModeProbability)
                 _extractMode[bot] = !_extractMode[bot];
             // Randomly decide whether to keep the current pod (if there is one) or switch to another
-            bool keepPod = bot.Pod != null && Instance.Randomizer.NextDouble() < _config.StickToPodProbability;
+            // bool keepPod = bot.Pod != null && Instance.Randomizer.NextDouble() < _config.StickToPodProbability;
             // Get the last task that was assigned to the bot
             BotTask lastTask = GetLastEnqueuedTask(bot);
 
-            // --> Stick to current pod if desired and possible
-            if (keepPod)
-            {
-                if (_extractMode[bot])
-                {
-                    // Try to do another extract task
-                    if (DoExtractTaskWithPod(bot, bot.Pod))
-                        // Successfully allocated next task
-                        return;
-                    // Try other mode if allowed
-                    if (_config.SwitchModeIfNoWork && DoStoreTaskWithPod(bot, bot.Pod))
-                        // Successfully allocated next task
-                        return;
-                }
-                else
-                {
-                    // Try to do another store task
-                    if (DoStoreTaskWithPod(bot, bot.Pod))
-                        // Successfully allocated next task
-                        return;
-                    // Try other mode if allowed
-                    if (_config.SwitchModeIfNoWork && DoExtractTaskWithPod(bot, bot.Pod))
-                        // Successfully allocated next task
-                        return;
-                }
 
-                // No job available for the pod - just put the pod back to inventory
-                EnqueueParkPod(bot, bot.Pod, Instance.Controller.PodStorageManager.GetStorageLocation(bot.Pod));
-                return;
-            }
-            else
-            {
-                // Check whether there is a pod
-                if (bot.Pod != null)
-                {
-                    // There is a pod but we don't want it anymore
-                    EnqueueParkPod(bot, bot.Pod, Instance.Controller.PodStorageManager.GetStorageLocation(bot.Pod));
-                    return;
-                }
-            }
-
-            // --> Do a repositioning move at random
-            if (Instance.Randomizer.NextDouble() < _config.RepositioningProbability)
-            {
-                // First store the pod, if still carrying one
-                DoParkPodTask(bot);
-                // Try to do a repositioning move
-                DoRepositioningTask(bot);
-                // Successfully allocated next task
-                return;
-            }
 
             // --> Get a pod which offers a job
             if (_extractMode[bot])
             {
+                Console.WriteLine(bot.Pod);
                 // Try to do extract job with any pod
                 foreach (var pod in Instance.ResourceManager.UnusedPods.OrderBy(b => GetOrderValue(b, bot)))
                     // Try to do extract task with this pod
@@ -204,18 +155,8 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
                 EnqueueRest(bot, restingLocation);
             }
 
-            // Choose resting location
-            Waypoint restLocation =
-                // Check whether the last task was resting too
-                lastTask != null && lastTask.Type == BotTaskType.Rest && Instance.ResourceManager.IsRestingLocationAvailable(bot.CurrentWaypoint) ?
-                // We already rested before and did not move since then - simply stay at the current resting location
-                bot.CurrentWaypoint :
-                // We need to choose a new resting location
-                Instance.ResourceManager.UnusedRestingLocations.ElementAt(Instance.Randomizer.NextInt(Instance.ResourceManager.UnusedRestingLocations.Count()));
-            // Absolutely no task available - chill
-            EnqueueRest(bot, restLocation);
-        }
 
+        }
         /// <summary>
         /// The next event when this element has to be updated.
         /// </summary>
