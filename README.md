@@ -1,3 +1,6 @@
+# Working in ecf remote and azure vm
+
+
 # RAWSim-O
 
 RAWSim-O is a discrete event-based simulation for Robotic Mobile Fulfillment Systems. The intention of the simulation framework is to provide a tool for researching effects of multiple decision problems that occur when running such a system. For this, the framework enables easy extensibility for implementing new decision methods for the different decision problems.
