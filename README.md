@@ -54,6 +54,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Publications
+
+RAWSim-O has been published here:
+- Marius Merschformann, Lin Xie, Hanyi Li: RAWSim-O: A Simulation Framework for Robotic Mobile Fulfillment Systems, Logistics Research (2018), Volume 11, Issue 1, doi:10.23773/2018_8, [link](https://www.bvl.de/lore/all-volumes--issues/volume-11/issue-1/rawsim-o-a-simulation-framework-for-robotic-mobile-fulfillment-systems)
+
+Further reading on some projects using RAWSim-O can be found here (let me know, if yours is missing):
+- Marius Merschformann, Lin Xie, Daniel Erdmann: Multi-Agent Path Finding with Kinematic Constraints for Robotic Mobile Fulfillment Systems, working paper preprint available at [link](https://arxiv.org/abs/1706.09347)
+- Marius Merschformann, Tim Lamballais, René de Koster, Leena Suhl: Decision Rules for Robotic Mobile Fulfillment Systems, working paper preprint available at [link](https://arxiv.org/abs/1801.06703)
+- Marius Merschformann: Active repositioning of storage units in Robotic Mobile Fulfillment Systems, Selected Papers of the Annual International Conference of the German Operations Research Society (GOR), Freie Universität Berlin, Germany, September 6-8, 2017, doi:10.1007/978-3-319-89920-6_51, [link](https://link.springer.com/chapter/10.1007/978-3-319-89920-6_51)
+
 # Credits
 
 This work was created as a part of the RMFS project initiated by Prof. Lin Xie. More information about the project can be found here https://www.researchgate.net/project/automated-robotic-mobile-fulfillment-systems-RMFS and here http://www.leuphana.de/universitaet/personen/lin-xie.html
