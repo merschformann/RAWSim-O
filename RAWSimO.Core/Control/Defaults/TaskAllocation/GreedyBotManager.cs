@@ -96,12 +96,17 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
             // Get the last task that was assigned to the bot
             BotTask lastTask = GetLastEnqueuedTask(bot);
 
-
+            // Check whether there is a pod
+            if (bot.Pod != null)
+            {
+                // There is a pod but we don't want it anymore
+                EnqueueParkPod(bot, bot.Pod, Instance.Controller.PodStorageManager.GetStorageLocation(bot.Pod));
+                return;
+            }
 
             // --> Get a pod which offers a job
             if (_extractMode[bot])
             {
-                Console.WriteLine(bot.Pod);
                 // Try to do extract job with any pod
                 foreach (var pod in Instance.ResourceManager.UnusedPods.OrderBy(b => GetOrderValue(b, bot)))
                     // Try to do extract task with this pod
@@ -112,7 +117,7 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
                 if (_config.SwitchModeIfNoWork)
                     // Try to do store job with any pod
                     foreach (var pod in Instance.ResourceManager.UnusedPods.OrderBy(b => GetOrderValue(b, bot)))
-                        // Try to do extract task with this pod
+                        // Try to do another store task
                         if (DoStoreTaskWithPod(bot, pod))
                             // Successfully allocated next task
                             return;
@@ -154,7 +159,16 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
                 // No job in this mode available right now - chill until mode switch or task gets available
                 EnqueueRest(bot, restingLocation);
             }
-
+            // Choose resting location
+            Waypoint restLocation =
+                // Check whether the last task was resting too
+                lastTask != null && lastTask.Type == BotTaskType.Rest && Instance.ResourceManager.IsRestingLocationAvailable(bot.CurrentWaypoint) ?
+                // We already rested before and did not move since then - simply stay at the current resting location
+                bot.CurrentWaypoint :
+                // We need to choose a new resting location
+                Instance.ResourceManager.UnusedRestingLocations.ElementAt(Instance.Randomizer.NextInt(Instance.ResourceManager.UnusedRestingLocations.Count()));
+            // Absolutely no task available - chill
+            EnqueueRest(bot, restLocation);
 
         }
         /// <summary>
