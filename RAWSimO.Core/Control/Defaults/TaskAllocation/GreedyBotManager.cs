@@ -33,7 +33,7 @@ namespace RAWSimO.Core.Control.Defaults.TaskAllocation
 
         private GreedyTaskAllocationConfiguration _config;
         private Func<bool> _decideExtractMode;
-        private Dictionary<Bot, bool> _extractMode;
+        private Dictionary<Bot, bool> _extractMode;    
 
         private double GetOrderValue(InputStation iStation, Bot bot) { return _config.PreferSameTier && iStation.Tier == bot.Tier ? -Instance.Randomizer.NextDouble() : Instance.Randomizer.NextDouble(); }
         private double GetOrderValue(OutputStation oStation, Bot bot) { return _config.PreferSameTier && oStation.Tier == bot.Tier ? -Instance.Randomizer.NextDouble() : Instance.Randomizer.NextDouble(); }
