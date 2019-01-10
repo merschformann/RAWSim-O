@@ -2,6 +2,7 @@
 using RAWSimO.Core.Control;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -81,11 +82,35 @@ namespace RAWSimO.Visualization.Rendering
         {
             double simulationTime = (double)context;
             double simulationEndTime = _simulationWorld.Controller.CurrentTime + simulationTime;
+            double simulationHorizonEnd = _simulationWorld.SettingConfig.SimulationWarmupTime + _simulationWorld.SettingConfig.SimulationDuration;
             _lastTime = DateTime.Now;
             double minDelayInSeconds = 10.0 / 1000.0;
 
             // Start prequels
             _simulationWorld.StartExecutionTiming();
+
+            // Prepare stat dir
+            if (!Directory.Exists(_simulationWorld.SettingConfig.StatisticsDirectory))
+            {
+                string statisticsFolder =
+                    _simulationWorld.Name + "-" +
+                    _simulationWorld.SettingConfig.Name + "-" +
+                    _simulationWorld.ControllerConfig.Name + "-" +
+                    _simulationWorld.SettingConfig.Seed.ToString();
+                _simulationWorld.SettingConfig.StatisticsDirectory = Path.Combine(Environment.CurrentDirectory, statisticsFolder);
+            }
+
+            // Define stat writing quick function
+            Action checkAndHandleStats = () =>
+            {
+                // Reset stats on reaching warmup period end
+                if (!_simulationWorld.StatWarmupResetDone && _simulationWorld.Controller.CurrentTime >= _simulationWorld.SettingConfig.SimulationWarmupTime)
+                    _simulationWorld.StatReset();
+
+                // Write statistics on reaching simulation horizon end
+                if (!_simulationWorld.StatResultsWritten && _simulationWorld.Controller.CurrentTime >= simulationHorizonEnd)
+                    _simulationWorld.WriteStatistics();
+            };
 
             // Loop until done or exit requested
             while (!_exitRequested && !(_simulationWorld.Controller.CurrentTime >= simulationEndTime))
@@ -101,6 +126,9 @@ namespace RAWSimO.Visualization.Rendering
                     _updateRate = Math.Ceiling(_updateRate * 0.75);
                     _setUpdateRate(_updateRate);
                 }
+
+                // Handle statistics
+                checkAndHandleStats();
 
                 // Check whether the simulation shall pause
                 if (!_paused)
@@ -129,6 +157,9 @@ namespace RAWSimO.Visualization.Rendering
                     WaitHandle.WaitAll(_pausedMutex);
                 }
             }
+
+            // Handle statistics
+            checkAndHandleStats();
 
             // Finish prequels
             _simulationWorld.StopExecutionTiming();

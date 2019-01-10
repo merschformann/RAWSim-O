@@ -42,6 +42,15 @@ namespace RAWSimO.Core
         internal double StatTime { get { return Controller.CurrentTime - StatTimeStart; } }
 
         /// <summary>
+        /// Indicates whether the stat reset after the warmup period was done.
+        /// </summary>
+        public bool StatWarmupResetDone { get; private set; }
+        /// <summary>
+        /// Indicates whether the stats have been written.
+        /// </summary>
+        public bool StatResultsWritten { get; private set; }
+
+        /// <summary>
         /// The number of times bundle generation was paused.
         /// </summary>
         public int StatBundleGenerationStops { get; private set; }
@@ -311,6 +320,8 @@ namespace RAWSimO.Core
         /// </summary>
         public void StatReset()
         {
+            // Indicate reset for controlling processes
+            StatWarmupResetDone = true;
             // Reset basics
             StatTimeStart = Controller.CurrentTime;
             StatMaxItemsHandledByPod = 0;
@@ -724,6 +735,9 @@ namespace RAWSimO.Core
         /// </summary>
         public void WriteStatistics()
         {
+            // Indicate stats written for controlling processes
+            StatResultsWritten = true;
+
             // Finalize statistics
             StatFinish();
 
