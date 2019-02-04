@@ -19,6 +19,18 @@ namespace RAWSimO.Core.Metrics
         /// <param name="w">The destination waypoint.</param>
         /// <param name="bot">The bot to consider.</param>
         /// <returns>The estimated time to reach the destination.</returns>
+        public static double EstimateTravelDistanceEuclid(Bot bot, Waypoint w)
+        {
+            double travelDist = (bot.GetDistance(w) + ((bot.Tier == w.Tier) ? 0 : bot.Instance.WrongTierPenaltyDistance)) ;
+            return travelDist;
+        }
+
+        /// <summary>
+        /// Optimistically estimates the time it will take bot to reach the specified waypoint, but penalizes targets on different tiers.
+        /// </summary>
+        /// <param name="w">The destination waypoint.</param>
+        /// <param name="bot">The bot to consider.</param>
+        /// <returns>The estimated time to reach the destination.</returns>
         public static double EstimateTravelTimeEuclid(Bot bot, Waypoint w)
         {
             double travelTime = (bot.GetDistance(w) + ((bot.Tier == w.Tier) ? 0 : bot.Instance.WrongTierPenaltyDistance)) / bot.MaxVelocity;
@@ -36,6 +48,19 @@ namespace RAWSimO.Core.Metrics
         {
             double travelTime = (start.GetDistance(end) + ((start.Tier == end.Tier) ? 0 : bot.Instance.WrongTierPenaltyDistance)) / bot.MaxVelocity;
             return travelTime;
+        }
+
+        /// <summary>
+        /// Optimistically estimates the time it will take the bot to go from start to end, but penalizes targets on different tiers.
+        /// </summary>
+        /// <param name="start">The starting waypoint.</param>
+        /// <param name="end">The destination waypoint.</param>
+        /// <param name="bot">The bot to consider.</param>
+        /// <returns>The estimated time.</returns>
+        public static double EstimateTravelDistanceEuclid(Bot bot, Waypoint start, Waypoint end)
+        {
+            double travelDist = (start.GetDistance(end) + ((start.Tier == end.Tier) ? 0 : bot.Instance.WrongTierPenaltyDistance));
+            return travelDist;
         }
 
         /// <summary>
