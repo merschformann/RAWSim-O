@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SimpleItemGeneratorConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ItemGenMinimalistic</Name>
+  <DefaultWeight>1</DefaultWeight>
+  <DefaultCoWeight>1</DefaultCoWeight>
+  <ProbToUseCoWeight>0</ProbToUseCoWeight>
+  <ItemDescriptions>
+    <SkvpOfInt32Double>
+      <Key>0</Key>
+      <Value>276.48816818207882</Value>
+    </SkvpOfInt32Double>
+    <SkvpOfInt32Double>
+      <Key>1</Key>
+      <Value>101.19852606262944</Value>
+    </SkvpOfInt32Double>
+  </ItemDescriptions>
+  <ItemWeights>
+    <SkvpOfInt32Double>
+      <Key>0</Key>
+      <Value>1.0</Value>
+    </SkvpOfInt32Double>
+    <SkvpOfInt32Double>
+      <Key>1</Key>
+      <Value>1.0</Value>
+    </SkvpOfInt32Double>
+  </ItemWeights>
+  <ItemCoWeights/>
+</SimpleItemGeneratorConfiguration>
