@@ -29,6 +29,22 @@ namespace RAWSimO.Core.Configurations
     /// <summary>
     /// The configuration for the corresponding method.
     /// </summary>
+    public class ShortestDistanceTaskAllocationConfiguration : TaskAllocationConfiguration
+    {
+        /// <summary>
+        /// Returns the type of the corresponding method this configuration belongs to.
+        /// </summary>
+        /// <returns>The type of the method.</returns>
+        public override TaskAllocationMethodType GetMethodType() { return TaskAllocationMethodType.ShortestDistance; }
+        /// <summary>
+        /// Returns a name identifying the method.
+        /// </summary>
+        /// <returns>The name of the method.</returns>
+        public override string GetMethodName() { if (!string.IsNullOrWhiteSpace(Name)) return Name; return "taSD"; }
+    }
+    /// <summary>
+    /// The configuration for the corresponding method.
+    /// </summary>
     public class RandomTaskAllocationConfiguration : TaskAllocationConfiguration
     {
         /// <summary>

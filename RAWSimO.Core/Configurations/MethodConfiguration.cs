@@ -95,6 +95,10 @@ namespace RAWSimO.Core.Configurations
         /// </summary>
         BruteForce,
         /// <summary>
+        /// A method aiming to choose the task with the least travelling distance from all available tasks.
+        /// </summary>
+        ShortestDistance,
+        /// <summary>
         /// A mainly random approach to the task allocation.
         /// </summary>
         Random,
@@ -579,6 +583,7 @@ namespace RAWSimO.Core.Configurations
     /// Base class for the task allocation configuration.
     /// </summary>
     [XmlInclude(typeof(BruteForceTaskAllocationConfiguration))]
+    [XmlInclude(typeof(ShortestDistanceTaskAllocationConfiguration))]
     [XmlInclude(typeof(RandomTaskAllocationConfiguration))]
     [XmlInclude(typeof(GreedyTaskAllocationConfiguration))]
     [XmlInclude(typeof(BalancedTaskAllocationConfiguration))]

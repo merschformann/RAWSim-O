@@ -43,6 +43,7 @@ namespace RAWSimO.Core.Control
             switch (instance.ControllerConfig.TaskAllocationConfig.GetMethodType())
             {
                 case TaskAllocationMethodType.BruteForce: BotManager = new BruteForceBotManager(instance); break;
+                case TaskAllocationMethodType.ShortestDistance: BotManager = new ShortestDistanceBotManager(instance); break;
                 case TaskAllocationMethodType.Random: BotManager = new RandomBotManager(instance); break;
                 case TaskAllocationMethodType.Greedy: BotManager = new GreedyBotManager(instance); break;
                 case TaskAllocationMethodType.Balanced: BotManager = new BalancedBotManager(instance); break;
