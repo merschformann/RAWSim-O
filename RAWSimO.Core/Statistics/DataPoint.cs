@@ -1538,7 +1538,7 @@ namespace RAWSimO.Core.Statistics
             _entryValues[FootPrintEntry.LinesHandled] = instance.StatOverallLinesHandled;
             _entryValues[FootPrintEntry.OrdersHandled] = instance.StatOverallOrdersHandled;
             _entryValues[FootPrintEntry.UnitsHandled] = instance.StatOverallItemsHandled + instance.StatOverallBundlesHandled;
-            _entryValues[FootPrintEntry.TotalTimeQueueing] = instance.TotalTimeQueueing;
+            _entryValues[FootPrintEntry.TotalTimeQueueing] = instance.StatOverallTotalTimeQueueing;
             _entryValues[FootPrintEntry.Collisions] = instance.StatOverallCollisions;
             _entryValues[FootPrintEntry.FailedReservations] = instance.StatOverallFailedReservations;
             _entryValues[FootPrintEntry.PathPlanningTimeouts] = instance.StatOverallPathPlanningTimeouts;
