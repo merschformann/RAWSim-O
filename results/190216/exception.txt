@@ -17,3 +17,79 @@ InnerException:
 Stacktrace:
    at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderSettingConfiguration.Read24_SettingConfiguration()
 -----------------------------------------------------------
+-----------------------------------------------------------
+!!! Caught an unhandled exception: There is an error in XML document (2, 2). timestamp: 02/17/2019 12:15:33
+-----------------------------------------------------------
+Time: 2/17/2019 12:15:33 PM
+Instance: 1-1-2-6-0.85.xlayo
+Setting: Letter-18-60-200-4778.65.xitem
+ControlConfig: PPFAR-TAGreedy-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
+Seed: 2
+Tag: <null>
+Stacktrace:
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at RAWSimO.Core.IO.InstanceIO.ReadInstance(String instancePath, String settingConfigPath, String controlConfigPath, Boolean overrideVisualizationAttached, Boolean visualizationOnly, Action`1 logAction) in C:\thesis\RAWSIM-O\RAWSimO.Core\IO\InstanceIO.cs:line 69
+   at RAWSimO.CLI.Program.Main(String[] args) in C:\thesis\RAWSIM-O\RAWSimO.CLI\Program.cs:line 166
+InnerException: 
+<OrderList xmlns=''> was not expected.
+Stacktrace:
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderSettingConfiguration.Read24_SettingConfiguration()
+-----------------------------------------------------------
+-----------------------------------------------------------
+!!! Caught an unhandled exception: There is an error in XML document (2, 2). timestamp: 02/17/2019 12:20:06
+-----------------------------------------------------------
+Time: 2/17/2019 12:20:06 PM
+Instance: 1-1-2-6-0.85.xlayo
+Setting: Letter-18-60-200-4778.65.xitem
+ControlConfig: PPFAR-TAGreedy-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
+Seed: 2
+Tag: <null>
+Stacktrace:
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at RAWSimO.Core.IO.InstanceIO.ReadInstance(String instancePath, String settingConfigPath, String controlConfigPath, Boolean overrideVisualizationAttached, Boolean visualizationOnly, Action`1 logAction) in C:\thesis\RAWSIM-O\RAWSimO.Core\IO\InstanceIO.cs:line 69
+   at RAWSimO.CLI.Program.Main(String[] args) in C:\thesis\RAWSIM-O\RAWSimO.CLI\Program.cs:line 166
+InnerException: 
+<OrderList xmlns=''> was not expected.
+Stacktrace:
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderSettingConfiguration.Read24_SettingConfiguration()
+-----------------------------------------------------------
+-----------------------------------------------------------
+!!! Caught an unhandled exception: There is an error in XML document (2, 2). timestamp: 02/17/2019 12:25:32
+-----------------------------------------------------------
+Time: 2/17/2019 12:25:32 PM
+Instance: 1-1-2-6-0.85.xlayo
+Setting: Letter-18-60-200-4778.65.xitem
+ControlConfig: PPFAR-TAGreedy-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
+Seed: 2
+Tag: <null>
+Stacktrace:
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at RAWSimO.Core.IO.InstanceIO.ReadInstance(String instancePath, String settingConfigPath, String controlConfigPath, Boolean overrideVisualizationAttached, Boolean visualizationOnly, Action`1 logAction) in C:\thesis\RAWSIM-O\RAWSimO.Core\IO\InstanceIO.cs:line 69
+   at RAWSimO.CLI.Program.Main(String[] args) in C:\thesis\RAWSIM-O\RAWSimO.CLI\Program.cs:line 166
+InnerException: 
+<OrderList xmlns=''> was not expected.
+Stacktrace:
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderSettingConfiguration.Read24_SettingConfiguration()
+-----------------------------------------------------------
+-----------------------------------------------------------
+!!! Caught an unhandled exception: There is an error in XML document (2, 2). timestamp: 02/17/2019 12:27:24
+-----------------------------------------------------------
+Time: 2/17/2019 12:27:24 PM
+Instance: 1-1-2-6-0.85.xlayo
+Setting: Letter-18-60-200-4778.65.xitem
+ControlConfig: PPFAR-TAGreedy-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
+Seed: 2
+Tag: <null>
+Stacktrace:
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at RAWSimO.Core.IO.InstanceIO.ReadInstance(String instancePath, String settingConfigPath, String controlConfigPath, Boolean overrideVisualizationAttached, Boolean visualizationOnly, Action`1 logAction) in C:\thesis\RAWSIM-O\RAWSimO.Core\IO\InstanceIO.cs:line 69
+   at RAWSimO.CLI.Program.Main(String[] args) in C:\thesis\RAWSIM-O\RAWSimO.CLI\Program.cs:line 166
+InnerException: 
+<OrderList xmlns=''> was not expected.
+Stacktrace:
+   at Microsoft.Xml.Serialization.GeneratedAssembly.XmlSerializationReaderSettingConfiguration.Read24_SettingConfiguration()
+-----------------------------------------------------------
