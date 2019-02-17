@@ -1,4 +1,3 @@
-using System;
 using RAWSimO.Core.Configurations;
 using RAWSimO.Core.Bots;
 using RAWSimO.Core.Elements;
@@ -7,6 +6,7 @@ using RAWSimO.Core.Items;
 using RAWSimO.Core.Management;
 using RAWSimO.Core.Metrics;
 using RAWSimO.Core.Waypoints;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

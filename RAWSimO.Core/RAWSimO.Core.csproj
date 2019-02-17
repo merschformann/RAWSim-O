@@ -118,9 +118,11 @@
     <Compile Include="Control\Defaults\StationActivation\BacklogThresholdStationManager.cs" />
     <Compile Include="Control\Defaults\StationActivation\ConstantRatioStationActivation.cs" />
     <Compile Include="Control\Defaults\StationActivation\WorkShiftStationActivationManager.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\FCFSBotManager.cs" />
     <Compile Include="Control\Defaults\TaskAllocation\GreedyBotManager.cs" />
     <Compile Include="Control\Defaults\TaskAllocation\ConceptBotManager.cs" />
     <Compile Include="Control\Defaults\TaskAllocation\ConstantRatioBotManager.cs" />
+    <Compile Include="Control\Defaults\TaskAllocation\ShortestDistanceBotManager.cs" />
     <Compile Include="Control\PodStorageManager.cs" />
     <Compile Include="Control\Defaults\PodStorage\StationBasedPodStorageManager.cs" />
     <Compile Include="Control\Defaults\PodStorage\TurnoverPodStorageManager.cs" />
