@@ -227,7 +227,7 @@ namespace RAWSimO.Core.Statistics
             /// <summary>
             /// The average distance traveled per trip (overall distance traveled divided by trip count observed).
             /// </summary>
-            TotalTimeQueueing,
+            //TotalTimeQueueing,
             /// <summary>
             /// The total time a bot was queueing.
             /// </summary>
@@ -1226,7 +1226,7 @@ namespace RAWSimO.Core.Statistics
             { FootPrintEntry.DistanceRequestedOptimal, typeof(double) },
             { FootPrintEntry.TimeMoving, typeof(double) },
             { FootPrintEntry.TimeQueueing, typeof(double) },
-            { FootPrintEntry.TotalTimeQueueing, typeof(double) },
+            //{ FootPrintEntry.TotalTimeQueueing, typeof(double) },
             { FootPrintEntry.TripDistance, typeof(double) },
             { FootPrintEntry.TripTime, typeof(double) },
             { FootPrintEntry.TripTimeWithoutQueueing, typeof(double) },
@@ -1538,7 +1538,7 @@ namespace RAWSimO.Core.Statistics
             _entryValues[FootPrintEntry.LinesHandled] = instance.StatOverallLinesHandled;
             _entryValues[FootPrintEntry.OrdersHandled] = instance.StatOverallOrdersHandled;
             _entryValues[FootPrintEntry.UnitsHandled] = instance.StatOverallItemsHandled + instance.StatOverallBundlesHandled;
-            _entryValues[FootPrintEntry.TotalTimeQueueing] = instance.StatOverallTotalTimeQueueing;
+            //_entryValues[FootPrintEntry.TotalTimeQueueing] = instance.StatOverallTotalTimeQueueing;
             _entryValues[FootPrintEntry.Collisions] = instance.StatOverallCollisions;
             _entryValues[FootPrintEntry.FailedReservations] = instance.StatOverallFailedReservations;
             _entryValues[FootPrintEntry.PathPlanningTimeouts] = instance.StatOverallPathPlanningTimeouts;
