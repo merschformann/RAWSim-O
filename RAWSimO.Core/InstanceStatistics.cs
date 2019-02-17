@@ -168,6 +168,11 @@ namespace RAWSimO.Core
         /// <summary>
         /// The number of bots that reached their targeted output station queueing area.
         /// </summary>
+        public int StatOverallTotalTimeQueueing { get; private set; }
+        /// <summary>
+        /// The total time that bots are queuing.
+        /// </summary>
+        
         private int _oStationTripCount = 0;
         /// <summary>
         /// The average time it took a bot for their last trip towards an output station queueing area.
@@ -331,6 +336,7 @@ namespace RAWSimO.Core
             StatOverallFailedReservations = 0;
             StatOverallPathPlanningTimeouts = 0;
             _statCollisionTimestamps.Clear();
+            StatOverallTotalTimeQueueing = 0;
             _oStationTripCount = 0;
             _oStationTripTimeAvg = 0;
             _iStationTripCount = 0;
@@ -972,6 +978,7 @@ namespace RAWSimO.Core
             sb.AppendLine("StatOverallItemsHandled: " + StatOverallItemsHandled);
             sb.AppendLine("StatOverallLinesHandled: " + StatOverallLinesHandled);
             sb.AppendLine("StatOverallOrdersHandled: " + StatOverallOrdersHandled);
+            sb.AppendLine("StatOverallTotalTimeQueueing: " + StatOverallTotalTimeQueueing);
             sb.AppendLine("StatOverallCollisions: " + StatOverallCollisions);
             sb.AppendLine("StatOverallDistanceTraveled: " + StatOverallDistanceTraveled.ToString(IOConstants.FORMATTER));
             sb.AppendLine("StatOverallDistanceEstimated: " + StatOverallDistanceEstimated.ToString(IOConstants.FORMATTER));

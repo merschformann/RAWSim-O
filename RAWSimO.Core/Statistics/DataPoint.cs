@@ -227,6 +227,10 @@ namespace RAWSimO.Core.Statistics
             /// <summary>
             /// The average distance traveled per trip (overall distance traveled divided by trip count observed).
             /// </summary>
+            TotalTimeQueueing,
+            /// <summary>
+            /// The total time a bot was queueing.
+            /// </summary>
             TripDistance,
             /// <summary>
             /// The average time spent per trip (sum of measured trip times divided by trip count observed).
@@ -1222,6 +1226,7 @@ namespace RAWSimO.Core.Statistics
             { FootPrintEntry.DistanceRequestedOptimal, typeof(double) },
             { FootPrintEntry.TimeMoving, typeof(double) },
             { FootPrintEntry.TimeQueueing, typeof(double) },
+            { FootPrintEntry.TotalTimeQueueing, typeof(double) },
             { FootPrintEntry.TripDistance, typeof(double) },
             { FootPrintEntry.TripTime, typeof(double) },
             { FootPrintEntry.TripTimeWithoutQueueing, typeof(double) },
@@ -1543,6 +1548,7 @@ namespace RAWSimO.Core.Statistics
             _entryValues[FootPrintEntry.DistanceRequestedOptimal] = instance.Bots.Sum(b => b.StatDistanceRequestedOptimal);
             _entryValues[FootPrintEntry.TimeMoving] = instance.Bots.Average(b => b.StatTotalTimeMoving);
             _entryValues[FootPrintEntry.TimeQueueing] = instance.Bots.Average(b => b.StatTotalTimeQueueing);
+            _entryValues[FootPrintEntry.TotalTimeQueueing] = instance.Bots.Sum(b => b.StatTotalTimeQueueing);
             _entryValues[FootPrintEntry.TripDistance] = instance.StatOverallDistanceTraveled / instance.Waypoints.Sum(w => w.StatOutgoingTrips);
             _entryValues[FootPrintEntry.TripTime] = instance.Waypoints.Sum(w => w.StatOutgoingTripTime) / instance.Waypoints.Sum(w => w.StatOutgoingTrips);
             _entryValues[FootPrintEntry.TripTimeWithoutQueueing] = (instance.Waypoints.Sum(w => w.StatOutgoingTripTime) - instance.Bots.Sum(b => b.StatTotalTimeQueueing)) / instance.Waypoints.Sum(w => w.StatOutgoingTrips);
