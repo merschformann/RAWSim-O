@@ -1,4 +1,8 @@
-﻿using RAWSimO.Core.Statistics;
+﻿using RAWSimO.Core.Bots;
+using RAWSimO.Core.Control;
+using RAWSimO.Core.IO;
+using RAWSimO.Core.Statistics;
+using RAWSimO.Core.Waypoints;
 using System;
 using System.Collections.Generic;
 using System.IO;
