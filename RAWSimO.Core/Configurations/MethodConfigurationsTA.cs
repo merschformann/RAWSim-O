@@ -142,6 +142,56 @@ namespace RAWSimO.Core.Configurations
         /// </summary>
         public double RepositioningProbability = 0.05;
     }
+        /// <summary>
+    /// The configuration for the corresponding method.
+    /// </summary>
+    public class FCFSTaskAllocationConfiguration : TaskAllocationConfiguration
+    {
+        /// <summary>
+        /// Returns the type of the corresponding method this configuration belongs to.
+        /// </summary>
+        /// <returns>The type of the method.</returns>
+        public override TaskAllocationMethodType GetMethodType() { return TaskAllocationMethodType.FCFS; }
+        /// <summary>
+        /// Returns a name identifying the method.
+        /// </summary>
+        /// <returns>The name of the method.</returns>
+        public override string GetMethodName()
+        {
+            if (!string.IsNullOrWhiteSpace(Name)) return Name;
+            return "taFCFS" +
+                (SwitchModeIfNoWork ? "t" : "f") +
+                (DoRepositioningIfNoWork ? "t" : "f") +
+                (PreferSameTier ? "t" : "f") +
+                StickToModeProbability.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) +
+                StickToPodProbability.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) +
+                RepositioningProbability.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER);
+        }
+        /// <summary>
+        /// Indicates whether to switch to the other mode automatically if there is no further work to do in the current mode.
+        /// </summary>
+        public bool SwitchModeIfNoWork = true;
+        /// <summary>
+        /// Indicates whether to do repositioning moves (if available), if no other tasks are available.
+        /// </summary>
+        public bool DoRepositioningIfNoWork = true;
+        /// <summary>
+        /// Indicates whether the bot will search for work to do on the same tier it is located on first.
+        /// </summary>
+        public bool PreferSameTier = true;
+        /// <summary>
+        /// The probability by which the bot sticks to its current mode (input or output).
+        /// </summary>
+        public double StickToModeProbability = 0.9;
+        /// <summary>
+        /// The probability by which the bot sticks to the pod it is currently carrying. The bot will still change the pod if there is no task available in its current mode.
+        /// </summary>
+        public double StickToPodProbability = 0.95;
+        /// <summary>
+        /// The probability by which the bot attempts a repositioning move instead of starting a new insert or extract task. This is only taken into account, if the robot is not currently carrying a pod.
+        /// </summary>
+        public double RepositioningProbability = 0.05;
+    }
 
     /// <summary>
     /// The configuration for the corresponding method.
