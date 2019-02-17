@@ -56,7 +56,7 @@
       <InventoryLevelOrderRestartThreshold>0.6</InventoryLevelOrderRestartThreshold>
     </DemandInventoryConfiguration>
     <FixedInventoryConfiguration>
-      <OrderFile>Letter-18-60-200-4778.65.xitem</OrderFile>
+      <OrderFile>C:\thesis\RAWSIM-O\results\190216\Letter-18-60-200-4778.65.xitem</OrderFile>
     </FixedInventoryConfiguration>
     <SimpleItemConfiguration>
       <GeneratorConfigFile>Mu-1000.xgenc</GeneratorConfigFile>
