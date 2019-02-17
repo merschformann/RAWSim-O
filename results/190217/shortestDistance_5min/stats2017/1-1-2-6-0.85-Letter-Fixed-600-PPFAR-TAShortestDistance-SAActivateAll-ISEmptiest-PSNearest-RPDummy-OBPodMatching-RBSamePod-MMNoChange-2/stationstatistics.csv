@@ -1,0 +1,4 @@
+Ident;X;Y;Transfers;InjectedTransfers;PodsHandled;PodHandlingTimeAvg;PodHandlingTimeVar;PodHandlingTimeMin;PodHandlingTimeMax;PileOn;IdleTime;UpTime
+InputStation0;0.50;6.50;0;0;0;0;0;0;0;0;600;600
+OutputStation0;45.50;3.50;20;0;17;12.6729742793222;9.79403757693657;10.0444444444445;21.4583333333333;1.17647058823529;403.504531042936;600
+OutputStation1;45.50;9.50;0;0;0;0;0;0;0;0;600;600
