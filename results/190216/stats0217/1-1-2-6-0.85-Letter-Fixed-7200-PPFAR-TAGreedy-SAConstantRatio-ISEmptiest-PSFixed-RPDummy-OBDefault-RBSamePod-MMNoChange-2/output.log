@@ -1,5 +1,5 @@
 <<< Welcome to the RAWSimO CLI >>>
-The time is: 02/17/2019 13:09:19
+The time is: 02/17/2019 14:50:01
 Starting RAWSimO wrapper with the following arguments:
 Instance: 1-1-2-6-0.85.xlayo
 Setting: Letter-Fixed-7200.xsett
@@ -54,20 +54,20 @@ i b b b r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r 
 StatisticsFolder: 1-1-2-6-0.85-Letter-Fixed-7200-PPFAR-TAGreedy-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange-2
 Done!
 Executing ... 
- 13:09:20 | >>> Warming up ...
+ 14:50:01 | >>> Warming up ...
  00:00:00 | >>> Warmup finished - starting simulation ...
  Realtime |   ETA    |  Sim.Time  | Progress | #Orders | #Bundles | Inv. | Distance | #Coll. |   Memory    
- 00:00:00 | 06:30:03 | 0.00:00:00 |  0.00%   |    0    |    0     | 70%  |    0     |   0    |  35.30MB  
- 00:00:03 | 00:00:00 | 0.02:00:00 | 100.00%  |   200   |    0     | 66%  |  15371   |   0    |  38.37MB  
- 00:00:03 | >>> Simulation finished - writing results ...
+ 00:00:00 |   n/a    | 0.00:00:00 |  0.00%   |    0    |    0     | 70%  |    0     |   0    |  37.83MB  
+ 00:00:02 | 00:00:00 | 0.02:00:00 | 100.00%  |   200   |    0     | 66%  |  15371   |   0    |  38.74MB  
+ 00:00:02 | >>> Simulation finished - writing results ...
  00:00:03 | >>> Results written
 Simulation finished.
 >>> Timings
-StatTimingPathPlanningAverage: 0.000239512255090281
-StatTimingPathPlanningOverall: 0.6234504
+StatTimingPathPlanningAverage: 0.000139549058778333
+StatTimingPathPlanningOverall: 0.3632462
 StatTimingPathPlanningCount: 2603
-StatTimingTaskAllocationAverage: 0.00034473894590846
-StatTimingTaskAllocationOverall: 1.2427839
+StatTimingTaskAllocationAverage: 0.000297699750346741
+StatTimingTaskAllocationOverall: 1.0732076
 StatTimingTaskAllocationCount: 3605
 StatTimingItemStorageAverage: 0
 StatTimingItemStorageOverall: 0
@@ -78,8 +78,8 @@ StatTimingPodStorageCount: 136
 StatTimingReplenishmentBatchingAverage: 0
 StatTimingReplenishmentBatchingOverall: 0
 StatTimingReplenishmentBatchingCount: 78
-StatTimingOrderBatchingAverage: 0.000100662842892768
-StatTimingOrderBatchingOverall: 0.0403658
+StatTimingOrderBatchingAverage: 3.92411471321696E-05
+StatTimingOrderBatchingOverall: 0.0157357
 StatTimingOrderBatchingCount: 401
 >>> Overall
 StatOverallBundlesPlaced: 60
@@ -92,11 +92,13 @@ StatOverallItemsHandled: 670
 StatOverallLinesHandled: 643
 StatOverallOrdersHandled: 200
 StatOverallCollisions: 0
+StatAverageTurnoverTime: 132.556812135779
 StatOverallDistanceTraveled: 15371
 StatOverallDistanceEstimated: 13527
 StatOverallAssignedTasks: 3605
-StatMaxMemoryUsed: 40.015625
-StatRealTimeUsed: 3.4945394
+StatMaxMemoryUsed: 39.82421875
+StatTotalTimeQueueing: 7333.55918527514
+StatRealTimeUsed: 2.8139388
 StatAverageTurnoverTime: 132.556812135779
 StatMedianTurnoverTime: 116.822175999338
 StatLowerQuartileTurnoverTime: 88.4864687770294
