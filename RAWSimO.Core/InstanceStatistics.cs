@@ -98,6 +98,10 @@ namespace RAWSimO.Core
         /// </summary>
         public double StatOverallDistanceTraveled { get { return Bots.Sum(b => b.StatDistanceTraveled); } }
         /// <summary>
+        /// The total time that bots are queuing.
+        /// </summary>
+        public int TotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
+        /// <summary>
         /// The estimated distance by the bots.
         /// </summary>
         public double StatOverallDistanceEstimated { get { return Bots.Sum(b => b.StatDistanceEstimated); } }
@@ -167,10 +171,6 @@ namespace RAWSimO.Core
         public int StatOverallCollisions { get; private set; }
         /// <summary>
         /// The number of bots that reached their targeted output station queueing area.
-        /// </summary>
-        public int TotalTimeQueueing { get; private set; }
-        /// <summary>
-        /// The total time that bots are queuing.
         /// </summary>
         
         private int _oStationTripCount = 0;
@@ -978,8 +978,8 @@ namespace RAWSimO.Core
             sb.AppendLine("StatOverallItemsHandled: " + StatOverallItemsHandled);
             sb.AppendLine("StatOverallLinesHandled: " + StatOverallLinesHandled);
             sb.AppendLine("StatOverallOrdersHandled: " + StatOverallOrdersHandled);
-            sb.AppendLine("TotalTimeQueueing: " + TotalTimeQueueing);
             sb.AppendLine("StatOverallCollisions: " + StatOverallCollisions);
+            sb.AppendLine("TotalTimeQueueing: " + TotalTimeQueueing.ToString(IOConstants.FORMATTER));
             sb.AppendLine("StatOverallDistanceTraveled: " + StatOverallDistanceTraveled.ToString(IOConstants.FORMATTER));
             sb.AppendLine("StatOverallDistanceEstimated: " + StatOverallDistanceEstimated.ToString(IOConstants.FORMATTER));
             sb.AppendLine("StatOverallAssignedTasks: " + StatOverallAssignedTasks);
