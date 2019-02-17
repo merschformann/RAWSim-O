@@ -89,7 +89,7 @@ namespace RAWSimO.Core
         /// <summary>
         /// The total time that bots are queuing.
         /// </summary>
-        public int StatOverallTotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
+        //public int StatOverallTotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
         /// <summary>
         /// The estimated distance by the bots.
         /// </summary>
@@ -325,7 +325,7 @@ namespace RAWSimO.Core
             StatOverallFailedReservations = 0;
             StatOverallPathPlanningTimeouts = 0;
             _statCollisionTimestamps.Clear();
-            TotalTimeQueueing = 0;
+            //TotalTimeQueueing = 0;
             _oStationTripCount = 0;
             _oStationTripTimeAvg = 0;
             _iStationTripCount = 0;
@@ -973,9 +973,9 @@ namespace RAWSimO.Core
             sb.AppendLine("StatOverallDistanceEstimated: " + StatOverallDistanceEstimated.ToString(IOConstants.FORMATTER));
             sb.AppendLine("StatOverallAssignedTasks: " + StatOverallAssignedTasks);
             sb.AppendLine("StatMaxMemoryUsed: " + StatMaxMemoryUsed);
-            sb.AppendLine("StatTotalTimeQueueing: " + ((_statOrderTimeQueueing.Count == 0) ? "0" : _statOrderTimeQueueing.Sum().ToString(IOConstants.FORMATTER)));
+            //sb.AppendLine("StatTotalTimeQueueing: " + ((_statOrderTimeQueueing.Count == 0) ? "0" : _statOrderTimeQueueing.Sum().ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatRealTimeUsed: " + ((SettingConfig.StartTime != default(DateTime) && SettingConfig.StopTime != default(DateTime)) ? (SettingConfig.StopTime - SettingConfig.StartTime).TotalSeconds.ToString(IOConstants.FORMATTER) : "0"));
-            sb.AppendLine("StatAverageTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : _statOrderTurnoverTimes.Average().ToString(IOConstants.FORMATTER)));
+            //sb.AppendLine("StatAverageTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : _statOrderTurnoverTimes.Average().ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatMedianTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : StatisticsHelper.GetMedian(_statOrderTurnoverTimes).ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatLowerQuartileTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : StatisticsHelper.GetLowerQuartile(_statOrderTurnoverTimes).ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatUpperQuartileTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : StatisticsHelper.GetUpperQuartile(_statOrderTurnoverTimes).ToString(IOConstants.FORMATTER)));

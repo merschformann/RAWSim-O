@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PPFAR-TAShortestDistance-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange</Name>
+  <PathPlanningConfig xsi:type="FARPathPlanningConfiguration">
+    <Name />
+    <AutoSetParameter>false</AutoSetParameter>
+    <LengthOfAWaitStep>2</LengthOfAWaitStep>
+    <RuntimeLimitPerAgent>0.1</RuntimeLimitPerAgent>
+    <RunTimeLimitOverall>1</RunTimeLimitOverall>
+    <Clocking>1</Clocking>
+    <MaximumNumberOfBreakingManeuverTries>2</MaximumNumberOfBreakingManeuverTries>
+    <evadingStrategy>EvadeByRerouting</evadingStrategy>
+    <NoBackEvading>true</NoBackEvading>
+    <UseDeadlockHandler>true</UseDeadlockHandler>
+  </PathPlanningConfig>
+  <TaskAllocationConfig xsi:type="ShortestDistanceTaskAllocationConfiguration">
+    <Name />
+  </TaskAllocationConfig>
+  <StationActivationConfig xsi:type="ConstantRatioStationActivationConfiguration">
+    <Name />
+    <ActiveRatio>1</ActiveRatio>
+    <PickReplenishRatio>1</PickReplenishRatio>
+  </StationActivationConfig>
+  <ItemStorageConfig xsi:type="EmptiestItemStorageConfiguration">
+    <Name />
+    <StickToPodUntilFull>true</StickToPodUntilFull>
+    <BufferThreshold>0.8</BufferThreshold>
+    <BufferTimeout>1200</BufferTimeout>
+  </ItemStorageConfig>
+  <PodStorageConfig xsi:type="FixedPodStorageConfiguration">
+    <Name />
+  </PodStorageConfig>
+  <RepositioningConfig xsi:type="DummyRepositioningConfiguration">
+    <Name />
+  </RepositioningConfig>
+  <OrderBatchingConfig xsi:type="DefaultOrderBatchingConfiguration">
+    <Name />
+    <OrderSelectionRule>FCFS</OrderSelectionRule>
+    <StationSelectionRule>LeastBusy</StationSelectionRule>
+    <Recycle>false</Recycle>
+    <FastLane>false</FastLane>
+    <FastLaneTieBreaker>EarliestDueTime</FastLaneTieBreaker>
+  </OrderBatchingConfig>
+  <ReplenishmentBatchingConfig xsi:type="SamePodReplenishmentBatchingConfiguration">
+    <Name />
+    <FirstStationRule>DistanceEuclid</FirstStationRule>
+    <BreakBatches>false</BreakBatches>
+    <FCFS>true</FCFS>
+  </ReplenishmentBatchingConfig>
+  <MethodManagementConfig xsi:type="NoChangeMethodManagementConfiguration">
+    <Name />
+  </MethodManagementConfig>
+  <CommentTag1 />
+  <CommentTag2 />
+  <CommentTag3 />
+</ControlConfiguration>
