@@ -301,6 +301,7 @@ namespace RAWSimO.DataPreparation
                     string orderDataFile = Path.Combine(dir, IOConstants.StatFileNames[IOConstants.StatFile.OrderProgressionRaw]);
                     string bundleDataFile = Path.Combine(dir, IOConstants.StatFileNames[IOConstants.StatFile.BundleProgressionRaw]);
                     string distanceDataFile = Path.Combine(dir, IOConstants.StatFileNames[IOConstants.StatFile.TraveledDistanceProgressionRaw]);
+                    string neworderDataFile = Path.Combine(dir, IOConstants.StatFileNames[IOConstants.StatFile.TraveledDistanceProgressionRaw]);
                     Dictionary<double, double> orderThroughputTimes = new Dictionary<double, double>();
                     Dictionary<double, double> bundleThroughputTimes = new Dictionary<double, double>();
                     Dictionary<double, double> orderTurnoverTimes = new Dictionary<double, double>();
@@ -308,8 +309,7 @@ namespace RAWSimO.DataPreparation
                     Dictionary<double, int> orderCounts = new Dictionary<double, int>();
                     Dictionary<double, int> bundleCounts = new Dictionary<double, int>();
                     Dictionary<double, double> distanceTraveled = new Dictionary<double, double>();
-                    
-
+                    Dictionary<double, double> timeQueued = new Dictionary<double, double>();
                     // Get information about order handling over time
                     using (StreamReader sr = new StreamReader(orderDataFile))
                     {
@@ -422,6 +422,35 @@ namespace RAWSimO.DataPreparation
                             distanceTraveledDatapoints = distanceTraveledDatapoints.Skip(datapointsOfSection.Count()).ToList();
                         }
                     }
+                    // Get information about total queueing time over time
+                    using (StreamReader sr = new StreamReader(newOrderDataFile))
+                    {
+                        // Parse datapoints
+                        List<newOrderDatapoint> timeQueuedDatapoints = new List<newOrderDatapoint>(); string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            // Trim
+                            line = line.Trim();
+                            // Skip empty or comment lines
+                            if (string.IsNullOrWhiteSpace(line) || line.StartsWith(IOConstants.COMMENT_LINE))
+                                continue;
+                            // Actually parse the line
+                            timeQueuedDatapoints.Add(new newOrderDatapoint(line));
+                        }
+                        // Obtain values for the different time-stamps
+                        timeQueuedDatapoints = timeQueuedDatapoints.OrderBy(d => d.TimeStamp).ToList();
+                        // Get data per timestamp
+                        foreach (var timestamp in datapoints.Select(d => d.TimeStamp).Distinct().OrderBy(d => d))
+                        {
+                            // Get datapoints of time window
+                            IEnumerable<DistanceDatapoint> datapointsOfSection = timeQueuedDatapoints.TakeWhile(d => d.TimeStamp <= timestamp);
+                            // Measure distance traveled within time window
+                            timeQueued[timestamp] = datapointsOfSection.Sum(d => d.???);
+                            // Remove measured datapoints
+                            distanceTraveledDatapoints = distanceTraveledDatapoints.Skip(datapointsOfSection.Count()).ToList();
+                        }
+                    }
+
                     // --> Get information about the storage locations per pathtime
                     Dictionary<double, int> storageLocationsPerPathTime = datapoints.First().PathTimeFrequencies.ToDictionary(k => k.PathTime, v => (int)v.StorageLocationCount);
                     // Log
@@ -456,6 +485,7 @@ namespace RAWSimO.DataPreparation
                                 }
                             }
                         };
+                    
                     // --> Prepare intermediate files
                     // Prepare frequency files
                     Dictionary<double, string> frequencyDataFiles = new Dictionary<double, string>();
