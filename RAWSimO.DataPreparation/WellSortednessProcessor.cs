@@ -308,8 +308,6 @@ namespace RAWSimO.DataPreparation
                     Dictionary<double, int> orderCounts = new Dictionary<double, int>();
                     Dictionary<double, int> bundleCounts = new Dictionary<double, int>();
                     Dictionary<double, double> distanceTraveled = new Dictionary<double, double>();
-                    
-
                     // Get information about order handling over time
                     using (StreamReader sr = new StreamReader(orderDataFile))
                     {
