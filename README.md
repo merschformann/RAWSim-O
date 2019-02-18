@@ -1,7 +1,7 @@
 ﻿# Working in ecf remote and azure vm
-..\..\RAWSimO.CLI\bin\x64\Debug\RAWSimO.CLI.exe
+..\..\..\RAWSimO.CLI\bin\x64\Debug\RAWSimO.CLI.exe
 
-..\..\RAWSIM-O\RAWSimO.DataPreparation\bin\x64\Debug\RAWSimO.DataPreparation.exe
+..\..\..\..\RAWSIM-O\RAWSimO.DataPreparation\bin\x64\Debug\RAWSimO.DataPreparation.exe
 
 # RAWSim-O
 
