@@ -308,6 +308,7 @@ namespace RAWSimO.DataPreparation
                     Dictionary<double, int> orderCounts = new Dictionary<double, int>();
                     Dictionary<double, int> bundleCounts = new Dictionary<double, int>();
                     Dictionary<double, double> distanceTraveled = new Dictionary<double, double>();
+                    Dictionary<double, double> timeQueueing = new Dictionary<double, double>();
                     // Get information about order handling over time
                     using (StreamReader sr = new StreamReader(orderDataFile))
                     {
@@ -326,12 +327,19 @@ namespace RAWSimO.DataPreparation
                         // Obtain values for the different time-stamps
                         orderHandledDatapoints = orderHandledDatapoints.OrderBy(d => d.TimeStamp).ToList();
                         // Get data per timestamp
-                        double previousThroughputValue = 0; double previousTurnoverValue = 0;
+                        double previousThroughputValue = 0; double previousTurnoverValue = 0; double previousTimeQueueingValue = 0;
                         foreach (var timestamp in datapoints.Select(d => d.TimeStamp).Distinct().OrderBy(d => d))
                         {
                             IEnumerable<OrderHandledDatapoint> datapointsOfSection = orderHandledDatapoints.TakeWhile(d => d.TimeStamp <= timestamp);
                             // Measure count
                             orderCounts[timestamp] = datapointsOfSection.Count();
+                            // Get datapoints of time window
+                            //IEnumerable<DistanceDatapoint> datapointsOfSection = distanceTraveledDatapoints.TakeWhile(d => d.TimeStamp <= timestamp);
+                            // Measure distance traveled within time window
+                            //distanceTraveled[timestamp] = datapointsOfSection.Sum(d => d.DistanceTraveled);
+                            // Remove measured datapoints
+                            //distanceTraveledDatapoints = distanceTraveledDatapoints.Skip(datapointsOfSection.Count()).ToList();
+
                             // Measure timings
                             if (datapointsOfSection.Any())
                             {
@@ -340,12 +348,16 @@ namespace RAWSimO.DataPreparation
                                 previousThroughputValue = orderThroughputTimes[timestamp];
                                 orderTurnoverTimes[timestamp] = datapointsOfSection.Average(d => d.TurnoverTime);
                                 previousTurnoverValue = orderTurnoverTimes[timestamp];
+                                // Measure average time QUeueing per bot within time window
+                                timeQueueing[timestamp] = datapointsOfSection.Sum(d => d.TimeQueueing);
+                                previousTimeQueueingValue = timeQueueing[timestamp];
                             }
                             else
                             {
                                 // No new measurement - use the one from the point before
                                 orderThroughputTimes[timestamp] = previousThroughputValue;
                                 orderTurnoverTimes[timestamp] = previousTurnoverValue;
+                                timeQueueing[timestamp] = previousTimeQueueingValue;
                             }
                             orderHandledDatapoints = orderHandledDatapoints.Skip(datapointsOfSection.Count()).ToList();
                         }

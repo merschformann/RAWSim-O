@@ -93,7 +93,7 @@ namespace RAWSimO.Core
         /// <summary>
         /// The total time that bots are queuing.
         /// </summary>
-        //public int StatOverallTotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
+        ///public int StatOverallTotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
         /// <summary>
         /// The estimated distance by the bots.
         /// </summary>
@@ -118,6 +118,10 @@ namespace RAWSimO.Core
         /// The lateness for all completed orders.
         /// </summary>
         internal List<double> _statOrderLatenessTimes = new List<double>();
+        /// <summary>
+        /// The average time queuing for all completed orders.
+        /// </summary>
+        internal List<double> _statOrderTimeQueueing = new List<double>();
         /// <summary>
         /// The turnover times for all completed bundles.
         /// </summary>

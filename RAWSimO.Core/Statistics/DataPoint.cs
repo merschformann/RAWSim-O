@@ -2701,6 +2701,10 @@ namespace RAWSimO.Core.Statistics
         /// </summary>
         public double Lateness;
         /// <summary>
+        /// The average time queueing of the a bot
+        /// </summary>
+        public double TimeQueueing;
+        /// <summary>
         /// Creates a new datapoint.
         /// </summary>
         /// <param name="timestamp">The timestamp.</param>
@@ -2708,8 +2712,9 @@ namespace RAWSimO.Core.Statistics
         /// <param name="turnoverTime">The turnover time.</param>
         /// <param name="throughputTime">The throughput time.</param>
         /// <param name="lateness">The lateness.</param>
-        public OrderHandledDatapoint(double timestamp, int oStation, double turnoverTime, double throughputTime, double lateness)
-        { TimeStamp = timestamp; OutputStation = oStation; TurnoverTime = turnoverTime; ThroughputTime = throughputTime; Lateness = lateness; }
+        /// <param name="timeQueueing">the avg time queueing</param>
+        public OrderHandledDatapoint(double timestamp, int oStation, double turnoverTime, double throughputTime, double lateness, double timeQueueing)
+        { TimeStamp = timestamp; OutputStation = oStation; TurnoverTime = turnoverTime; ThroughputTime = throughputTime; Lateness = lateness; TimeQueueing = timeQueueing; }
         /// <summary>
         /// Creates a new datapoint from a line serialization.
         /// </summary>
@@ -2722,6 +2727,7 @@ namespace RAWSimO.Core.Statistics
             TurnoverTime = double.Parse(values[2], IOConstants.FORMATTER);
             ThroughputTime = double.Parse(values[3], IOConstants.FORMATTER);
             Lateness = double.Parse(values[4], IOConstants.FORMATTER);
+            TimeQueueing = double.Parse(values[5], IOConstants.FORMATTER);
         }
         /// <summary>
         /// Creates a line serialization of this datapoint.
@@ -2734,7 +2740,8 @@ namespace RAWSimO.Core.Statistics
                 OutputStation.ToString() + IOConstants.DELIMITER_VALUE +
                 TurnoverTime.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
                 ThroughputTime.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
-                Lateness.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER);
+                Lateness.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
+                TimeQueueing.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER);
         }
         /// <summary>
         /// Creates a header for the line serializations.
@@ -2747,7 +2754,8 @@ namespace RAWSimO.Core.Statistics
                 nameof(OutputStation) + IOConstants.DELIMITER_VALUE +
                 nameof(TurnoverTime) + IOConstants.DELIMITER_VALUE +
                 nameof(ThroughputTime) + IOConstants.DELIMITER_VALUE +
-                nameof(Lateness);
+                nameof(Lateness) + IOConstants.DELIMITER_VALUE +
+                nameof(TimeQueueing);
         }
     }
 
