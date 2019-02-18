@@ -1,4 +1,4 @@
-#TimeStamp;BotsQueueing;TaskBotCounts
+#TimeStamp;BotsQueueing;TaskBotCounts,,,,,
 0;0;None/6,ParkPod/0,RepositionPod/0,Insert/0,Extract/0,Rest/0
 59.99;0;None/0,ParkPod/0,RepositionPod/0,Insert/0,Extract/6,Rest/0
 119.65;1;None/0,ParkPod/3,RepositionPod/0,Insert/0,Extract/1,Rest/2

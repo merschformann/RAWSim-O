@@ -1,6 +1,6 @@
-#TimeStamp;OutputStation;TurnoverTime;ThroughputTime;Lateness
-135.56;0;95.01;95.01;-Infinity
-210.93;0;74.21;74.19;-Infinity
-240.98;0;83.68;83.68;-Infinity
-420.87;0;81;81;-Infinity
-441.43;0;82.06;82.03;-Infinity
+#TimeStamp,OutputStation,TurnoverTime,ThroughputTime,Lateness
+135.56,0,95.01,95.01,#NAME?
+210.93,0,74.21,74.19,#NAME?
+240.98,0,83.68,83.68,#NAME?
+420.87,0,81,81,#NAME?
+441.43,0,82.06,82.03,#NAME?
