@@ -328,7 +328,10 @@ namespace RAWSimO.DataPreparation
                         // Obtain values for the different time-stamps
                         orderHandledDatapoints = orderHandledDatapoints.OrderBy(d => d.TimeStamp).ToList();
                         // Get data per timestamp
-                        double previousThroughputValue = 0; double previousTurnoverValue = 0; double previousTimeQueueingValue = 0; double previousTotalTimeQueueingValue = 0;  double previousTaskTimeRestValue = 0;
+                        double previousThroughputValue = 0; double previousTurnoverValue = 0; 
+                        // new added
+                        double previousTimeQueueingValue = 0; double previousDistanceTraveledValue = 0;
+                        //double previousTotalTimeQueueingValue = 0;  double previousTaskTimeRestValue = 0;
                         foreach (var timestamp in datapoints.Select(d => d.TimeStamp).Distinct().OrderBy(d => d))
                         {
                             IEnumerable<OrderHandledDatapoint> datapointsOfSection = orderHandledDatapoints.TakeWhile(d => d.TimeStamp <= timestamp);
@@ -349,7 +352,10 @@ namespace RAWSimO.DataPreparation
                                 previousThroughputValue = orderThroughputTimes[timestamp];
                                 orderTurnoverTimes[timestamp] = datapointsOfSection.Average(d => d.TurnoverTime);
                                 previousTurnoverValue = orderTurnoverTimes[timestamp];
+                                // new added
                                 // Measure average time QUeueing per bot within time window
+                                distanceTraveled[timestamp] = datapointsOfSection.Sum(d => d.distanceTraveled);
+                                previousDistanceTraveledValue = distanceTraveled[timestamp];
                                 timeQueueing[timestamp] = datapointsOfSection.Sum(d => d.TimeQueueing);
                                 previousTimeQueueingValue = timeQueueing[timestamp];
                                // totalTimeQueueing[timestamp] = datapointsOfSection.Sum(d => d.TotalTimeQueueing);
@@ -364,6 +370,7 @@ namespace RAWSimO.DataPreparation
                                 orderThroughputTimes[timestamp] = previousThroughputValue;
                                 orderTurnoverTimes[timestamp] = previousTurnoverValue;
                                 timeQueueing[timestamp] = previousTimeQueueingValue;
+                                distanceTraveled[timestamp] = previousDistanceTraveledValue;
                                 //totalTimeQueueing[timestamp] = previousTotalTimeQueueingValue;
                                 //taskTimeRest[timestamp] = previousTaskTimeRestValue;
 
