@@ -1,10 +1,10 @@
 <<< Welcome to the RAWSimO CLI >>>
-The time is: 03/07/2019 18:55:58
+The time is: 03/08/2019 05:42:54
 Starting RAWSimO wrapper with the following arguments:
 Instance: 1-1-2-6-0.85.xlayo
 Setting: Letter-Fixed-600.xsett
 ControlConfig: PPFAR-TAShortestDistance-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
-StatisticsDir: stats0307
+StatisticsDir: stats0308
 Seed: 2
 Adding handler for unhandled exceptions ...
 Initializing ... 
@@ -54,23 +54,23 @@ i b b b r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r r 
 StatisticsFolder: 1-1-2-6-0.85-Letter-Fixed-600-PPFAR-TAShortestDistance-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange-2
 Done!
 Executing ... 
- 18:55:58 | >>> Warming up ...
+ 05:42:55 | >>> Warming up ...
  00:00:00 | >>> Warmup finished - starting simulation ...
  Realtime |   ETA    |  Sim.Time  | Progress | #Orders | #Bundles | Inv. | Distance | #Coll. |   Memory    
- 00:00:00 | 00:28:13 | 0.00:00:00 |  0.01%   |    0    |    0     | 70%  |    0     |   0    |  35.52MB  
- 00:00:00 | 00:00:00 | 0.00:10:00 | 100.00%  |    5    |    0     | 70%  |   1041   |   0    |  38.51MB  
+ 00:00:00 |   n/a    | 0.00:00:00 |  0.00%   |    0    |    0     | 70%  |    0     |   0    |  34.94MB  
+ 00:00:00 | 00:00:00 | 0.00:10:00 | 100.00%  |    5    |    0     | 70%  |   1041   |   0    |  37.97MB  
  00:00:00 | >>> Simulation finished - writing results ...
  00:00:00 | >>> Results written
 Simulation finished.
 >>> Timings
-StatTimingPathPlanningAverage: 0.000150239705882353
-StatTimingPathPlanningOverall: 0.0306489
+StatTimingPathPlanningAverage: 0.000223477941176471
+StatTimingPathPlanningOverall: 0.0455895
 StatTimingPathPlanningCount: 204
-StatTimingTaskAllocationAverage: 4.09293532338308E-05
-StatTimingTaskAllocationOverall: 0.0164536
+StatTimingTaskAllocationAverage: 0.000177098009950249
+StatTimingTaskAllocationOverall: 0.0711934
 StatTimingTaskAllocationCount: 402
-StatTimingItemStorageAverage: 0.000711373913043478
-StatTimingItemStorageOverall: 0.0163616
+StatTimingItemStorageAverage: 0
+StatTimingItemStorageOverall: 0
 StatTimingItemStorageCount: 23
 StatTimingPodStorageAverage: 0
 StatTimingPodStorageOverall: 0
@@ -78,8 +78,8 @@ StatTimingPodStorageCount: 0
 StatTimingReplenishmentBatchingAverage: 0
 StatTimingReplenishmentBatchingOverall: 0
 StatTimingReplenishmentBatchingCount: 3
-StatTimingOrderBatchingAverage: 0.00273566363636364
-StatTimingOrderBatchingOverall: 0.0300923
+StatTimingOrderBatchingAverage: 0.0044598
+StatTimingOrderBatchingOverall: 0.0490578
 StatTimingOrderBatchingCount: 11
 >>> Overall
 StatOverallBundlesPlaced: 2
@@ -96,8 +96,8 @@ StatAverageTurnoverTime: 73.7054522910959
 StatOverallDistanceTraveled: 1041
 StatOverallDistanceEstimated: 907
 StatOverallAssignedTasks: 402
-StatMaxMemoryUsed: 38.49609375
-StatRealTimeUsed: 0.3599106
+StatMaxMemoryUsed: 37.9609375
+StatRealTimeUsed: 0.4460879
 StatMedianTurnoverTime: 68.2929085848998
 StatLowerQuartileTurnoverTime: 66.358216522317
 StatUpperQuartileTurnoverTime: 75.0360160990552
