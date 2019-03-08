@@ -118,10 +118,12 @@ namespace RAWSimO.Core
         /// The lateness for all completed orders.
         /// </summary>
         internal List<double> _statOrderLatenessTimes = new List<double>();
+        // new added
         /// <summary>
         /// The average time queuing for all completed orders.
         /// </summary>
         internal List<double> _statOrderTimeQueueing = new List<double>();
+        internal List<double> _statOrderDistanceTraveled = new List<double>();
         /// <summary>
         /// The turnover times for all completed bundles.
         /// </summary>
@@ -350,6 +352,10 @@ namespace RAWSimO.Core
             _statOrderLatenessTimes.Clear();
             _statBundleThroughputTimes.Clear();
             _statBundleTurnoverTimes.Clear();
+            // new added
+            _statOrderTimeQueueing.Clear();
+            _statOrderDistanceTraveled.Clear();
+
 
             // Reset custom controller info
             StatCustomControllerInfo = new CustomControllerDatapoint();
