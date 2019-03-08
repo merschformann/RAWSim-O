@@ -1,4 +1,4 @@
-﻿using RAWSimO.Core.Control;
+using RAWSimO.Core.Control;
 using RAWSimO.Core.Elements;
 using RAWSimO.Core.IO;
 using RAWSimO.Core.Items;
@@ -2700,10 +2700,13 @@ namespace RAWSimO.Core.Statistics
         /// The lateness of the order. A negative number indicates the time the order was complete before its due date while a positive number accounts for its lateness.
         /// </summary>
         public double Lateness;
+        // new added
         /// <summary>
         /// The average time queueing of the a bot
         /// </summary>
         public double TimeQueueing;
+        public double DistanceTraveled;
+        
         /// <summary>
         /// Creates a new datapoint.
         /// </summary>
@@ -2713,8 +2716,12 @@ namespace RAWSimO.Core.Statistics
         /// <param name="throughputTime">The throughput time.</param>
         /// <param name="lateness">The lateness.</param>
         /// <param name="timeQueueing">the avg time queueing</param>
-        public OrderHandledDatapoint(double timestamp, int oStation, double turnoverTime, double throughputTime, double lateness, double timeQueueing)
-        { TimeStamp = timestamp; OutputStation = oStation; TurnoverTime = turnoverTime; ThroughputTime = throughputTime; Lateness = lateness; TimeQueueing = timeQueueing; }
+        /// <param name="distanceTraveled">the avg time queueing</param>
+        public OrderHandledDatapoint(double timestamp, int oStation, double turnoverTime, double throughputTime, double lateness, double timeQueueing, double distanceTraveled)
+        { TimeStamp = timestamp; OutputStation = oStation; TurnoverTime = turnoverTime; ThroughputTime = throughputTime; Lateness = lateness; 
+        // new 
+        TimeQueueing = timeQueueing; DistanceTraveled = distanceTraveled;
+        }
         /// <summary>
         /// Creates a new datapoint from a line serialization.
         /// </summary>
@@ -2728,6 +2735,7 @@ namespace RAWSimO.Core.Statistics
             ThroughputTime = double.Parse(values[3], IOConstants.FORMATTER);
             Lateness = double.Parse(values[4], IOConstants.FORMATTER);
             TimeQueueing = double.Parse(values[5], IOConstants.FORMATTER);
+            DistanceTraveled = double.Parse(values[6], IOConstants.FORMATTER);
         }
         /// <summary>
         /// Creates a line serialization of this datapoint.
@@ -2741,7 +2749,9 @@ namespace RAWSimO.Core.Statistics
                 TurnoverTime.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
                 ThroughputTime.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
                 Lateness.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
-                TimeQueueing.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER);
+                // new
+                TimeQueueing.ToString(IOConstants.EXPORT_FORMAT_SHORTER, IOConstants.FORMATTER) + IOConstants.DELIMITER_VALUE +
+                DistanceTraveled.ToString(IOConstants.EXPORT_FORMAT_SHORT, IOConstants.FORMATTER);
         }
         /// <summary>
         /// Creates a header for the line serializations.
@@ -2755,7 +2765,8 @@ namespace RAWSimO.Core.Statistics
                 nameof(TurnoverTime) + IOConstants.DELIMITER_VALUE +
                 nameof(ThroughputTime) + IOConstants.DELIMITER_VALUE +
                 nameof(Lateness) + IOConstants.DELIMITER_VALUE +
-                nameof(TimeQueueing);
+                nameof(TimeQueueing) + IOConstants.DELIMITER_VALUE +
+                nameof(DistanceTraveled);
         }
     }
 
