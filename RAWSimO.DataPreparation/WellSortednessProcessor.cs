@@ -354,7 +354,7 @@ namespace RAWSimO.DataPreparation
                                 previousTurnoverValue = orderTurnoverTimes[timestamp];
                                 // new added
                                 // Measure average time QUeueing per bot within time window
-                                distanceTraveled[timestamp] = datapointsOfSection.Sum(d => d.distanceTraveled);
+                                distanceTraveled[timestamp] = datapointsOfSection.Sum(d => d.DistanceTraveled);
                                 previousDistanceTraveledValue = distanceTraveled[timestamp];
                                 timeQueueing[timestamp] = datapointsOfSection.Sum(d => d.TimeQueueing);
                                 previousTimeQueueingValue = timeQueueing[timestamp];
