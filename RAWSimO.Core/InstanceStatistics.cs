@@ -93,7 +93,7 @@ namespace RAWSimO.Core
         /// <summary>
         /// The total time that bots are queuing.
         /// </summary>
-        ///public int StatOverallTotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
+        public double StatOverallTotalTimeQueueing { get { return Bots.Sum(b => b.StatTotalTimeQueueing); } }
         /// <summary>
         /// The estimated distance by the bots.
         /// </summary>
@@ -981,7 +981,6 @@ namespace RAWSimO.Core
             sb.AppendLine("StatOverallDistanceEstimated: " + StatOverallDistanceEstimated.ToString(IOConstants.FORMATTER));
             sb.AppendLine("StatOverallAssignedTasks: " + StatOverallAssignedTasks);
             sb.AppendLine("StatMaxMemoryUsed: " + StatMaxMemoryUsed);
-            //sb.AppendLine("StatTotalTimeQueueing: " + ((_statOrderTimeQueueing.Count == 0) ? "0" : _statOrderTimeQueueing.Sum().ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatRealTimeUsed: " + ((SettingConfig.StartTime != default(DateTime) && SettingConfig.StopTime != default(DateTime)) ? (SettingConfig.StopTime - SettingConfig.StartTime).TotalSeconds.ToString(IOConstants.FORMATTER) : "0"));
             //sb.AppendLine("StatAverageTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : _statOrderTurnoverTimes.Average().ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatMedianTurnoverTime: " + ((_statOrderTurnoverTimes.Count == 0) ? "0" : StatisticsHelper.GetMedian(_statOrderTurnoverTimes).ToString(IOConstants.FORMATTER)));
@@ -991,6 +990,9 @@ namespace RAWSimO.Core
             sb.AppendLine("StatMedianThroughputTime: " + ((_statOrderThroughputTimes.Count == 0) ? "0" : StatisticsHelper.GetMedian(_statOrderThroughputTimes).ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatLowerQuartileThroughputTime: " + ((_statOrderThroughputTimes.Count == 0) ? "0" : StatisticsHelper.GetLowerQuartile(_statOrderThroughputTimes).ToString(IOConstants.FORMATTER)));
             sb.AppendLine("StatUpperQuartileThroughputTime: " + ((_statOrderThroughputTimes.Count == 0) ? "0" : StatisticsHelper.GetUpperQuartile(_statOrderThroughputTimes).ToString(IOConstants.FORMATTER)));
+            //new added StatOverallTotalTimeQueueing
+            sb.AppendLine("StatOverallTotalTimeQueueing: " + StatOverallTotalTimeQueueing.ToString(IOConstants.FORMATTER));
+
             // Write output
             writer(sb.ToString());
         }

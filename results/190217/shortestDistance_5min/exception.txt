@@ -78,3 +78,35 @@ Stacktrace:
 InnerException: 
 None
 -----------------------------------------------------------
+-----------------------------------------------------------
+!!! Caught an unhandled exception: Cannot find the resource file: C:\thesis\RAWSIM-O\results\190217\Letter-18-2-5-318.81.xitem(Tried: C:\scratch\mmarius\research\awsimopt\resources\Wordlists,C:\scratch\mmarius\research\awsimopt\resources,C:\scratch\mmarius\research\awsimopt\repo\Material\Resources\Wordlists,C:\scratch\mmarius\research\awsimopt\repo\Material\Resources,C:\scratch\herbort\storage_eval\repo\Material\Resources\Wordlists,C:\scratch\herbort\storage_eval\repo\Material\Resources,Material\Resources\Wordlists,Material\Resources,repo\Material\Resources\Wordlists,repo\Material\Resources,..\..\..\Material\Resources\Wordlists,..\..\..\Material\Resources,..\..\..\..\Material\Resources\Wordlists,..\..\..\..\Material\Resources,Resources\Wordlists,Resources,Wordlists) timestamp: 03/07/2019 18:36:37
+-----------------------------------------------------------
+Time: 3/7/2019 6:36:37 PM
+Instance: 1-1-2-6-0.85.xlayo
+Setting: Letter-Fixed-600.xsett
+ControlConfig: PPFAR-TAShortestDistance-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
+Seed: 2
+Tag: <null>
+Stacktrace:
+   at RAWSimO.Core.IO.IOHelper.FindResourceFile(String resourceFile, String instancePath) in C:\RAWSim-O\RAWSimO.Core\IO\IOHelper.cs:line 50
+   at RAWSimO.Core.IO.InstanceIO.ReadInstance(String instancePath, String settingConfigPath, String controlConfigPath, Boolean overrideVisualizationAttached, Boolean visualizationOnly, Action`1 logAction) in C:\RAWSim-O\RAWSimO.Core\IO\InstanceIO.cs:line 79
+   at RAWSimO.CLI.Program.Main(String[] args) in C:\RAWSim-O\RAWSimO.CLI\Program.cs:line 166
+InnerException: 
+None
+-----------------------------------------------------------
+-----------------------------------------------------------
+!!! Caught an unhandled exception: Cannot find the resource file: C:\thesis\RAWSIM-O\results\190217\Letter-18-2-5-318.81.xitem(Tried: C:\scratch\mmarius\research\awsimopt\resources\Wordlists,C:\scratch\mmarius\research\awsimopt\resources,C:\scratch\mmarius\research\awsimopt\repo\Material\Resources\Wordlists,C:\scratch\mmarius\research\awsimopt\repo\Material\Resources,C:\scratch\herbort\storage_eval\repo\Material\Resources\Wordlists,C:\scratch\herbort\storage_eval\repo\Material\Resources,Material\Resources\Wordlists,Material\Resources,repo\Material\Resources\Wordlists,repo\Material\Resources,..\..\..\Material\Resources\Wordlists,..\..\..\Material\Resources,..\..\..\..\Material\Resources\Wordlists,..\..\..\..\Material\Resources,Resources\Wordlists,Resources,Wordlists) timestamp: 03/07/2019 18:39:09
+-----------------------------------------------------------
+Time: 3/7/2019 6:39:09 PM
+Instance: 1-1-2-6-0.85.xlayo
+Setting: Letter-Fixed-600.xsett
+ControlConfig: PPFAR-TAShortestDistance-SAConstantRatio-ISEmptiest-PSFixed-RPDummy-OBDefault-RBSamePod-MMNoChange.xconf
+Seed: 2
+Tag: <null>
+Stacktrace:
+   at RAWSimO.Core.IO.IOHelper.FindResourceFile(String resourceFile, String instancePath) in C:\RAWSim-O\RAWSimO.Core\IO\IOHelper.cs:line 50
+   at RAWSimO.Core.IO.InstanceIO.ReadInstance(String instancePath, String settingConfigPath, String controlConfigPath, Boolean overrideVisualizationAttached, Boolean visualizationOnly, Action`1 logAction) in C:\RAWSim-O\RAWSimO.Core\IO\InstanceIO.cs:line 79
+   at RAWSimO.CLI.Program.Main(String[] args) in C:\RAWSim-O\RAWSimO.CLI\Program.cs:line 166
+InnerException: 
+None
+-----------------------------------------------------------

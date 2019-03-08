@@ -1,0 +1,6 @@
+#TimeStamp;OutputStation;TurnoverTime;ThroughputTime;Lateness;TimeQueueing
+135.61;0;95.06;95.06;-Infinity;95.06
+200.51;0;63.78;63.78;-Infinity;63.78
+225.59;1;68.29;68.29;-Infinity;68.29
+414.91;0;75.04;75.04;-Infinity;75.04
+425.72;1;66.36;66.35;-Infinity;66.36
