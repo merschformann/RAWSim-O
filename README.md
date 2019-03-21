@@ -7,11 +7,13 @@ Copyright (C) 2017 Marius Merschformann
 
 Open RAWSimO.sln with Visual Studio and select RAWSimO.Visualization as the project to execute. Under the "Instances" tab press the checkmark button to generate a default instance. Then go to the "Base Controls" tab and press the play button. Depending on the instance size and simulation settings instance generation and simulation initialization may take longer. You should see a first simulation running now.
 
-In the following video you can find a short tutorial of RAWSim-O's core functionality for a quick start: https://youtu.be/l3qwDnbEPhI
+In the following video you can find a short tutorial of RAWSim-O's core functionality for a quick start:
+[![Quick tutorial](Material/Screenshots/youtube-thumbnails/quick-intro-player.PNG)](https://youtu.be/l3qwDnbEPhI "Quick intro")
 
 ## Controller implementation quick start
 
-In the following video you can find a very short tutorial for implementing your own controller logic: https://youtu.be/ClN7NZL930w
+In the following video you can find a very short tutorial for implementing your own controller logic:
+[![Controller implementation tutorial](Material/Screenshots/youtube-thumbnails/controller-implementation-player.PNG)](https://youtu.be/ClN7NZL930w "Controller implementation tutorial")
 
 ## Screenshots
 
@@ -33,7 +35,8 @@ Image showing a heatmap rendered using RAWSim-O that shows the locations robots 
 
 ## Demonstrator video
 
-A short video of the demonstrator application done with RAWSim-O and vacuum cleaning robots can be found here: https://youtu.be/bZHIXCxpXyc
+A short video of the demonstrator application done with RAWSim-O and vacuum cleaning robots can be found here: 
+[![Demonstrator](Material/Screenshots/youtube-thumbnails/demonstrator-player.PNG)](https://youtu.be/bZHIXCxpXyc "Demonstrator")
 
 ## GnuPlot
 
