@@ -1643,6 +1643,19 @@ namespace RAWSimO.Visualization
             }
         }
 
+        private void ButtonHeatJustDraw_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(_heatMapInstanceFile) && File.Exists(_heatMapInstanceFile))
+            {
+                // Read and draw instance
+                ReadInstanceForHeatmapRendering();
+                // Show the instance
+                InitVisuals();
+                // Reset the view
+                ResetView();
+            }
+        }
+
         private void ButtonHeatRedraw_Click(object sender, RoutedEventArgs e)
         {
             if (File.Exists(_heatMapInstanceFile) && File.Exists(_heatMapDataFile))

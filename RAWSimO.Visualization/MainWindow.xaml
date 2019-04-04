@@ -411,6 +411,9 @@
                                     <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonLoadHeatInfo" Click="ButtonLoadHeatInfo_Click" ToolTip="Sets the data file for heat rendering">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageLoadHeatInfo" Source="data/folder5.png"></Image>
                                     </Button>
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatJustDraw" Click="ButtonHeatJustDraw_Click" ToolTip="Only loads and draws the selected instance without reading heat information">
+                                        <Image Style="{StaticResource StyleButtonImage}" Name="ImageHeatJustDraw" Source="data/pencil.png"></Image>
+                                    </Button>
                                     <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonHeatRedraw" Click="ButtonHeatRedraw_Click" ToolTip="Refreshes the heatmap rendering with the given parameters">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageHeatRedraw" Source="data/heatmap.png"></Image>
                                     </Button>
