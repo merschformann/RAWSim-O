@@ -64,12 +64,12 @@ RAWSim-O has been published here:
 
 Further reading on some projects using RAWSim-O can be found here (let me know, if yours is missing):
 - Marius Merschformann, Lin Xie, Daniel Erdmann: Multi-Agent Path Finding with Kinematic Constraints for Robotic Mobile Fulfillment Systems, working paper preprint available at [link](https://arxiv.org/abs/1706.09347)
-- Marius Merschformann, Tim Lamballais, René de Koster, Leena Suhl: Decision Rules for Robotic Mobile Fulfillment Systems, working paper preprint available at [link](https://arxiv.org/abs/1801.06703)
+- Marius Merschformann, Tim Lamballais, René de Koster, Leena Suhl: Decision Rules for Robotic Mobile Fulfillment Systems, Operations Research Perspectives, Volume 6 (2019), doi:10.1016/j.orp.2019.100128, available at [link](https://doi.org/10.1016/j.orp.2019.100128)
 - Marius Merschformann: Active repositioning of storage units in Robotic Mobile Fulfillment Systems, Selected Papers of the Annual International Conference of the German Operations Research Society (GOR), Freie Universität Berlin, Germany, September 6-8, 2017, doi:10.1007/978-3-319-89920-6_51, [link](https://link.springer.com/chapter/10.1007/978-3-319-89920-6_51)
 
 # Credits
 
-This work was created as a part of the RMFS project initiated by Prof. Lin Xie. More information about the project can be found here https://www.researchgate.net/project/automated-robotic-mobile-fulfillment-systems-RMFS and here http://www.leuphana.de/universitaet/personen/lin-xie.html
+This work was created as a part of the RMFS project initiated by Prof. Lin Xie. More information about the project can be found here https://www.researchgate.net/project/automated-robotic-mobile-fulfillment-systems-RMFS and here https://www.leuphana.de/institute/iis/personen/lin-xie.html
 
 The work was supported by the Ecopti GmbH (Beijing Hanning ZN Tech) and a scholarship of the International Graduate School - Dynamic Intelligent Systems of the University of Paderborn (https://pace.uni-paderborn.de/pace-phd-programs/igs/)
 
