@@ -949,10 +949,12 @@ namespace RAWSimO.Visualization
                 SimpleItemGeneratorConfiguration config = OrderGenerator.GenerateSimpleItemConfiguration(_simpleItemGeneratorPreConfig);
 
                 // Init save dialog
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.FileName = config.GetMetaInfoBasedName(); // Default file name
-                dialog.DefaultExt = ".xgenc"; // Default file extension
-                dialog.Filter = "XGENC Files (.xgenc)|*.xgenc"; // Filter files by extension
+                SaveFileDialog dialog = new SaveFileDialog
+                {
+                    FileName = config.GetMetaInfoBasedName(), // Default file name
+                    DefaultExt = ".xgenc", // Default file extension
+                    Filter = "XGENC Files (.xgenc)|*.xgenc" // Filter files by extension
+                };
 
                 // Show save file dialog box
                 bool? userClickedOK = dialog.ShowDialog();

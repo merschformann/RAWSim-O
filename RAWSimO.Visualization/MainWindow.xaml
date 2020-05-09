@@ -243,7 +243,20 @@
                 <!-- Order and item generation controls -->
                 <TabItem Name="TabOrderGeneration" Header="Orders" ToolTip="Functionality to generate orders and items with certain parameters">
                     <TabControl TabStripPlacement="Top" Margin="2">
-                        <TabItem Name="TabOrderGenerationFixed" Header="Fixed order generation" ToolTip="Functionality to generate order-lists for fixed mode">
+                        <TabItem Name="TabOrderGenerationSimple" Header="Simple item generation" ToolTip="Functionality configure the online generation of simple items">
+                            <StackPanel Orientation="Vertical">
+                                <GroupBox Header="Parameters">
+                                    <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelSimpleItemConfiguration">
+                                    </StackPanel>
+                                </GroupBox>
+                                <StackPanel Orientation="Horizontal" Margin="2">
+                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSimpleItemGeneratorConfig" Click="ButtonSaveSimpleItemGeneratorConfig_Click" ToolTip="Saves the configuration for the generator of simple items">
+                                        <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveSimpleItemGeneratorConfig" Source="data/hammerdisk1.png"></Image>
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Name="TabOrderGenerationFixed" Header="Alphabet order generation" ToolTip="Functionality to generate order-lists based on colored words for fixed mode">
                             <StackPanel Orientation="Vertical">
                                 <GroupBox Header="Parameters">
                                     <TreeView Style="{StaticResource StyleParameterTree}">
@@ -311,19 +324,6 @@
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveOrderList" Click="ButtonSaveOrderList_Click" ToolTip="Saves a randomly generated order-list to the specified file">
                                         <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveOrderList" Source="data/hammerdisk4.png"></Image>
-                                    </Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem Name="TabOrderGenerationSimple" Header="Simple item generation" ToolTip="Functionality configure the online generation of simple items">
-                            <StackPanel Orientation="Vertical">
-                                <GroupBox Header="Parameters">
-                                    <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelSimpleItemConfiguration">
-                                    </StackPanel>
-                                </GroupBox>
-                                <StackPanel Orientation="Horizontal" Margin="2">
-                                    <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSimpleItemGeneratorConfig" Click="ButtonSaveSimpleItemGeneratorConfig_Click" ToolTip="Saves the configuration for the generator of simple items">
-                                        <Image Style="{StaticResource StyleButtonImage}" Name="ImageSaveSimpleItemGeneratorConfig" Source="data/hammerdisk1.png"></Image>
                                     </Button>
                                 </StackPanel>
                             </StackPanel>

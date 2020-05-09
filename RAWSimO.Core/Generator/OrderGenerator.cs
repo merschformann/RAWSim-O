@@ -262,10 +262,6 @@ namespace RAWSimO.Core.Generator
             /// </summary>
             public double ProbabilityWeightUB = double.PositiveInfinity;
             /// <summary>
-            /// Indicates whether the weight of the items will be supplied in the file or generated during runtime instead.
-            /// </summary>
-            public bool SupplyItemWeight = true;
-            /// <summary>
             /// Defines the type of distribution used when generating the weights for the item descriptions.
             /// </summary>
             public ItemDescriptionWeightDistributionType WeightDistributionType = ItemDescriptionWeightDistributionType.Uniform;
@@ -351,21 +347,18 @@ namespace RAWSimO.Core.Generator
                 // Generate next item
                 SimpleItemDescription description = new SimpleItemDescription(null) { ID = i };
                 // Randomly weight the item
-                if (preConfig.SupplyItemWeight)
+                double itemDescriptionWeight = 0;
+                switch (preConfig.WeightDistributionType)
                 {
-                    double itemDescriptionWeight = 0;
-                    switch (preConfig.WeightDistributionType)
-                    {
-                        case ItemDescriptionWeightDistributionType.Normal:
-                            itemDescriptionWeight = randomizer.NextNormalDouble(preConfig.ItemWeightMu, preConfig.ItemWeightSigma, preConfig.ItemWeightLB, preConfig.ItemWeightUB);
-                            break;
-                        case ItemDescriptionWeightDistributionType.Uniform:
-                            itemDescriptionWeight = randomizer.NextDouble(preConfig.ItemWeightLB, preConfig.ItemWeightUB);
-                            break;
-                        default: throw new ArgumentException("Unknown distribution: " + preConfig.WeightDistributionType);
-                    }
-                    description.Weight = itemDescriptionWeight;
+                    case ItemDescriptionWeightDistributionType.Normal:
+                        itemDescriptionWeight = randomizer.NextNormalDouble(preConfig.ItemWeightMu, preConfig.ItemWeightSigma, preConfig.ItemWeightLB, preConfig.ItemWeightUB);
+                        break;
+                    case ItemDescriptionWeightDistributionType.Uniform:
+                        itemDescriptionWeight = randomizer.NextDouble(preConfig.ItemWeightLB, preConfig.ItemWeightUB);
+                        break;
+                    default: throw new ArgumentException("Unknown distribution: " + preConfig.WeightDistributionType);
                 }
+                description.Weight = itemDescriptionWeight;
                 // Randomly determine bundle size of the item
                 if (preConfig.SupplyBundleSize)
                 {
@@ -435,8 +428,7 @@ namespace RAWSimO.Core.Generator
 
             // Submit all
             config.ItemDescriptions = itemDescriptions.Select(d => new Skvp<int, double>() { Key = d.ID, Value = d.Hue }).ToList();
-            if (preConfig.SupplyItemWeight)
-                config.ItemDescriptionWeights = itemDescriptions.Select(d => new Skvp<int, double>() { Key = d.ID, Value = d.Weight }).ToList();
+            config.ItemDescriptionWeights = itemDescriptions.Select(d => new Skvp<int, double>() { Key = d.ID, Value = d.Weight }).ToList();
             if (preConfig.SupplyBundleSize)
                 config.ItemDescriptionBundleSizes = itemDescriptions.Select(d => new Skvp<int, int>() { Key = d.ID, Value = d.BundleSize }).ToList();
             config.ItemWeights = itemDescriptionWeights.Select(d => new Skvp<int, double>() { Key = d.Item1.ID, Value = d.Item2 }).ToList();

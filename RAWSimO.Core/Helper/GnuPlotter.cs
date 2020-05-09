@@ -37,7 +37,7 @@ namespace RAWSimO.Core.Helper
             {
                 sw.WriteLine("reset");
                 sw.WriteLine("# Output definition");
-                sw.WriteLine("set terminal postscript clip color eps \"Arial\" 14");
+                sw.WriteLine("set terminal pdfcairo enhanced size 7, 7 font \"Consolas, 12\"");
                 sw.WriteLine("# Parameters");
                 sw.WriteLine("set key left top Left");
                 sw.WriteLine("set xlabel \"x\"");
@@ -51,7 +51,7 @@ namespace RAWSimO.Core.Helper
                 sw.WriteLine("set style line 4 linetype 1 linecolor rgb \"#f7cb38\" linewidth 1 pt 4");
                 sw.WriteLine("set style line 5 linetype 1 linecolor rgb \"#db4a37\" linewidth 1 pt 5");
                 sw.WriteLine("set title \"" + title + "\"");
-                sw.WriteLine("set output \"" + filename + ".eps\"");
+                sw.WriteLine("set output \"" + filename + ".pdf\"");
                 sw.WriteLine("plot \\");
                 datasetCounter = 0;
                 foreach (var pointset in points)
