@@ -4,6 +4,7 @@ using RAWSimO.Core.Interfaces;
 using RAWSimO.Core.Items;
 using RAWSimO.Core.Management;
 using RAWSimO.Core.Metrics;
+using RAWSimO.Toolbox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -175,8 +176,10 @@ namespace RAWSimO.Core.Control.Defaults.ReplenishmentBatching
                     InputStation chosenStation = Instance.InputStations
                         // Only active stations where the complete bundle fits
                         .Where(s => s.Active && batchSize <= s.RemainingCapacity)
-                        // Order the suitable stations by the given selection rule in order to obtain the best one
-                        .OrderBy(s =>
+                        // Only stations that are located on the same tier as the pod (if desired)
+                        .Where(s => s.Tier == batch.Key.Tier)
+                        // Find the best station according to the chosen rule
+                        .ArgMin(s =>
                         {
                             switch (_config.FirstStationRule)
                             {
@@ -188,9 +191,7 @@ namespace RAWSimO.Core.Control.Defaults.ReplenishmentBatching
                                 case SamePodFirstStationRule.DistanceEuclid: return Distances.CalculateEuclid(batch.Key, s, Instance.WrongTierPenaltyDistance);
                                 default: throw new ArgumentException("Unknown rule: " + _config.FirstStationRule);
                             }
-                        })
-                        // Return the best one
-                        .FirstOrDefault();
+                        });
                     // Check whether there was a suitable station at all
                     if (chosenStation != null)
                     {

@@ -129,21 +129,31 @@ namespace RAWSimO.Visualization.Rendering
                 botCountPanel.Children.Add(new TextBlock { Text = "Bots: ", TextAlignment = TextAlignment.Right, MinWidth = _infoPanelLeftColumnWidth });
                 botCountPanel.Children.Add(new TextBlock { Text = _instance.GetInfoBots().Count().ToString(), MinWidth = _infoPanelRightColumnWidth });
                 _root.Items.Add(botCountPanel);
-                // Add bot count info
+                // Add pod count info
                 WrapPanel podCountPanel = new WrapPanel { Orientation = Orientation.Horizontal };
                 podCountPanel.Children.Add(new TextBlock { Text = "Pods: ", TextAlignment = TextAlignment.Right, MinWidth = _infoPanelLeftColumnWidth });
                 podCountPanel.Children.Add(new TextBlock { Text = _instance.GetInfoPods().Count().ToString(), MinWidth = _infoPanelRightColumnWidth });
                 _root.Items.Add(podCountPanel);
-                // Add bot count info
+                // Add input station count info
                 WrapPanel iStationCountPanel = new WrapPanel { Orientation = Orientation.Horizontal };
                 iStationCountPanel.Children.Add(new TextBlock { Text = "Input-stations: ", TextAlignment = TextAlignment.Right, MinWidth = _infoPanelLeftColumnWidth });
                 iStationCountPanel.Children.Add(new TextBlock { Text = _instance.GetInfoTiers().Sum(t => t.GetInfoInputStations().Count()).ToString(), MinWidth = _infoPanelRightColumnWidth });
                 _root.Items.Add(iStationCountPanel);
-                // Add bot count info
+                // Add output station count info
                 WrapPanel oStationCountPanel = new WrapPanel { Orientation = Orientation.Horizontal };
                 oStationCountPanel.Children.Add(new TextBlock { Text = "Output-stations: ", TextAlignment = TextAlignment.Right, MinWidth = _infoPanelLeftColumnWidth });
                 oStationCountPanel.Children.Add(new TextBlock { Text = _instance.GetInfoTiers().Sum(t => t.GetInfoOutputStations().Count()).ToString(), MinWidth = _infoPanelRightColumnWidth });
                 _root.Items.Add(oStationCountPanel);
+                // Add waypoint count info
+                WrapPanel waypointCountPanel = new WrapPanel { Orientation = Orientation.Horizontal };
+                waypointCountPanel.Children.Add(new TextBlock { Text = "Waypoints: ", TextAlignment = TextAlignment.Right, MinWidth = _infoPanelLeftColumnWidth });
+                waypointCountPanel.Children.Add(new TextBlock { Text = _instance.GetInfoTiers().Sum(t => t.GetInfoWaypoints().Count()).ToString(), MinWidth = _infoPanelRightColumnWidth });
+                _root.Items.Add(waypointCountPanel);
+                // Add tier sizes info
+                WrapPanel tierSizesPanel = new WrapPanel { Orientation = Orientation.Horizontal };
+                tierSizesPanel.Children.Add(new TextBlock { Text = "Tier sizes (LxW): ", TextAlignment = TextAlignment.Right, MinWidth = _infoPanelLeftColumnWidth });
+                tierSizesPanel.Children.Add(new TextBlock { Text = string.Join(",", _instance.GetInfoTiers().Select(t => $"{t.GetInfoLength():F0}x{t.GetInfoWidth():F0}")), MinWidth = _infoPanelRightColumnWidth });
+                _root.Items.Add(tierSizesPanel);
                 // --> Add dynamic information
                 // Add pending bundles info
                 WrapPanel pendingBundlesPanel = new WrapPanel { Orientation = Orientation.Horizontal };

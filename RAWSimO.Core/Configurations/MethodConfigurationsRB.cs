@@ -73,6 +73,10 @@ namespace RAWSimO.Core.Configurations
         /// Tells the mechanism to process batches in the order they arrive instead of aiming to allocate them as quickly as possible.
         /// </summary>
         public bool FCFS = true;
+        /// <summary>
+        /// Tells the mechanism to only accept pods for an input station that are located on the same tier.
+        /// </summary>
+        public bool OnlySameTier = true;
     }
 
     #endregion
