@@ -505,6 +505,10 @@ namespace RAWSimO.Core.Configurations
         public bool AutoSetParameter = false;
 
         /// <summary>
+        /// Indicates whether the robot can drive under stored pods (tunnel them).
+        /// </summary>
+        public bool CanTunnel = true;
+        /// <summary>
         /// The length of a wait step
         /// </summary>
         public double LengthOfAWaitStep = 2.0;

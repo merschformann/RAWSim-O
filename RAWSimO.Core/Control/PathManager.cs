@@ -374,7 +374,7 @@ namespace RAWSimO.Core.Control
                     Path = bot.Path, //path reference => will be filled
                     FixedPosition = bot.hasFixedPosition(),
                     Resting = bot.IsResting(),
-                    CanGoThroughObstacles = bot.Pod == null,
+                    CanGoThroughObstacles = Instance.ControllerConfig.PathPlanningConfig.CanTunnel && bot.Pod == null,
                     Physics = bot.Physics,
                     RequestReoptimization = bot.RequestReoptimization,
                     Queueing = bot.IsQueueing,
