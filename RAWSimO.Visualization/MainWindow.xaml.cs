@@ -659,7 +659,7 @@ namespace RAWSimO.Visualization
                 case Key.NumPad3: SetSpeed(200); break;
                 case Key.D4:
                 case Key.NumPad4: SetSpeed(400); break;
-                case Key.Space: if (!_paused && _instance != null) PauseSimulation(); else StartSimulation(); break;
+                case Key.Space: if (!_paused && _instance != null && _renderer != null) PauseSimulation(); else StartSimulation(); break;
                 case Key.PageUp: FocusTierAbove(); break;
                 case Key.PageDown: FocusTierBelow(); break;
                 default: break;

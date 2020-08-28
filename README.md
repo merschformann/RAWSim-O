@@ -3,6 +3,16 @@
 RAWSim-O is a discrete event-based simulation for Robotic Mobile Fulfillment Systems. The intention of the simulation framework is to provide a tool for researching effects of multiple decision problems that occur when running such a system. For this, the framework enables easy extensibility for implementing new decision methods for the different decision problems.
 Copyright (C) 2017 Marius Merschformann
 
+## First impressions
+
+2D view in action:
+
+![Larger instance](Material/Wiki/rawsim-o-2d.gif)
+
+3D view in action:
+
+![Larger instance](Material/Wiki/rawsim-o-3d.gif)
+
 ## Quick start
 
 Open RAWSimO.sln with Visual Studio and select RAWSimO.Visualization as the project to execute. Under the "Instances" tab press the checkmark button to generate a default instance. Then go to the "Base Controls" tab and press the play button. Depending on the instance size and simulation settings instance generation and simulation initialization may take longer. You should see a first simulation running now.
