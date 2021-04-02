@@ -109,6 +109,7 @@
     <Compile Include="Control\Defaults\OrderBatching\RelatedOrderManager.cs" />
     <Compile Include="Control\Defaults\OrderBatching\WorkloadOrderManager.cs" />
     <Compile Include="Control\Defaults\PodStorage\CachePodStorageManager.cs" />
+    <Compile Include="Control\Defaults\PodStorage\TestPodStorageManagers.cs" />
     <Compile Include="Control\Defaults\PodStorage\UtilityPodStorageManager.cs" />
     <Compile Include="Control\Defaults\Repositioning\CacheDropoffRepositioningManager.cs" />
     <Compile Include="Control\Defaults\Repositioning\ConceptRepositioningManager.cs" />
