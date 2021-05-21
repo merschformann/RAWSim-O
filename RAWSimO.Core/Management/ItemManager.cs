@@ -684,8 +684,8 @@ namespace RAWSimO.Core.Management
                         foreach (var itemDescription in _itemDescriptions)
                             _itemDemandInformation[itemDescription] = _futureOrders.SelectMany(o => o.Positions).Where(p => p.Key == itemDescription).Sum(p => p.Value);
                         // Generate random pod content
-                        InitializePodContentsRandomly(Instance.SettingConfig.InventoryConfiguration.InitialInventory);
-
+                        //InitializePodContentsRandomly(Instance.SettingConfig.InventoryConfiguration.InitialInventory);
+                        InitializePodContentsFixed(_itemDescriptions);
                         #endregion
                     }
                     break;
@@ -713,6 +713,72 @@ namespace RAWSimO.Core.Management
                 Instance.NotifyInitialBundleStored(bundle, pod);
             }
         }
+        // Init for MLP Fixed
+        private void InitializePodContentsFixed(List<ItemDescription> _itemDescriptions)
+        {
+            // Pod List
+            List<Pod> Pod_list = Instance.Pods;
+            List<List<int>> Fixed_itemDescrpitions = new List<List<int>>(); // [[24,25,26],[23,24,15], ... ]
+            int n = Pod_list.Count(); // Length of the Pod_list
+            // Random Number for choosing random itemdescription from xitem files
+            // int i = _itemDescriptions.Count(); // Length of the ItemDescription list
+            string itemsetPath = IOHelper.FindResourceFile("itemlist.csv", Directory.GetCurrentDirectory());
+            using (StreamReader sr = new StreamReader(itemsetPath))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string s = sr.ReadLine();
+                    string[] temp = s.Split(',');
+                    List<int> tmp_apriori_list = new List<int>();
+                    for (int cnt = 0; cnt < temp.Count(); cnt++)
+                    {
+                        int item_id = Int32.Parse(temp[cnt]);
+                        tmp_apriori_list.Add(item_id);
+                    }
+                    Fixed_itemDescrpitions.Add(tmp_apriori_list);
+                }
+            }
+            // Fixed Bundle Size From CSV
+            List<int> Fixed_BundleSizeForitems = new List<int>();
+            string bundlesizePath = IOHelper.FindResourceFile("bundlesize.csv", Directory.GetCurrentDirectory());
+            using (StreamReader sr = new StreamReader(bundlesizePath))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string s = sr.ReadLine();
+                    string[] temp = s.Split(',');
+                    for (int cnt = 0; cnt < temp.Count(); cnt++)
+                    {
+                        int fixed_bundle_size = Int32.Parse(temp[cnt]);
+                        Fixed_BundleSizeForitems.Add(fixed_bundle_size);
+                    }
+                }
+            }
+            while (n > -1)
+            {
+                int k = Fixed_itemDescrpitions.Count(); // Random Number
+                //ItemDescription apriori_item = _itemDescriptions[k]; // Choosing the random itemdescription
+                //Matching the Pod and the bundle (Itemset We Made)
+                for (int cnt = 0; cnt < k; cnt++)
+                {
+                    n--; //For n-th Iteration
+                    if (n == -1)
+                    {
+                        break;
+                    }
+                    int itemset_length = Fixed_itemDescrpitions[cnt].Count();
+                    for (int j = 0; j < itemset_length; j++)
+                    {
+                        int item_id = Fixed_itemDescrpitions[cnt][j];
+                        int bundle_size = Fixed_BundleSizeForitems[item_id-1];
+                        ItemBundle Fixed_bundle = Instance.CreateItemBundle(_itemDescriptions[item_id], bundle_size); // Only for 1 itemdescription (Ex. a/6)
+                        Pod_list[(Pod_list.Count - 1 - n)].Add(Fixed_bundle); // Add the Bundle to the pod
+                        Instance.NotifyInitialBundleStored(Fixed_bundle, Pod_list[(Pod_list.Count - 1 - n)]); // Notification
+                    }
+                }
+            }
+        }
+
 
         /// <summary>
         /// Randomly generates a set of bundles and orders that are ready for allocation.

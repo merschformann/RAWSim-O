@@ -99,6 +99,7 @@
     <Compile Include="Control\Defaults\ItemStorage\EmptiestStorageManager.cs" />
     <Compile Include="Control\Defaults\ItemStorage\LeastDemandStorageManager.cs" />
     <Compile Include="Control\Defaults\ItemStorage\ReactiveStorageManager.cs" />
+    <Compile Include="Control\Defaults\ItemStorage\TestStorageManager.cs" />
     <Compile Include="Control\Defaults\MethodManagement\ScheduleMethodManager.cs" />
     <Compile Include="Control\Defaults\OrderBatching\DefaultOrderManager.cs" />
     <Compile Include="Control\Defaults\OrderBatching\ForesightOrderManager.cs" />

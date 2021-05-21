@@ -110,7 +110,6 @@ namespace RAWSimO.Core.Generator
                 // Add the order
                 orderList.Orders.Add(order);
             }
-
             // Get probability of item-descriptions
             Dictionary<ItemDescription, int> itemFrequency = orderList.Orders.SelectMany(o => o.Positions).GroupBy(p => p.Key).ToDictionary(i => i.Key, i => i.Sum(e => e.Value));
             double overallCount = itemFrequency.Sum(f => f.Value);

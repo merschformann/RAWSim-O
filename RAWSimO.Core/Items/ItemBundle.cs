@@ -25,7 +25,7 @@ namespace RAWSimO.Core.Items
         #endregion
 
         /// <summary>
-        /// The weight of this bundle.
+        /// The weight of this bundle .
         /// </summary>
         public double BundleWeight { get { return ItemCount * ItemDescription.Weight; } }
 
