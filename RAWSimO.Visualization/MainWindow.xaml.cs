@@ -556,6 +556,9 @@ namespace RAWSimO.Visualization
             _instance.SettingConfig.LogAction = LogLine;
             // Init animation
             InitVisuals();
+            // Update stats directory to currently specified one
+            if (CheckBoxWriteStatistics.IsChecked == true && Directory.Exists(TextStatisicsOutputFolder.Text))
+                _instance.SettingConfig.StatisticsDirectory = TextStatisicsOutputFolder.Text;
             // Execute the simulation
             _renderer = new SimulationVisualizer(_instance, _animationControl2D, _animationControl3D, _infoControl, GetDrawMode3D, SetUpdaterate, GetUpdaterate(), UpdateSimulationTime, LogLine, StopExecution);
             _renderer.VisualizeSimulation(_instance.SettingConfig.SimulationWarmupTime + _instance.SettingConfig.SimulationDuration);

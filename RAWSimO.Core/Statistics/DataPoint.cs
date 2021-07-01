@@ -1525,8 +1525,8 @@ namespace RAWSimO.Core.Statistics
             _entryValues[FootPrintEntry.OrdersRejected] = instance.StatOverallOrdersRejected;
             _entryValues[FootPrintEntry.BundlesInBacklogRemaining] = instance.ItemManager.BacklogBundleCount;
             _entryValues[FootPrintEntry.OrdersInBacklogRemaining] = instance.ItemManager.BacklogOrderCount;
-            _entryValues[FootPrintEntry.BundlesInBacklogAvg] = instance.Observer.BundleOrderSituationLog.Average(d => d.BacklogBundleCount);
-            _entryValues[FootPrintEntry.OrdersInBacklogAvg] = instance.Observer.BundleOrderSituationLog.Average(d => d.BacklogOrderCount);
+            _entryValues[FootPrintEntry.BundlesInBacklogAvg] = instance.Observer.BundleOrderSituationLog.Count() > 0 ? instance.Observer.BundleOrderSituationLog.Average(d => d.BacklogBundleCount) : 0;
+            _entryValues[FootPrintEntry.OrdersInBacklogAvg] = instance.Observer.BundleOrderSituationLog.Count() > 0 ? instance.Observer.BundleOrderSituationLog.Average(d => d.BacklogOrderCount) : 0;
             // Overall performance
             _entryValues[FootPrintEntry.BundlesHandled] = instance.StatOverallBundlesHandled;
             _entryValues[FootPrintEntry.ItemsHandled] = instance.StatOverallItemsHandled;
