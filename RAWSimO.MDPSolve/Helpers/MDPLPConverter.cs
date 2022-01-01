@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atto.LinearWrap;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace RAWSimO.MDPSolve.Helpers
                 try
                 {
                     // Read the model while rounding all values
-                    MDPLP model = new MDPLP(modelFile, null, SolverWrappers.SolverType.Gurobi, null, rounding);
+                    MDPLP model = new MDPLP(modelFile, null, SolverType.Gurobi, null, rounding);
                     // Determine filename
                     string outputFilename = Path.Combine(directory, instanceName + "-rounding" + rounding.ToString() + extension);
                     // Log

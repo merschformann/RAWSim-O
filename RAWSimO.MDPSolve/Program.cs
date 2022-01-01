@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Atto.LinearWrap;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace RAWSimO.MDPSolve
             string instanceName = instanceFile.EndsWith(".txt.gz") ? Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(instanceFile)) : Path.GetFileNameWithoutExtension(instanceFile);
             string solutionFile = Path.Combine(Path.GetDirectoryName(instanceFile), instanceName + "." + timestamp + ".solution" + extension);
             string logFile = Path.Combine(Path.GetDirectoryName(instanceFile), instanceName + "." + timestamp + ".log" + extension);
-            MDPLP model = new MDPLP(instanceFile, (string msg) => { Console.Write(msg); }, SolverWrappers.SolverType.CPLEX, args.Skip(1).ToArray());
+            MDPLP model = new MDPLP(instanceFile, (string msg) => { Console.Write(msg); }, SolverType.CPLEX, args.Skip(1).ToArray());
             model.Solve();
             if (model.SolutionAvailable)
                 model.Write(solutionFile);

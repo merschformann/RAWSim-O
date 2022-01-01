@@ -1,8 +1,0 @@
-del "stat-jenkins-aggregated-throughput.csv"
-del "stat-jenkins-aggregated-orders.csv"
-del "stat-jenkins-aggregated-bundles.csv"
-del "stat-jenkins-aggregated-time.csv"
-del "stat-jenPP-aggregated-orders.csv"
-del "stat-jenPP-aggregated-bundles.csv"
-del "stat-jenPP-aggregated-distance.csv"
-del "stat-jenPP-aggregated-time.csv"

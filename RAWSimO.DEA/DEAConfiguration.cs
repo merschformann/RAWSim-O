@@ -1,5 +1,5 @@
-﻿using RAWSimO.Core.Statistics;
-using RAWSimO.SolverWrappers;
+﻿using Atto.LinearWrap;
+using RAWSimO.Core.Statistics;
 using RAWSimO.Toolbox;
 using System;
 using System.Collections.Generic;

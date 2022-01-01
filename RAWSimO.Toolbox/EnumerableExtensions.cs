@@ -15,17 +15,6 @@ namespace RAWSimO.Toolbox
         #region HashSet
 
         /// <summary>
-        /// Creates a hash-set from an enumeration.
-        /// </summary>
-        /// <typeparam name="T">The type of the elements.</typeparam>
-        /// <param name="source">The elements to add to the hash-set.</param>
-        /// <returns>The hash-set.</returns>
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> source)
-        {
-            return new HashSet<T>(source);
-        }
-
-        /// <summary>
         /// Substracts an enumerable from a hash-set. This is identical to <see cref="HashSet{T}.ExceptWith"/>
         /// except that a new hash-set is returned and the first hash-set isn't modified in place.
         /// </summary>

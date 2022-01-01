@@ -1,6 +1,8 @@
 ﻿using RAWSimO.CommFramework;
 using RAWSimO.Hardware.RobotHardware;
 using RAWSimO.Hardware.RFID;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using Emgu.CV.UI;
 using System;
 using System.Collections.Generic;
@@ -18,8 +20,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.Ports;
 using System.IO;
-using Emgu.CV;
-using Emgu.CV.Structure;
 using RAWSimO.Hardware.RobotControl;
 using System.Threading;
 using System.Globalization;
