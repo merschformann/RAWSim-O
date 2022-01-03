@@ -246,8 +246,9 @@
                         <TabItem Name="TabOrderGenerationSimple" Header="Simple item generation" ToolTip="Functionality configure the online generation of simple items">
                             <StackPanel Orientation="Vertical">
                                 <GroupBox Header="Parameters">
-                                    <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelSimpleItemConfiguration">
-                                    </StackPanel>
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" VerticalAlignment="Top" MaxHeight="600">
+                                        <StackPanel Style="{StaticResource StyleConfigAutoGenStack}" Name="WrapPanelSimpleItemConfiguration" />
+                                    </ScrollViewer>
                                 </GroupBox>
                                 <StackPanel Orientation="Horizontal" Margin="2">
                                     <Button Style="{StaticResource StyleGeneralButton}" Name="ButtonSaveSimpleItemGeneratorConfig" Click="ButtonSaveSimpleItemGeneratorConfig_Click" ToolTip="Saves the configuration for the generator of simple items">
