@@ -1025,7 +1025,7 @@ namespace RAWSimO.VisualToolbox
         {
             Size size = base.ArrangeOverride(this.DesiredSize);
 
-            if (content.DesiredSize != unScaledExtent)
+            if (content != null && content.DesiredSize != unScaledExtent)
             {
                 //
                 // Use the size of the child as the un-scaled extent content.

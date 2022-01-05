@@ -1,7 +1,7 @@
-﻿using RAWSimO.Core.IO;
+﻿using Atto.LinearWrap;
+using RAWSimO.Core.IO;
 using RAWSimO.Core.Statistics;
 using RAWSimO.DataPreparation;
-using RAWSimO.SolverWrappers;
 using RAWSimO.Toolbox;
 using System;
 using System.Collections.Generic;
@@ -272,13 +272,13 @@ namespace RAWSimO.DEA
                             if (_config.InputOriented)
                                 model.AddConstr(
                                     // Sum of all other weighted inputs
-                                    LinearExpression.Sum(_serviceUnits.Select(s => inputValues[s]), _serviceUnits.Select(s => weights[s])) <=
+                                    LinearExpression.Sum(_serviceUnits.Select(s => inputValues[s] * weights[s])) <=
                                     // Shall be smaller than the weighted input of the service unit in focus
                                     efficiencyRating * inputValues[serviceUnitInFocus], "Input" + inputEntry);
                             else
                                 model.AddConstr(
                                     // Sum of all other weighted inputs
-                                    LinearExpression.Sum(_serviceUnits.Select(s => inputValues[s]), _serviceUnits.Select(s => weights[s])) <=
+                                    LinearExpression.Sum(_serviceUnits.Select(s => inputValues[s] * weights[s])) <=
                                     // Shall be smaller than the weighted input of the service unit in focus
                                     inputValues[serviceUnitInFocus], "Input" + inputEntry);
                         }
@@ -289,13 +289,13 @@ namespace RAWSimO.DEA
                         if (_config.InputOriented)
                             model.AddConstr(
                                 // Sum of all other weighted inputs
-                                LinearExpression.Sum(_serviceUnits.Select(s => 1.0), _serviceUnits.Select(s => weights[s])) <=
+                                LinearExpression.Sum(_serviceUnits.Select(s => weights[s])) <=
                                 // Shall be smaller than the weighted input of the service unit in focus
                                 efficiencyRating * 1.0, "InputConstant");
                         else
                             model.AddConstr(
                                 // Sum of all other weighted inputs
-                                LinearExpression.Sum(_serviceUnits.Select(s => 1.0), _serviceUnits.Select(s => weights[s])) <=
+                                LinearExpression.Sum(_serviceUnits.Select(s => weights[s])) <=
                                 // Shall be smaller than the weighted input of the service unit in focus
                                 1.0, "InputConstant");
                     }
@@ -404,13 +404,13 @@ namespace RAWSimO.DEA
                             if (_config.InputOriented)
                                 model.AddConstr(
                                     // Sum of all other weighted inputs
-                                    LinearExpression.Sum(_serviceUnits.Select(s => outputValues[s]), _serviceUnits.Select(s => weights[s])) >=
+                                    LinearExpression.Sum(_serviceUnits.Select(s => outputValues[s] * weights[s])) >=
                                     // Shall be smaller than the weighted input of the service unit in focus
                                     outputValues[serviceUnitInFocus], "Output" + outputEntry);
                             else
                                 model.AddConstr(
                                     // Sum of all other weighted inputs
-                                    LinearExpression.Sum(_serviceUnits.Select(s => outputValues[s]), _serviceUnits.Select(s => weights[s])) >=
+                                    LinearExpression.Sum(_serviceUnits.Select(s => outputValues[s] * weights[s])) >=
                                     // Shall be smaller than the weighted input of the service unit in focus
                                     efficiencyRating * outputValues[serviceUnitInFocus], "Output" + outputEntry);
                         }
@@ -421,13 +421,13 @@ namespace RAWSimO.DEA
                         if (_config.InputOriented)
                             model.AddConstr(
                                 // Sum of all other weighted inputs
-                                LinearExpression.Sum(_serviceUnits.Select(s => 1.0), _serviceUnits.Select(s => weights[s])) >=
+                                LinearExpression.Sum(_serviceUnits.Select(s => weights[s])) >=
                                 // Shall be smaller than the weighted input of the service unit in focus
                                 1.0, "OutputConstant");
                         else
                             model.AddConstr(
                                 // Sum of all other weighted inputs
-                                LinearExpression.Sum(_serviceUnits.Select(s => 1.0), _serviceUnits.Select(s => weights[s])) >=
+                                LinearExpression.Sum(_serviceUnits.Select(s => weights[s])) >=
                                 // Shall be smaller than the weighted input of the service unit in focus
                                 efficiencyRating * 1.0, "OutputConstant");
                     }

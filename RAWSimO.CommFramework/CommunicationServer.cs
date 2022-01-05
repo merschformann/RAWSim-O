@@ -451,7 +451,6 @@ namespace RAWSimO.CommFramework
             if (_tcpServerThread != null)
             {
                 _tcpServerThread.Interrupt();
-                _tcpServerThread.Abort();
                 _isRunning = false;
             }
         }

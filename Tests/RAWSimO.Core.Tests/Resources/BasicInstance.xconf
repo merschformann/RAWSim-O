@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>PPFAR-TABalanced-SAActivateAll-ISEmptiest-PSNearest-RPDummy-OBPodMatching-RBSamePod-MMNoChange</Name>
+  <PathPlanningConfig xsi:type="FARPathPlanningConfiguration">
+    <Name />
+    <AutoSetParameter>false</AutoSetParameter>
+    <CanTunnel>true</CanTunnel>
+    <LengthOfAWaitStep>2</LengthOfAWaitStep>
+    <RuntimeLimitPerAgent>0.1</RuntimeLimitPerAgent>
+    <RunTimeLimitOverall>1</RunTimeLimitOverall>
+    <Clocking>1</Clocking>
+    <MaximumNumberOfBreakingManeuverTries>2</MaximumNumberOfBreakingManeuverTries>
+    <evadingStrategy>EvadeByRerouting</evadingStrategy>
+    <NoBackEvading>true</NoBackEvading>
+    <UseDeadlockHandler>true</UseDeadlockHandler>
+  </PathPlanningConfig>
+  <TaskAllocationConfig xsi:type="BalancedTaskAllocationConfiguration">
+    <Name />
+    <BotReallocationTimeout>30</BotReallocationTimeout>
+    <WeightInputStations>1</WeightInputStations>
+    <WeightOutputStations>2</WeightOutputStations>
+    <WeightRepositioning>0</WeightRepositioning>
+    <BotsPerStationLimit>9</BotsPerStationLimit>
+    <PreferSameTier>true</PreferSameTier>
+    <ExtendSearch>false</ExtendSearch>
+    <ExtendedSearchRadius>8</ExtendedSearchRadius>
+    <SearchAll>false</SearchAll>
+    <RepositionBeforeRest>true</RepositionBeforeRest>
+    <PodSelectionConfig>
+      <Name />
+      <OnTheFlyExtract>true</OnTheFlyExtract>
+      <OnTheFlyStore>true</OnTheFlyStore>
+      <FilterForConsideration>AssignedAndCompleteQueued</FilterForConsideration>
+      <FilterForReservation>AssignedAndCompleteQueued</FilterForReservation>
+      <InputExtendedSearchScorer xsi:type="PCScorerIStationForBotWithPodWorkAmount">
+        <IncludeAge>false</IncludeAge>
+        <PreferSameTier>true</PreferSameTier>
+      </InputExtendedSearchScorer>
+      <InputExtendedSearchScorerTieBreaker1 xsi:type="PCScorerIStationForBotWithPodNearest">
+        <DistanceMetric>Euclidean</DistanceMetric>
+      </InputExtendedSearchScorerTieBreaker1>
+      <InputExtendedSearchScorerTieBreaker2 xsi:type="PCScorerIStationForBotWithPodRandom">
+        <PreferSameTier>true</PreferSameTier>
+      </InputExtendedSearchScorerTieBreaker2>
+      <OutputExtendedSearchScorer xsi:type="PCScorerOStationForBotWithPodWorkAmount">
+        <ValueMetric>Picks</ValueMetric>
+        <OnlyPositiveLateness>false</OnlyPositiveLateness>
+        <PreferSameTier>true</PreferSameTier>
+      </OutputExtendedSearchScorer>
+      <OutputExtendedSearchScorerTieBreaker1 xsi:type="PCScorerOStationForBotWithPodNearest">
+        <DistanceMetric>Euclidean</DistanceMetric>
+      </OutputExtendedSearchScorerTieBreaker1>
+      <OutputExtendedSearchScorerTieBreaker2 xsi:type="PCScorerOStationForBotWithPodRandom">
+        <PreferSameTier>true</PreferSameTier>
+      </OutputExtendedSearchScorerTieBreaker2>
+      <InputPodScorer xsi:type="PCScorerPodForIStationBotWorkAmount">
+        <IncludeAge>false</IncludeAge>
+        <PreferSameTier>true</PreferSameTier>
+      </InputPodScorer>
+      <InputPodScorerTieBreaker1 xsi:type="PCScorerPodForIStationBotNearest">
+        <DistanceMetric>Euclidean</DistanceMetric>
+        <EstimateBotPodDistance>true</EstimateBotPodDistance>
+      </InputPodScorerTieBreaker1>
+      <InputPodScorerTieBreaker2 xsi:type="PCScorerPodForIStationBotRandom">
+        <PreferSameTier>true</PreferSameTier>
+      </InputPodScorerTieBreaker2>
+      <OutputPodScorer xsi:type="PCScorerPodForOStationBotCompleteable">
+        <IncludeQueuedOrders>true</IncludeQueuedOrders>
+      </OutputPodScorer>
+      <OutputPodScorerTieBreaker1 xsi:type="PCScorerPodForOStationBotWorkAmount">
+        <ValueMetric>Picks</ValueMetric>
+        <OnlyPositiveLateness>false</OnlyPositiveLateness>
+        <PreferSameTier>true</PreferSameTier>
+        <BacklogWeight>0.2</BacklogWeight>
+        <CompleteableOrderBoost>1</CompleteableOrderBoost>
+        <CompleteableQueuedOrders>true</CompleteableQueuedOrders>
+        <TimeCosts>0.3333333333333333</TimeCosts>
+        <EstimateBotPodDistancePenalty>true</EstimateBotPodDistancePenalty>
+        <EstimatePodStationDistancePenalty>false</EstimatePodStationDistancePenalty>
+      </OutputPodScorerTieBreaker1>
+      <OutputPodScorerTieBreaker2 xsi:type="PCScorerPodForOStationBotNearest">
+        <DistanceMetric>ShortestTime</DistanceMetric>
+        <EstimateBotPodDistance>true</EstimateBotPodDistance>
+      </OutputPodScorerTieBreaker2>
+    </PodSelectionConfig>
+    <RestLocationOrderType>MiddleSameTier</RestLocationOrderType>
+  </TaskAllocationConfig>
+  <StationActivationConfig xsi:type="ActivateAllStationActivationConfiguration">
+    <Name />
+  </StationActivationConfig>
+  <ItemStorageConfig xsi:type="EmptiestItemStorageConfiguration">
+    <Name />
+    <StickToPodUntilFull>true</StickToPodUntilFull>
+    <BufferThreshold>0.8</BufferThreshold>
+    <BufferTimeout>1200</BufferTimeout>
+  </ItemStorageConfig>
+  <PodStorageConfig xsi:type="NearestPodStorageConfiguration">
+    <Name />
+    <PodDisposeRule>ShortestTime</PodDisposeRule>
+  </PodStorageConfig>
+  <RepositioningConfig xsi:type="DummyRepositioningConfiguration">
+    <Name />
+  </RepositioningConfig>
+  <OrderBatchingConfig xsi:type="PodMatchingOrderBatchingConfiguration">
+    <Name />
+    <TieBreaker>EarliestDueTime</TieBreaker>
+    <FastLane>true</FastLane>
+    <LateBeforeMatch>false</LateBeforeMatch>
+    <FastLaneTieBreaker>EarliestDueTime</FastLaneTieBreaker>
+  </OrderBatchingConfig>
+  <ReplenishmentBatchingConfig xsi:type="SamePodReplenishmentBatchingConfiguration">
+    <Name />
+    <FirstStationRule>DistanceEuclid</FirstStationRule>
+    <BreakBatches>false</BreakBatches>
+    <FCFS>true</FCFS>
+    <OnlySameTier>true</OnlySameTier>
+  </ReplenishmentBatchingConfig>
+  <MethodManagementConfig xsi:type="NoChangeMethodManagementConfiguration">
+    <Name />
+  </MethodManagementConfig>
+  <CommentTag1 />
+  <CommentTag2 />
+  <CommentTag3 />
+</ControlConfiguration>

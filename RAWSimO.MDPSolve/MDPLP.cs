@@ -1,4 +1,4 @@
-﻿using RAWSimO.SolverWrappers;
+﻿using Atto.LinearWrap;
 using RAWSimO.Toolbox;
 using System;
 using System.Collections.Generic;
@@ -314,23 +314,19 @@ namespace RAWSimO.MDPSolve
 
             // Modify some control parameters
             foreach (var param in _solverArgs)
-                model.SetParam(param.Key, param.Value);
+                throw new NotSupportedException("Solver parameters currently not supported, request support in Atto.LinearWrap");
+                // model.SetParam(param.Key, param.Value);
 
             // Prepare non-zero indices
             Dictionary<int, List<int>> nnzs = _coefficientMatrix.Keys.GroupBy(k => (int)k[0]).ToDictionary(k => k.Key, v => v.Select(e => (int)e[1]).ToList());
 
             // Add objective
             model.SetObjective(
-                LinearExpression.Sum(
-                    Enumerable.Range(0, N).Select(j => _objCoeffcientVector[j]),
-                    Enumerable.Range(0, N).Select(j => xVar[j])),
+                LinearExpression.Sum(Enumerable.Range(0, N).Select(j => _objCoeffcientVector[j] * xVar[j])),
                 OptimizationSense.Minimize);
             // Add constraint
             foreach (var i in nnzs.Keys)
-                model.AddConstr(LinearExpression.Sum(
-                    nnzs[i].Select(j => _coefficientMatrix[i, j]),
-                    nnzs[i].Select(j => xVar[j]))
-                == _rhsVector[i],
+                model.AddConstr(LinearExpression.Sum(nnzs[i].Select(j => _coefficientMatrix[i, j] * xVar[j])) == _rhsVector[i],
                 "Con" + i);
             // TODO remove debug
             model.Update();

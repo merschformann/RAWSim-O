@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TierCount>1</TierCount>
+  <TierHeight>4</TierHeight>
+  <BotCount>16</BotCount>
+  <BotRadius>0.35</BotRadius>
+  <MaxAcceleration>1</MaxAcceleration>
+  <MaxDeceleration>1</MaxDeceleration>
+  <MaxVelocity>1.5</MaxVelocity>
+  <TurnSpeed>2.5</TurnSpeed>
+  <CollisionPenaltyTime>0.5</CollisionPenaltyTime>
+  <PodTransferTime>2.2</PodTransferTime>
+  <PodAmount>0.85</PodAmount>
+  <PodRadius>0.45</PodRadius>
+  <PodCapacity>500</PodCapacity>
+  <StationRadius>0.45</StationRadius>
+  <ItemTransferTime>10</ItemTransferTime>
+  <ItemPickTime>3</ItemPickTime>
+  <ItemBundleTransferTime>10</ItemBundleTransferTime>
+  <IStationCapacity>1000</IStationCapacity>
+  <OStationCapacity>12</OStationCapacity>
+  <ElevatorTransportationTimePerTier>10</ElevatorTransportationTimePerTier>
+  <AisleLayoutType>HighwayHallway</AisleLayoutType>
+  <AislesTwoDirectional>false</AislesTwoDirectional>
+  <SingleLane>true</SingleLane>
+  <NameLayout>1-2-2-16-0.85</NameLayout>
+  <NrHorizontalAisles>8</NrHorizontalAisles>
+  <NrVerticalAisles>6</NrVerticalAisles>
+  <HorizontalLengthBlock>4</HorizontalLengthBlock>
+  <WidthHall>6</WidthHall>
+  <WidthBuffer>4</WidthBuffer>
+  <DistanceEntryExitStation>3</DistanceEntryExitStation>
+  <CounterClockwiseRingwayDirection>true</CounterClockwiseRingwayDirection>
+  <NPickStationWest>0</NPickStationWest>
+  <NPickStationEast>2</NPickStationEast>
+  <NPickStationSouth>0</NPickStationSouth>
+  <NPickStationNorth>0</NPickStationNorth>
+  <NReplenishmentStationWest>2</NReplenishmentStationWest>
+  <NReplenishmentStationEast>0</NReplenishmentStationEast>
+  <NReplenishmentStationSouth>0</NReplenishmentStationSouth>
+  <NReplenishmentStationNorth>0</NReplenishmentStationNorth>
+  <NElevatorsWest>0</NElevatorsWest>
+  <NElevatorsEast>0</NElevatorsEast>
+  <NElevatorsSouth>0</NElevatorsSouth>
+  <NElevatorsNorth>0</NElevatorsNorth>
+</LayoutConfiguration>
