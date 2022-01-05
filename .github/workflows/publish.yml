@@ -1,0 +1,35 @@
+name: publish
+
+on:
+    release:
+        types: [created]
+
+jobs:
+    deploy:
+        runs-on: windows-latest # Must build on windows to work correctly (otherwise console window is shown)
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: "5.0.x" # SDK Version to use.
+
+            - name: Publish project
+              run: |
+                  dotnet publish -c Release -o publish/RAWSimO
+            - name: Zip output
+              run: |
+                  cd publish
+                  7z a RAWSimO.zip *
+                  echo "Dir content:"
+                  ls
+            - name: Upload binaries to release
+              uses: svenstaro/upload-release-action@v2
+              with:
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  file: publish/RAWSimO.zip
+                  asset_name: RAWSimO-${{ github.ref }}.zip
+                  tag: ${{ github.ref }}
+                  overwrite: true
+                  body: "RAWSimO zip file"

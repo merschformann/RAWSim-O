@@ -11,3 +11,4 @@ packages/*
 *.orig
 .vs/*
 .idea/
+publish/
