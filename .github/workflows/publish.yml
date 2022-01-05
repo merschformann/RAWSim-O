@@ -17,7 +17,11 @@ jobs:
 
             - name: Publish project
               run: |
-                  dotnet publish -c Release -o publish/RAWSimO
+                  dotnet publish -c Release -o publish/RAWSimO RAWSimO.Visualization/RAWSimO.Visualization.csproj
+            - name: Copy resource files
+              run: |
+                  mkdir publish/RAWSimO/Resources
+                  cp -r Material/Resources/* publish/RAWSimO/Resources
             - name: Zip output
               run: |
                   cd publish

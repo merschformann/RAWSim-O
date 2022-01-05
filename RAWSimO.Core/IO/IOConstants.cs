@@ -325,12 +325,6 @@ namespace RAWSimO.Core.IO
         /// </summary>
         public static readonly List<string> DEFAULT_RESOURCE_DIRS = new List<string>
         {
-            Path.Combine(Path.GetPathRoot(Path.GetFullPath(Directory.GetCurrentDirectory())), "scratch", "mmarius", "research", "awsimopt", "resources", "Wordlists"),
-            Path.Combine(Path.GetPathRoot(Path.GetFullPath(Directory.GetCurrentDirectory())), "scratch", "mmarius", "research", "awsimopt", "resources"),
-            Path.Combine(Path.GetPathRoot(Path.GetFullPath(Directory.GetCurrentDirectory())), "scratch", "mmarius", "research", "awsimopt", "repo", "Material", "Resources", "Wordlists"),
-            Path.Combine(Path.GetPathRoot(Path.GetFullPath(Directory.GetCurrentDirectory())), "scratch", "mmarius", "research", "awsimopt", "repo", "Material", "Resources"),
-            Path.Combine(Path.GetPathRoot(Path.GetFullPath(Directory.GetCurrentDirectory())), "scratch", "herbort", "storage_eval", "repo", "Material", "Resources", "Wordlists"),
-            Path.Combine(Path.GetPathRoot(Path.GetFullPath(Directory.GetCurrentDirectory())), "scratch", "herbort", "storage_eval", "repo", "Material", "Resources"),
             Path.Combine("Material", "Resources", "Wordlists"),
             Path.Combine("Material", "Resources"),
             Path.Combine("repo", "Material", "Resources", "Wordlists"),
