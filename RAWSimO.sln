@@ -35,6 +35,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAWSimO.CLI", "RAWSimO.CLI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAWSimO.CommFramework", "RAWSimO.CommFramework\RAWSimO.CommFramework.csproj", "{FD5B4B8D-1828-4A06-AD92-384D5426947C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B486B06E-1B60-4572-B25A-107E4AAF3147}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAWSimO.Core.Tests", "Tests\RAWSimO.Core.Tests\RAWSimO.Core.Tests.csproj", "{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,9 +136,18 @@ Global
 		{FD5B4B8D-1828-4A06-AD92-384D5426947C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD5B4B8D-1828-4A06-AD92-384D5426947C}.XPlat|Any CPU.ActiveCfg = XPlat|Any CPU
 		{FD5B4B8D-1828-4A06-AD92-384D5426947C}.XPlat|Any CPU.Build.0 = XPlat|Any CPU
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.XPlat|Any CPU.ActiveCfg = Debug|Any CPU
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.XPlat|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204} = {B486B06E-1B60-4572-B25A-107E4AAF3147}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F2FDDCC1-4A55-48FC-A111-420952787D16}
