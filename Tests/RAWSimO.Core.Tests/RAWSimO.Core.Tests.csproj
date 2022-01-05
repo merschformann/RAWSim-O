@@ -6,6 +6,10 @@
     <IsPackable>false</IsPackable>
 
     <RootNamespace>RAWSimO.Core.Tests</RootNamespace>
+
+    <Configurations>Debug;Release;XPlat</Configurations>
+
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
