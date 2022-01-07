@@ -7,7 +7,7 @@
 
     <RootNamespace>RAWSimO.Core.Tests</RootNamespace>
 
-    <Configurations>Debug;Release;XPlat</Configurations>
+    <Configurations>Debug;Release;XPlat;XPlatRelease</Configurations>
 
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
