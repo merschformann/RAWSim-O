@@ -39,8 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B486B06E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RAWSimO.Core.Tests", "Tests\RAWSimO.Core.Tests\RAWSimO.Core.Tests.csproj", "{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RAWSimO.UI", "RAWSimO.UI\RAWSimO.UI.csproj", "{F5903400-9216-47AE-A91F-09098C703A2F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,14 +169,6 @@ Global
 		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.XPlat|Any CPU.Build.0 = XPlat|Any CPU
 		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.XPlatRelease|Any CPU.ActiveCfg = XPlatRelease|Any CPU
 		{D78CCAD4-9849-4BF5-AA49-7071B7CD6204}.XPlatRelease|Any CPU.Build.0 = XPlatRelease|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.XPlatRelease|Any CPU.ActiveCfg = XPlatRelease|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.XPlatRelease|Any CPU.Build.0 = XPlatRelease|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.XPlat|Any CPU.ActiveCfg = XPlat|Any CPU
-		{F5903400-9216-47AE-A91F-09098C703A2F}.XPlat|Any CPU.Build.0 = XPlat|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
