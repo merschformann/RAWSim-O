@@ -33,7 +33,7 @@ jobs:
               with:
                   repo_token: ${{ secrets.GITHUB_TOKEN }}
                   file: publish/RAWSimO.zip
-                  asset_name: RAWSimO-${{ github.ref_name }}.zip
+                  asset_name: RAWSimO-${{ github.ref }}.zip
                   tag: ${{ github.ref }}
                   overwrite: true
                   body: "RAWSimO zip file"
