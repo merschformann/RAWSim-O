@@ -321,21 +321,17 @@ namespace RAWSimO.Core.IO
         #region Default Paths
 
         /// <summary>
-        /// The default paths to search for resource files.
+        /// Typical names of folders containing resource files for auto-lookup.
         /// </summary>
-        public static readonly List<string> DEFAULT_RESOURCE_DIRS = new List<string>
+        public static readonly List<string> DEFAULT_RESOURCE_SUB_DIRS = new List<string>
         {
-            Path.Combine("Material", "Resources", "Wordlists"),
+            "Resources",
+            "Wordlists",
+            "resources",
+            "wordlists",
             Path.Combine("Material", "Resources"),
-            Path.Combine("repo", "Material", "Resources", "Wordlists"),
-            Path.Combine("repo", "Material", "Resources"),
-            Path.Combine("..", "..", "..", "Material", "Resources", "Wordlists"),
-            Path.Combine("..", "..", "..", "Material", "Resources"),
-            Path.Combine("..", "..", "..", "..", "Material", "Resources", "Wordlists"),
-            Path.Combine("..", "..", "..", "..", "Material", "Resources"),
+            Path.Combine("Material", "Resources", "Wordlists"),
             Path.Combine("Resources", "Wordlists"),
-            Path.Combine("Resources"),
-            Path.Combine("Wordlists"),
         };
 
         #endregion

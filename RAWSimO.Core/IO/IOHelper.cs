@@ -28,37 +28,38 @@ namespace RAWSimO.Core.IO
             resourceFile = resourceFile.Replace('\\', Path.DirectorySeparatorChar);
             resourceFile = resourceFile.Replace('/', Path.DirectorySeparatorChar);
             // Get name
-            string fileName = Path.GetFileName(resourceFile);
-            string resultResourceFile = "";
-            // Use complete path as default
-            resultResourceFile = resourceFile;
-            // Try the working directory
-            if (File.Exists(fileName))
-                resultResourceFile = fileName;
-            // Try the default directories
-            foreach (var dir in IOConstants.DEFAULT_RESOURCE_DIRS)
-                TryDirectory(fileName, dir, ref resultResourceFile);
-            // Try the directory of the instance
-            string instancePathFile = Path.Combine(Path.GetDirectoryName(instancePath), fileName);
-            if (!string.IsNullOrWhiteSpace(instancePath) && File.Exists(instancePathFile))
-                resultResourceFile = instancePathFile;
-            // Return it
-            if (File.Exists(resultResourceFile))
-                return resultResourceFile;
-            else
-                throw new ArgumentException("Cannot find the resource file: " + resourceFile + "(Tried: " + string.Join(",", IOConstants.DEFAULT_RESOURCE_DIRS) + ")");
-        }
-        /// <summary>
-        /// Checks whether the file exists.
-        /// </summary>
-        /// <param name="fileName">The name of the file to look for.</param>
-        /// <param name="dir">The directory to try.</param>
-        /// <param name="resultPath">This is updated to the path if the path existed.</param>
-        public static void TryDirectory(string fileName, string dir, ref string resultPath)
-        {
-            string path = Path.Combine(dir, fileName);
-            if (File.Exists(path))
-                resultPath = path;
+            var fileName = Path.GetFileName(resourceFile);
+
+            // Define all base locations to check
+            var locations = new List<string>();
+            // Add instance location
+            var instanceFolder = Path.GetDirectoryName(instancePath);
+            if (!string.IsNullOrWhiteSpace(instanceFolder))
+                locations.Add(instanceFolder);
+            // Add all paths from current directory up to root
+            var currentPath = Directory.GetCurrentDirectory();
+            while (currentPath != null)
+            {
+                locations.Add(currentPath);
+                currentPath = Path.GetDirectoryName(currentPath);
+            }
+
+            // Enhance by typical subdirectories for all locations
+            var baseDirs = locations.ToArray();
+            foreach (var subDir in IOConstants.DEFAULT_RESOURCE_SUB_DIRS)
+                locations.AddRange(baseDirs.Select(bd => Path.Combine(bd, subDir)));
+
+            // Check all locations
+            foreach (var location in locations)
+            {
+                var fullPath = Path.Combine(location, fileName);
+                if (File.Exists(fullPath))
+                    return fullPath;
+            }
+
+            // If we get here, no file was found
+            throw new ArgumentException("Cannot find the resource file:" + resourceFile + Environment.NewLine +
+                                        "Make sure that the file is available in the instance dir, working dir or a resources sub-dir");
         }
     }
 }
