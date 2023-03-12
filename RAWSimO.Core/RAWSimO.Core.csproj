@@ -11,6 +11,10 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\RAWSimO.MultiAgentPathFinding\RAWSimO.MultiAgentPathFinding.csproj" />
     <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj" />
