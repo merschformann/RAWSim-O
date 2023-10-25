@@ -218,11 +218,18 @@ namespace RAWSimO.Core.Management
         /// <param name="waypoint">The waypoint to mark as not usable for resting.</param>
         public void ForbidRestLocation(Waypoint waypoint) { _forbiddenRestingLocations.Add(waypoint); }
         /// <summary>
+        /// Clears all forbidden location. This is useful when deactivating the fixed location pod storage manager.
+        /// </summary>
+        public void ClearForbiddenLocations()
+        {
+            _forbiddenRestingLocations.Clear();
+        }
+        /// <summary>
         /// Indicates whether the given resting location is available.
         /// </summary>
         /// <param name="waypoint">The resting location to check for availability.</param>
         /// <returns><code>true</code> if the location is unoccupied, <code>false</code> otherwise.</returns>
-        public bool IsRestingLocationAvailable(Waypoint waypoint) { return _unusedPodStorageLocations.Contains(waypoint); }
+        public bool IsRestingLocationAvailable(Waypoint waypoint) { return _unusedPodStorageLocations.Contains(waypoint) && !_forbiddenRestingLocations.Contains(waypoint); }
         /// <summary>
         /// Reserves the resting location.
         /// </summary>

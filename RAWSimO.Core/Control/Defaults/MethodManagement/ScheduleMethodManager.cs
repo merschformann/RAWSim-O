@@ -90,6 +90,8 @@ namespace RAWSimO.Core.Control.Defaults.MethodManagement
                     case PodStorageMethodType.Fixed: throw new ArgumentException("Cannot switch to fixed mechanism, because the system is already running!");
                     default: throw new ArgumentException("Unknown pod storage manager: " + nextPodManagerType);
                 }
+                // Make sure that any forbidden locations are cleared (in case the previous manager was the fixed one)
+                Instance.ResourceManager.ClearForbiddenLocations();
                 // Change it
                 Instance.Controller.ExchangePodStorageManager(newPodStorageManager);
             }
