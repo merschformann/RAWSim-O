@@ -1007,8 +1007,7 @@ namespace RAWSimO.Visualization
                 _baseConfiguration.VisualizationAttached = true;
 
                 // Generate
-                IRandomizer rand = new RandomizerSimple(0);
-                _instance = InstanceGenerator.GenerateLayout(_layoutConfig, rand, _baseConfiguration, _controlConfiguration);
+                _instance = InstanceGenerator.GenerateLayout(_layoutConfig, _baseConfiguration, _controlConfiguration);
                 _instanceInvalidated = false;
                 _instance.Name = _instance.GetMetaInfoBasedInstanceName();
 

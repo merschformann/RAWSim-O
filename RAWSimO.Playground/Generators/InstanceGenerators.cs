@@ -15,30 +15,23 @@ namespace RAWSimO.Playground.Generators
     {
         public static void GenerateMaTiInstances()
         {
-            // Generate MaTi instances
-            RandomizerSimple random = new RandomizerSimple(0);
             // Generate original MaTi set
-            Instance tiny = InstanceGenerator.GenerateMaTiLayoutTiny(random, new SettingConfiguration(), new ControlConfiguration());
-            Instance small = InstanceGenerator.GenerateMaTiLayoutSmall(random, new SettingConfiguration(), new ControlConfiguration());
-            Instance medium = InstanceGenerator.GenerateMaTiLayoutMedium(random, new SettingConfiguration(), new ControlConfiguration());
-            Instance large = InstanceGenerator.GenerateMaTiLayoutLarge(random, new SettingConfiguration(), new ControlConfiguration());
-            Instance huge = InstanceGenerator.GenerateMaTiLayoutHuge(random, new SettingConfiguration(), new ControlConfiguration());
-            InstanceIO.WriteInstance("MaTiTiny.xinst", tiny);
-            InstanceIO.WriteInstance("MaTiSmall.xinst", small);
-            InstanceIO.WriteInstance("MaTiMedium.xinst", medium);
-            InstanceIO.WriteInstance("MaTiLarge.xinst", large);
-            InstanceIO.WriteInstance("MaTiHuge.xinst", huge);
+            InstanceIO.WriteInstance("MaTiTiny.xinst", InstanceGenerator.GenerateMaTiLayoutTiny(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiSmall.xinst", InstanceGenerator.GenerateMaTiLayoutSmall(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiMedium.xinst", InstanceGenerator.GenerateMaTiLayoutMedium(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiLarge.xinst", InstanceGenerator.GenerateMaTiLayoutLarge(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiHuge.xinst", InstanceGenerator.GenerateMaTiLayoutHuge(new SettingConfiguration(), new ControlConfiguration()));
             // Generate alternative MaTi set
-            InstanceIO.WriteInstance("MaTiPico.xinst", InstanceGenerator.GenerateMaTiLayoutPico(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiNano.xinst", InstanceGenerator.GenerateMaTiLayoutNano(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiMicro.xinst", InstanceGenerator.GenerateMaTiLayoutMicro(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiMilli.xinst", InstanceGenerator.GenerateMaTiLayoutMilli(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiCenti.xinst", InstanceGenerator.GenerateMaTiLayoutCenti(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiDeca.xinst", InstanceGenerator.GenerateMaTiLayoutDeca(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiHecto.xinst", InstanceGenerator.GenerateMaTiLayoutHecto(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiKilo.xinst", InstanceGenerator.GenerateMaTiLayoutKilo(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiMega.xinst", InstanceGenerator.GenerateMaTiLayoutMega(random, new SettingConfiguration(), new ControlConfiguration()));
-            InstanceIO.WriteInstance("MaTiGiga.xinst", InstanceGenerator.GenerateMaTiLayoutGiga(random, new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiPico.xinst", InstanceGenerator.GenerateMaTiLayoutPico(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiNano.xinst", InstanceGenerator.GenerateMaTiLayoutNano(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiMicro.xinst", InstanceGenerator.GenerateMaTiLayoutMicro(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiMilli.xinst", InstanceGenerator.GenerateMaTiLayoutMilli(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiCenti.xinst", InstanceGenerator.GenerateMaTiLayoutCenti(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiDeca.xinst", InstanceGenerator.GenerateMaTiLayoutDeca(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiHecto.xinst", InstanceGenerator.GenerateMaTiLayoutHecto(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiKilo.xinst", InstanceGenerator.GenerateMaTiLayoutKilo(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiMega.xinst", InstanceGenerator.GenerateMaTiLayoutMega(new SettingConfiguration(), new ControlConfiguration()));
+            InstanceIO.WriteInstance("MaTiGiga.xinst", InstanceGenerator.GenerateMaTiLayoutGiga(new SettingConfiguration(), new ControlConfiguration()));
         }
     }
 }

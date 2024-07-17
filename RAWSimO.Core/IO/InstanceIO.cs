@@ -105,7 +105,7 @@ namespace RAWSimO.Core.IO
                     layoutConfig.ApplyOverrideConfig(settingConfig.OverrideConfig);
                 // Generate instance
                 logAction?.Invoke("Generating instance...");
-                instance = InstanceGenerator.GenerateLayout(layoutConfig, new RandomizerSimple(0), settingConfig, controlConfig, logAction);
+                instance = InstanceGenerator.GenerateLayout(layoutConfig, settingConfig, controlConfig, logAction);
             }
             else
             {
