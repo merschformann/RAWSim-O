@@ -27,19 +27,17 @@ namespace RAWSimO.Core.Generator
         /// Generates an instance with the given layout and configuration attached.
         /// </summary>
         /// <param name="layoutConfiguration">The layout configuration defining all the instance characteristics.</param>
-        /// <param name="rand">A randomizer that is used during generation.</param>
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <param name="logAction">An optional action for logging.</param>
         /// <returns>The generated instance.</returns>
         public static Instance GenerateLayout(
             LayoutConfiguration layoutConfiguration,
-            IRandomizer rand,
             SettingConfiguration settingConfig,
             ControlConfiguration controlConfig,
             Action<string> logAction = null)
         {
-            LayoutGenerator layoutGenerator = new LayoutGenerator(layoutConfiguration, rand, settingConfig, controlConfig, logAction);
+            LayoutGenerator layoutGenerator = new LayoutGenerator(layoutConfiguration, settingConfig, controlConfig, logAction);
             Instance instance = layoutGenerator.GenerateLayout();
             InitializeInstance(instance);
             return instance;
@@ -69,7 +67,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutPico(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutPico(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 4;
@@ -84,7 +82,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the nano default layout.
@@ -93,7 +91,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutNano(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutNano(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 8;
@@ -108,7 +106,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the micro default layout.
@@ -117,7 +115,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutMicro(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutMicro(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 12;
@@ -132,7 +130,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the milli default layout.
@@ -141,7 +139,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutMilli(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutMilli(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 16;
@@ -156,7 +154,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the centi default layout.
@@ -165,7 +163,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutCenti(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutCenti(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 20;
@@ -180,7 +178,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the deca default layout.
@@ -189,7 +187,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutDeca(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutDeca(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 24;
@@ -204,7 +202,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the hecto default layout.
@@ -213,7 +211,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutHecto(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutHecto(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 28;
@@ -228,7 +226,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the kilo default layout.
@@ -237,7 +235,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutKilo(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutKilo(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 32;
@@ -252,7 +250,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the mega default layout.
@@ -261,7 +259,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutMega(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutMega(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 36;
@@ -276,7 +274,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the giga default layout.
@@ -285,7 +283,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutGiga(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutGiga(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 40;
@@ -300,7 +298,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
 
         #endregion
@@ -314,7 +312,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutTiny(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutTiny(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 32;
@@ -329,7 +327,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the tiny default layout.
@@ -338,7 +336,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutSmall(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutSmall(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 40;
@@ -353,7 +351,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the tiny default layout.
@@ -362,7 +360,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutMedium(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutMedium(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 48;
@@ -377,7 +375,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the tiny default layout.
@@ -386,7 +384,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutLarge(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutLarge(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 56;
@@ -401,7 +399,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the tiny default layout.
@@ -410,7 +408,7 @@ namespace RAWSimO.Core.Generator
         /// <param name="settingConfig">The configuration for the setting to emulate that will be attached for executing the simulation afterwards.</param>
         /// <param name="controlConfig">The configuration for the controlling mechanisms that will be attached for executing the simulation afterwards.</param>
         /// <returns>The generated instance.</returns>
-        public static Instance GenerateMaTiLayoutHuge(IRandomizer rand, SettingConfiguration settingConfig, ControlConfiguration controlConfig)
+        public static Instance GenerateMaTiLayoutHuge(SettingConfiguration settingConfig, ControlConfiguration controlConfig)
         {
             LayoutConfiguration layoutConfiguration = GenerateMaTiLayoutConfiguration();
             layoutConfiguration.BotCount = 64;
@@ -425,7 +423,7 @@ namespace RAWSimO.Core.Generator
             layoutConfiguration.NReplenishmentStationEast = 0;
             layoutConfiguration.NReplenishmentStationSouth = 0;
             layoutConfiguration.NReplenishmentStationNorth = 0;
-            return GenerateLayout(layoutConfiguration, rand, settingConfig, controlConfig);
+            return GenerateLayout(layoutConfiguration, settingConfig, controlConfig);
         }
         /// <summary>
         /// Generates the default layout configuration.

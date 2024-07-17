@@ -169,7 +169,7 @@ namespace RAWSimO.Core.Generator
                     Console.Write((
                         showRows ? i.ToString().PadLeft(maxRowIndexLength) :
                         showCols ? j.ToString().PadLeft(maxColIndexLength) :
-                        (tiles[i, j] != null ? tiles[i, j].directionAsString() : " ")) + 
+                        (tiles[i, j] != null ? tiles[i, j].directionAsString() : " ")) +
                         (j == tiles.GetLength(1) - 1 ? "" : " "));
                 Console.WriteLine();
             }
@@ -179,7 +179,6 @@ namespace RAWSimO.Core.Generator
 
         public LayoutGenerator(
             LayoutConfiguration layoutConfiguration,
-            IRandomizer rand,
             SettingConfiguration baseConfiguration,
             ControlConfiguration controlConfiguration,
             Action<string> logAction = null)
@@ -202,7 +201,7 @@ namespace RAWSimO.Core.Generator
                 throw new ArgumentException("ControlConfiguration is not valid. " + errorMessage);
             }
 
-            this.rand = rand;
+            this.rand = new RandomizerSimple(layoutConfiguration.Seed);
             this.baseConfiguration = baseConfiguration;
             elevatorPositions = new Dictionary<Tuple<double, double>, Elevator>();
             elevatorWaypoints = new Dictionary<Elevator, List<Waypoint>>();

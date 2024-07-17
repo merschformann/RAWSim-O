@@ -31,6 +31,10 @@ namespace RAWSimO.Core.Configurations
         #region member variables 
 
         /// <summary>
+        /// The seed used to initialize the RNG.
+        /// </summary>
+        public int Seed = 0;
+        /// <summary>
         /// The number of tiers to generate.
         /// </summary>
         public int TierCount = 1;
