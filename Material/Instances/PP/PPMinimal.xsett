@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SettingConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>PPMinimal</Name>
+  <SimulationWarmupTime>0</SimulationWarmupTime>
+  <SimulationDuration>28800</SimulationDuration>
+  <Seed>0</Seed>
+  <LogLevel>Info</LogLevel>
+  <LogFileLevel>All</LogFileLevel>
+  <MonitorWellSortedness>false</MonitorWellSortedness>
+  <DebugMode>RealTimeAndMemory</DebugMode>
+  <Tolerance>0.2</Tolerance>
+  <UseAcceleration>false</UseAcceleration>
+  <UseTurnDelay>false</UseTurnDelay>
+  <RotatePods>false</RotatePods>
+  <QueueHandlingEnabled>true</QueueHandlingEnabled>
+  <StationShutdownThresholdTime>600</StationShutdownThresholdTime>
+  <CorrelativeFrequencyTracking>false</CorrelativeFrequencyTracking>
+  <IntenseLocationPolling>false</IntenseLocationPolling>
+  <InventoryConfiguration>
+    <ItemType>SimpleItem</ItemType>
+    <OrderMode>Fill</OrderMode>
+    <SubmitBatches>false</SubmitBatches>
+    <InitialInventory>0.6</InitialInventory>
+    <IgnoreCapacityForBundleGeneration>false</IgnoreCapacityForBundleGeneration>
+    <BufferBundlesUntilInventoryLoad>1.1</BufferBundlesUntilInventoryLoad>
+    <WarmupOrderCount>5000</WarmupOrderCount>
+    <ItemWeightMin>1</ItemWeightMin>
+    <ItemWeightMax>1</ItemWeightMax>
+    <BundleSizeMin>1</BundleSizeMin>
+    <BundleSizeMax>1</BundleSizeMax>
+    <ReturnOrderProbability>0</ReturnOrderProbability>
+    <PositionCountMean>1</PositionCountMean>
+    <PositionCountStdDev>1</PositionCountStdDev>
+    <PositionCountMin>1</PositionCountMin>
+    <PositionCountMax>1</PositionCountMax>
+    <OrderPositionCountMean>1</OrderPositionCountMean>
+    <OrderPositionCountStdDev>0</OrderPositionCountStdDev>
+    <OrderPositionCountMin>1</OrderPositionCountMin>
+    <OrderPositionCountMax>1</OrderPositionCountMax>
+    <DueTimePriorityMode>true</DueTimePriorityMode>
+    <DueTimePriorityOrderProbability>0.2</DueTimePriorityOrderProbability>
+    <DueTimePriorityOrder>1800</DueTimePriorityOrder>
+    <DueTimeOrdinaryOrder>7200</DueTimeOrdinaryOrder>
+    <DueTimeOffsetMean>10800</DueTimeOffsetMean>
+    <DueTimeOffsetStdDev>900</DueTimeOffsetStdDev>
+    <DueTimeOffsetMin>7200</DueTimeOffsetMin>
+    <DueTimeOffsetMax>14400</DueTimeOffsetMax>
+    <DemandInventoryConfiguration>
+      <OrderCount>100</OrderCount>
+      <BundleCount>100</BundleCount>
+      <InventoryLevelDrivenBundleGeneration>true</InventoryLevelDrivenBundleGeneration>
+      <InventoryLevelBundleStopThreshold>0.9</InventoryLevelBundleStopThreshold>
+      <InventoryLevelBundleRestartThreshold>0.7</InventoryLevelBundleRestartThreshold>
+      <InventoryLevelDrivenOrderGeneration>true</InventoryLevelDrivenOrderGeneration>
+      <InventoryLevelOrderStopThreshold>0.1</InventoryLevelOrderStopThreshold>
+      <InventoryLevelOrderRestartThreshold>0.3</InventoryLevelOrderRestartThreshold>
+    </DemandInventoryConfiguration>
+    <SimpleItemConfiguration>
+      <GeneratorConfigFile>Delta-1000.xgenc</GeneratorConfigFile>
+    </SimpleItemConfiguration>
+  </InventoryConfiguration>
+  <PPInstanceDumpFrequency>-1</PPInstanceDumpFrequency>
+  <CommentTag1 />
+  <CommentTag2 />
+  <CommentTag3 />
+</SettingConfiguration>
