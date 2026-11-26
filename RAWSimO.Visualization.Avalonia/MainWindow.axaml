@@ -145,6 +145,46 @@
                   </DockPanel>
                 </StackPanel>
               </Expander>
+              <Expander Header="Heatmaps" IsExpanded="True" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <DockPanel>
+                    <Button DockPanel.Dock="Left" Content="Instance…" Width="90" Margin="0,0,6,0" Click="ButtonHeatInstance_Click" ToolTip.Tip="Select the instance (.xinst) the data belongs to" />
+                    <TextBlock x:Name="TextHeatInstance" Text="(none)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                  </DockPanel>
+                  <DockPanel>
+                    <Button DockPanel.Dock="Left" Content="Data…" Width="90" Margin="0,0,6,0" Click="ButtonHeatData_Click" ToolTip.Tip="Select the heat data file (.heat) of a simulation run" />
+                    <ComboBox x:Name="ComboHeatValue" DockPanel.Dock="Right" MinWidth="120" Margin="6,0,0,0" ToolTip.Tip="The value of the data to render" />
+                    <TextBlock x:Name="TextHeatData" Text="(none)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                  </DockPanel>
+                  <WrapPanel>
+                    <TextBlock Text="Draw:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <CheckBox x:Name="CheckHeatBots" Content="Bots" Margin="0,0,10,0" />
+                    <CheckBox x:Name="CheckHeatPods" Content="Pods" Margin="0,0,10,0" />
+                    <CheckBox x:Name="CheckHeatStations" Content="Stations" Margin="0,0,10,0" />
+                    <CheckBox x:Name="CheckHeatSemaphores" Content="Semaphores" />
+                  </WrapPanel>
+                  <Expander Header="Bot task filter (location data)" HorizontalAlignment="Stretch">
+                    <WrapPanel x:Name="PanelHeatBotTasks" />
+                  </Expander>
+                  <Expander Header="Parameters" HorizontalAlignment="Stretch">
+                    <ContentControl x:Name="EditorHeatmap" />
+                  </Expander>
+                  <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="Opacity" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <Slider x:Name="SliderHeatOpacity" Minimum="0" Maximum="1" Value="0.7" ValueChanged="SliderHeatOpacity_ValueChanged" />
+                  </DockPanel>
+                  <WrapPanel>
+                    <Button x:Name="ButtonHeatRender" Content="Render" Margin="0,0,4,4" Click="ButtonHeatRender_Click" ToolTip.Tip="Show the instance with the heatmap of the selected data" />
+                    <Button Content="Show instance" Margin="0,0,4,4" Click="ButtonHeatShowInstance_Click" ToolTip.Tip="Only show the selected instance (without heat data)" />
+                    <Button Content="Clear" Margin="0,0,4,4" Click="ButtonHeatClear_Click" ToolTip.Tip="Remove the heatmap" />
+                    <Button x:Name="ButtonHeatAll" Content="All result folders…" Margin="0,0,4,4" Click="ButtonHeatAll_Click"
+                            ToolTip.Tip="Render heatmaps (locations and trips) as PNG into all result folders below a root folder (instances are taken from a separate folder)" />
+                    <Button x:Name="ButtonHeatTimeWindows" Content="Time windows…" Margin="0,0,4,4" Click="ButtonHeatTimeWindows_Click"
+                            ToolTip.Tip="Render one heatmap per time window (see parameters) of the selected data as PNG into a folder" />
+                  </WrapPanel>
+                  <TextBlock x:Name="TextHeatInfo" Foreground="#555" TextWrapping="Wrap" />
+                </StackPanel>
+              </Expander>
             </StackPanel>
           </ScrollViewer>
         </TabItem>

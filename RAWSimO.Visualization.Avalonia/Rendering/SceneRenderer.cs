@@ -73,9 +73,7 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
         {
             using var fill = new SKPaint { Style = SKPaintStyle.Fill, IsAntialias = true };
             using var outline = new SKPaint { Style = SKPaintStyle.Stroke, IsAntialias = true, Color = Palette.Outline, StrokeWidth = _stroke };
-            // Tier background
-            fill.Color = Palette.Tier;
-            canvas.DrawRect(WorldBounds, fill);
+            // Note: the tier background is not part of the static layer (see Draw), so that heatmaps can be drawn in between
             // Waypoint graph
             if (_detailLevel == DetailLevel.Debug)
                 DrawWaypointGraph(canvas, tier);
@@ -180,12 +178,35 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
         public void Draw(SKCanvas canvas, SceneSnapshot snapshot, SceneOptions options, float pixelSize, object selected,
             StaticLayerCache staticCache = null, GRContext grContext = null)
         {
+            // Tier background
+            if (!options.TransparentTier)
+            {
+                using var background = new SKPaint { Style = SKPaintStyle.Fill, Color = Palette.Tier };
+                canvas.DrawRect(WorldBounds, background);
+            }
+            HeatmapOverlay heatmap = options.Heatmap;
+            if (heatmap != null && heatmap.InBackground)
+                DrawHeatmap(canvas, heatmap);
+            // Static content
             if (staticCache != null)
                 staticCache.Draw(canvas, this, grContext);
             else
                 DrawStatic(canvas);
-            if (snapshot == null)
-                return;
+            if (snapshot != null)
+                DrawDynamic(canvas, snapshot, options, pixelSize, selected);
+            if (heatmap != null && !heatmap.InBackground)
+                DrawHeatmap(canvas, heatmap);
+        }
+
+        private static void DrawHeatmap(SKCanvas canvas, HeatmapOverlay heatmap)
+        {
+            // One pixel per tile, scaled without interpolation (sharp tiles as in the WPF version)
+            using var paint = new SKPaint { Color = SKColors.White.WithAlpha((byte)(Math.Clamp(heatmap.Opacity, 0, 1) * 255)) };
+            canvas.DrawImage(heatmap.Image, heatmap.WorldRect, new SKSamplingOptions(SKFilterMode.Nearest), paint);
+        }
+
+        private void DrawDynamic(SKCanvas canvas, SceneSnapshot snapshot, SceneOptions options, float pixelSize, object selected)
+        {
 
             using var fill = new SKPaint { Style = SKPaintStyle.Fill, IsAntialias = true };
             using var outline = new SKPaint { Style = SKPaintStyle.Stroke, IsAntialias = true, Color = Palette.Outline, StrokeWidth = _stroke };

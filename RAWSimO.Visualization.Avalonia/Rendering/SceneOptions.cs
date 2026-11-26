@@ -52,6 +52,14 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
         public bool DrawPath { get; set; }
         public bool HeatMode { get; set; }
         public BotColorMode BotColorMode { get; set; } = BotColorMode.DefaultBotDefaultState;
+        /// <summary>
+        /// A heatmap to draw on top of (or behind) the scene, if any.
+        /// </summary>
+        public HeatmapOverlay Heatmap { get; set; }
+        /// <summary>
+        /// Whether to omit the (white) tier background.
+        /// </summary>
+        public bool TransparentTier { get; set; }
 
         /// <summary>
         /// Creates a copy of these options (handed to the render thread for a single frame).

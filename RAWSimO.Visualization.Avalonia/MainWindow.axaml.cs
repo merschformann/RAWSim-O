@@ -33,6 +33,10 @@ namespace RAWSimO.Visualization.Avalonia
         private static readonly DetailLevel[] DetailLevels = { DetailLevel.None, DetailLevel.Debug, DetailLevel.Full };
 
         private Instance _instance;
+        /// <summary>
+        /// Whether the current instance can be executed (instances loaded for heatmap rendering only cannot).
+        /// </summary>
+        private bool _instanceRunnable;
         private SimulationRunner _runner;
         private List<ITierInfo> _tiers = new List<ITierInfo>();
         private bool _busy;
@@ -66,6 +70,7 @@ namespace RAWSimO.Visualization.Avalonia
             _suppressEvents = false;
 
             ResetConfigs();
+            InitHeatmapUi();
             View.SelectionChanged += _ => UpdateInfo();
             KeyDown += MainWindow_KeyDown;
             Closing += (_, _) => _runner?.Stop();
@@ -82,10 +87,16 @@ namespace RAWSimO.Visualization.Avalonia
         /// <summary>
         /// Displays the given instance and prepares its execution.
         /// </summary>
-        public void SetInstance(Instance instance)
+        /// <param name="instance">The instance to display.</param>
+        /// <param name="runnable">Whether the instance can be executed.</param>
+        /// <param name="heatmap">A heatmap to show on top of the instance, if any.</param>
+        public void SetInstance(Instance instance, bool runnable = true, HeatmapOverlay heatmap = null, bool transparentTier = false)
         {
             _runner?.Stop();
             _instance = instance;
+            _instanceRunnable = runnable;
+            View.Options.Heatmap = heatmap;
+            View.Options.TransparentTier = transparentTier;
             _runner = new SimulationRunner(instance, (double)(NumericSpeed.Value ?? 1));
             _runner.SpeedReduced += speed => Dispatcher.UIThread.Post(() =>
             {
@@ -153,15 +164,21 @@ namespace RAWSimO.Visualization.Avalonia
             View.Invalidate();
         }
 
-        private async Task RunBusy(string status, Func<Instance> work)
+        private Task RunBusy(string status, Func<Instance> work) => RunBusy(status, () => (work(), (HeatmapOverlay)null, false), runnable: true);
+
+        /// <summary>
+        /// Executes the given work in the background (UI disabled meanwhile) and shows the resulting instance.
+        /// </summary>
+        private async Task RunBusy(string status, Func<(Instance instance, HeatmapOverlay heatmap, bool transparentTier)> work, bool runnable)
         {
             _busy = true;
             UpdateButtons();
             TextStatus.Text = status;
             try
             {
-                Instance instance = await Task.Run(work);
-                SetInstance(instance);
+                var result = await Task.Run(work);
+                if (result.instance != null)
+                    SetInstance(result.instance, runnable, result.heatmap, result.transparentTier);
             }
             catch (Exception ex)
             {
@@ -439,7 +456,7 @@ namespace RAWSimO.Visualization.Avalonia
             if (_runner == null || _busy) return;
             if (!_runner.IsRunning)
             {
-                if (_instance.Controller.CurrentTime > 0)
+                if (!_instanceRunnable || _instance.Controller.CurrentTime > 0)
                     return; // Already executed - a new instance has to be generated / loaded
                 PrepareExecution();
                 _statisticsFolder = CheckWriteStatistics.IsChecked == true && Directory.Exists(TextStatisticsFolder.Text) ? TextStatisticsFolder.Text : null;
@@ -483,7 +500,8 @@ namespace RAWSimO.Visualization.Avalonia
             bool executed = _instance != null && _instance.Controller.CurrentTime > 0;
             ButtonGenerate.IsEnabled = !_busy && !running;
             ButtonLoad.IsEnabled = !_busy && !running;
-            ButtonPlayPause.IsEnabled = !_busy && _runner != null && (running || !executed);
+            ButtonPlayPause.IsEnabled = !_busy && _runner != null && (running || (!executed && _instanceRunnable));
+            ButtonHeatRender.IsEnabled = ButtonHeatAll.IsEnabled = ButtonHeatTimeWindows.IsEnabled = !_busy && !running;
             ButtonPlayPause.Content = running && !_runner.IsPaused ? "⏸ Pause" : running ? "▶ Resume" : "▶ Start";
             ButtonStop.IsEnabled = running;
         }

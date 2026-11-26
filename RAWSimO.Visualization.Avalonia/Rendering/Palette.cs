@@ -64,6 +64,26 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
         }
 
         /// <summary>
+        /// Generates a color between the low (value 0) and high (value 1) color (port of the WPF version).
+        /// If one of the colors is fully transparent, only the alpha channel of the other color is varied,
+        /// otherwise the colors are interpolated in HSV space.
+        /// </summary>
+        public static SKColor GetBichromaticColor(SKColor low, SKColor high, double value)
+        {
+            value = double.IsNaN(value) ? 0 : Math.Clamp(value, 0, 1);
+            if (low.Alpha == 0 || high.Alpha == 0)
+            {
+                if (low.Alpha == 0)
+                    return high.WithAlpha(value == 1 ? (byte)255 : (byte)(value * 256));
+                return low.WithAlpha(value == 0 ? (byte)255 : (byte)((1 - value) * 256));
+            }
+            low.ToHsv(out float hLow, out float sLow, out float vLow);
+            high.ToHsv(out float hHigh, out float sHigh, out float vHigh);
+            static float Lerp(float a, float b, double t) => a <= b ? a + (float)(Math.Abs(b - a) * t) : a - (float)(Math.Abs(b - a) * t);
+            return SKColor.FromHsv(Lerp(hLow, hHigh, value), Lerp(sLow, sHigh, value), Lerp(vLow, vHigh, value));
+        }
+
+        /// <summary>
         /// Generates a color between purple (value 0) and red (value 1). Used to distinguish bots.
         /// </summary>
         public static SKColor GetRainbowColor(double value)
