@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="using:RAWSimO.Visualization.Avalonia.Controls"
+        x:Class="RAWSimO.Visualization.Avalonia.MainWindow"
+        Title="RAWSim-O"
+        Width="1400" Height="900" MinWidth="800" MinHeight="500">
+
+  <Window.Styles>
+    <Style Selector="StackPanel.toolbar > :is(Control)">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.label">
+      <Setter Property="Margin" Value="8,0,4,0" />
+      <Setter Property="Foreground" Value="#555" />
+    </Style>
+    <Style Selector="Separator.vertical">
+      <Setter Property="Width" Value="1" />
+      <Setter Property="Height" Value="22" />
+      <Setter Property="Margin" Value="6,0" />
+      <Setter Property="Background" Value="#ccc" />
+    </Style>
+  </Window.Styles>
+
+  <DockPanel>
+    <!-- Toolbar -->
+    <Border DockPanel.Dock="Top" BorderBrush="#ddd" BorderThickness="0,0,0,1" Padding="6">
+      <WrapPanel Orientation="Horizontal">
+        <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="4" Margin="0,2">
+          <Button x:Name="ButtonGenerate" Content="Generate default" ToolTip.Tip="Generate an instance using the default layout, setting and control configuration" Click="ButtonGenerate_Click" />
+          <Button x:Name="ButtonLoad" Content="Load…" ToolTip.Tip="Load an instance or layout file together with a setting and a control configuration" Click="ButtonLoad_Click" />
+          <Separator Classes="vertical" />
+          <Button x:Name="ButtonPlayPause" Content="▶ Start" MinWidth="80" ToolTip.Tip="Start / pause the simulation (Space)" Click="ButtonPlayPause_Click" />
+          <Button x:Name="ButtonStop" Content="■ Stop" ToolTip.Tip="Stop the simulation" Click="ButtonStop_Click" />
+          <TextBlock Classes="label" Text="Speed" />
+          <NumericUpDown x:Name="NumericSpeed" Minimum="1" Maximum="400" Increment="1" Value="1" FormatString="0" Width="110"
+                         ToolTip.Tip="Simulated seconds per real second (+ / - / 0-4)" ValueChanged="NumericSpeed_ValueChanged" />
+          <TextBlock x:Name="TextTime" Classes="label" Text="00:00:00" FontFamily="monospace" MinWidth="80" ToolTip.Tip="Current simulation time" />
+        </StackPanel>
+        <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="4" Margin="0,2">
+          <Separator Classes="vertical" />
+          <TextBlock Classes="label" Text="Tier" />
+          <ComboBox x:Name="ComboTier" MinWidth="60" ToolTip.Tip="Tier to display (PageUp / PageDown)" SelectionChanged="ComboTier_SelectionChanged" />
+          <TextBlock Classes="label" Text="Detail" />
+          <ComboBox x:Name="ComboDetail" MinWidth="110" ToolTip.Tip="Level of detail of the static content" SelectionChanged="ComboDetail_SelectionChanged" />
+          <TextBlock Classes="label" Text="Bot colors" />
+          <ComboBox x:Name="ComboBotColors" MinWidth="170" SelectionChanged="RenderOption_Changed" />
+        </StackPanel>
+        <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="12" Margin="0,2">
+          <Separator Classes="vertical" />
+          <CheckBox x:Name="CheckHeat" Content="Pod heat" ToolTip.Tip="Color pods by their heat value" IsCheckedChanged="RenderOption_Changed" />
+          <CheckBox x:Name="CheckGoal" Content="Goal" ToolTip.Tip="Draw a line from each bot to its current goal" IsCheckedChanged="RenderOption_Changed" />
+          <CheckBox x:Name="CheckDestination" Content="Destination" ToolTip.Tip="Draw a line from each bot to its destination" IsCheckedChanged="RenderOption_Changed" />
+          <CheckBox x:Name="CheckPath" Content="Path" ToolTip.Tip="Draw the planned path of each bot" IsCheckedChanged="RenderOption_Changed" />
+          <Separator Classes="vertical" />
+          <Button x:Name="ButtonFit" Content="Fit" ToolTip.Tip="Fit the tier into the view (F or double click)" Click="ButtonFit_Click" />
+        </StackPanel>
+      </WrapPanel>
+    </Border>
+
+    <!-- Status bar -->
+    <Border DockPanel.Dock="Bottom" BorderBrush="#ddd" BorderThickness="0,1,0,0" Padding="8,3">
+      <DockPanel>
+        <TextBlock x:Name="TextFps" DockPanel.Dock="Right" FontFamily="monospace" Foreground="#555" />
+        <TextBlock x:Name="TextStatus" Text="Generate or load an instance to start." TextTrimming="CharacterEllipsis" />
+      </DockPanel>
+    </Border>
+
+    <!-- Log -->
+    <TextBox x:Name="TextLog" DockPanel.Dock="Bottom" Height="110" IsReadOnly="True" AcceptsReturn="True" TextWrapping="NoWrap"
+             FontFamily="monospace" FontSize="11" BorderThickness="0,1,0,0" CornerRadius="0" />
+
+    <!-- Info panel -->
+    <Border DockPanel.Dock="Right" Width="280" BorderBrush="#ddd" BorderThickness="1,0,0,0" Padding="8">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="Selection" FontWeight="SemiBold" Margin="0,0,0,6" />
+        <ScrollViewer>
+          <SelectableTextBlock x:Name="TextInfo" Text="Click on a bot, pod or station to see details." TextWrapping="Wrap" FontFamily="monospace" FontSize="12" />
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+
+    <!-- Simulation view -->
+    <c:SimulationView x:Name="View" />
+  </DockPanel>
+</Window>
