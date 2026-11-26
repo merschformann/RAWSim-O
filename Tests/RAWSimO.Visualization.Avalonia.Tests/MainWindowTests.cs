@@ -6,6 +6,8 @@ using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Headless.XUnit;
 using Avalonia.Input;
+using Avalonia.LogicalTree;
+using System.Linq;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using RAWSimO.Core;
@@ -63,6 +65,21 @@ namespace RAWSimO.Visualization.Avalonia.Tests
                         count++;
                 }
             return count;
+        }
+
+        [AvaloniaFact]
+        public void ShowsConfigurationPanel()
+        {
+            var window = new MainWindow { Width = 1400, Height = 900 };
+            window.Show();
+            // Collapse the layout and expand the controller configuration including one nested (polymorphic) configuration
+            var editor = window.FindControl<ContentControl>("EditorControl");
+            var expanders = window.FindControl<TabControl>("SidePanel").GetLogicalDescendants().OfType<Expander>().ToList();
+            expanders.First(e => e.Header as string == "Layout").IsExpanded = false;
+            expanders.First(e => e.Header as string == "Controller").IsExpanded = true;
+            ((Control)editor.Content).GetLogicalDescendants().OfType<Expander>().First().IsExpanded = true;
+            Capture(window, "03-controller-config");
+            window.Close();
         }
 
         [AvaloniaFact]

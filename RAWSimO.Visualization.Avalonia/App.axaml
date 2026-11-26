@@ -4,5 +4,9 @@
              RequestedThemeVariant="Light">
   <Application.Styles>
     <FluentTheme DensityStyle="Compact" />
+    <!-- Let expander headers use the full width (used by the configuration editors) -->
+    <Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
   </Application.Styles>
 </Application>

@@ -13,6 +13,11 @@
       <Setter Property="Margin" Value="8,0,4,0" />
       <Setter Property="Foreground" Value="#555" />
     </Style>
+    <Style Selector="TabControl#SidePanel > TabItem">
+      <Setter Property="FontSize" Value="15" />
+      <Setter Property="MinHeight" Value="32" />
+      <Setter Property="Padding" Value="10,4" />
+    </Style>
     <Style Selector="Separator.vertical">
       <Setter Property="Width" Value="1" />
       <Setter Property="Height" Value="22" />
@@ -26,7 +31,8 @@
     <Border DockPanel.Dock="Top" BorderBrush="#ddd" BorderThickness="0,0,0,1" Padding="6">
       <WrapPanel Orientation="Horizontal">
         <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="4" Margin="0,2">
-          <Button x:Name="ButtonGenerate" Content="Generate default" ToolTip.Tip="Generate an instance using the default layout, setting and control configuration" Click="ButtonGenerate_Click" />
+          <ToggleButton x:Name="TogglePanel" Content="☰" IsChecked="True" ToolTip.Tip="Show / hide the configuration panel" IsCheckedChanged="TogglePanel_Changed" />
+          <Button x:Name="ButtonGenerate" Content="Generate" ToolTip.Tip="Generate an instance using the layout, setting and controller configuration of the 'Instance' panel" Click="ButtonGenerate_Click" />
           <Button x:Name="ButtonLoad" Content="Load…" ToolTip.Tip="Load an instance or layout file together with a setting and a control configuration" Click="ButtonLoad_Click" />
           <Separator Classes="vertical" />
           <Button x:Name="ButtonPlayPause" Content="▶ Start" MinWidth="80" ToolTip.Tip="Start / pause the simulation (Space)" Click="ButtonPlayPause_Click" />
@@ -79,7 +85,52 @@
       </DockPanel>
     </Border>
 
-    <!-- Simulation view -->
-    <c:SimulationView x:Name="View" />
+    <!-- Configuration panel, splitter and simulation view -->
+    <Grid x:Name="MainGrid" ColumnDefinitions="440,Auto,*">
+      <TabControl x:Name="SidePanel" Grid.Column="0" Padding="0" Margin="4,0,0,0">
+        <TabItem Header="Instance">
+          <DockPanel>
+            <WrapPanel DockPanel.Dock="Top" Margin="6,4">
+              <Button Content="Generate" Margin="0,0,4,4" Click="ButtonGenerate_Click" ToolTip.Tip="Generate an instance with the parameters below" />
+              <Button x:Name="ButtonSanityCheck" Content="Sanity check" Margin="0,0,4,4" Click="ButtonSanityCheck_Click" ToolTip.Tip="Check the current instance for obvious errors" />
+              <Button Content="Reset" Margin="0,0,4,4" Click="ButtonResetConfigs_Click" ToolTip.Tip="Reset all parameters below to their defaults" />
+              <Button x:Name="ButtonSaveInstance" Content="Save instance…" Margin="0,0,4,4" Click="ButtonSaveInstance_Click" ToolTip.Tip="Save the current instance (.xinst)" />
+              <Button Content="Save layout…" Margin="0,0,4,4" Click="ButtonSaveLayout_Click" ToolTip.Tip="Save the layout configuration (.xlayo)" />
+              <Button Content="Save setting…" Margin="0,0,4,4" Click="ButtonSaveSetting_Click" ToolTip.Tip="Save the setting configuration (.xsett)" />
+              <Button Content="Save controller…" Margin="0,0,4,4" Click="ButtonSaveControl_Click" ToolTip.Tip="Save the controller configuration (.xconf)" />
+            </WrapPanel>
+            <ScrollViewer>
+              <StackPanel Margin="6,0,14,6" Spacing="4">
+                <Expander Header="Layout" IsExpanded="True" HorizontalAlignment="Stretch"><ContentControl x:Name="EditorLayout" /></Expander>
+                <Expander Header="Setting" HorizontalAlignment="Stretch"><ContentControl x:Name="EditorSetting" /></Expander>
+                <Expander Header="Controller" HorizontalAlignment="Stretch"><ContentControl x:Name="EditorControl" /></Expander>
+              </StackPanel>
+            </ScrollViewer>
+          </DockPanel>
+        </TabItem>
+        <TabItem Header="Orders">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander Header="Simple item generator" IsExpanded="True" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <ContentControl x:Name="EditorSimpleItems" />
+                  <Button Content="Generate and save item config…" Click="ButtonSaveSimpleItemConfig_Click"
+                          ToolTip.Tip="Generate a configuration for the online generation of simple items (.xgenc) and plot its frequencies (requires gnuplot)" />
+                </StackPanel>
+              </Expander>
+              <Expander Header="Alphabet order list" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <ContentControl x:Name="EditorAlphabetOrders" />
+                  <Button Content="Generate and save order list…" Click="ButtonSaveAlphabetOrders_Click"
+                          ToolTip.Tip="Generate an order list based on colored words for the fixed inventory mode (.xitem)" />
+                </StackPanel>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+      </TabControl>
+      <GridSplitter x:Name="SidePanelSplitter" Grid.Column="1" Width="5" ResizeDirection="Columns" Background="#e6e6e6" />
+      <c:SimulationView x:Name="View" Grid.Column="2" />
+    </Grid>
   </DockPanel>
 </Window>

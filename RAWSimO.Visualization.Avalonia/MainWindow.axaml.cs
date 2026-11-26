@@ -2,9 +2,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -15,6 +17,10 @@ using RAWSimO.Core.Configurations;
 using RAWSimO.Core.Generator;
 using RAWSimO.Core.Info;
 using RAWSimO.Core.IO;
+using RAWSimO.Core.Items;
+using RAWSimO.DataPreparation;
+using RAWSimO.Visualization.Avalonia.Controls;
+using RAWSimO.Visualization.Avalonia.Generation;
 using RAWSimO.Visualization.Avalonia.Rendering;
 using RAWSimO.Visualization.Avalonia.Simulation;
 
@@ -34,6 +40,14 @@ namespace RAWSimO.Visualization.Avalonia
         private readonly List<string> _logLines = new List<string>();
         private readonly DispatcherTimer _uiTimer;
 
+        // Configurations edited in the side panel (copies are used for generation, see GenerateFromConfigs)
+        private LayoutConfiguration _layoutConfig;
+        private SettingConfiguration _settingConfig;
+        private ControlConfiguration _controlConfig;
+        private OrderGenerator.SimpleItemGeneratorPreConfiguration _simpleItemConfig;
+        private AlphabetOrderParameters _alphabetOrderParameters;
+        private GridLength _sidePanelWidth = new GridLength(440);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +59,7 @@ namespace RAWSimO.Visualization.Avalonia
             ComboBotColors.SelectedIndex = 0;
             _suppressEvents = false;
 
+            ResetConfigs();
             View.SelectionChanged += _ => UpdateInfo();
             KeyDown += MainWindow_KeyDown;
             Closing += (_, _) => _runner?.Stop();
@@ -136,15 +151,47 @@ namespace RAWSimO.Visualization.Avalonia
 
         private async void ButtonGenerate_Click(object sender, RoutedEventArgs e)
         {
+            if (_busy || _runner?.IsRunning == true) return;
             _runner?.Stop();
-            await RunBusy("Generating instance…", () =>
-            {
-                var setting = new SettingConfiguration { VisualizationAttached = true, LogAction = Log };
-                var control = new ControlConfiguration();
-                Instance instance = InstanceGenerator.GenerateLayout(new LayoutConfiguration(), setting, control, Log);
-                instance.Name = instance.GetMetaInfoBasedInstanceName();
-                return instance;
-            });
+            // Work on copies, so that editing the parameters later does not affect the generated instance
+            LayoutConfiguration layout = Clone(_layoutConfig);
+            SettingConfiguration setting = Clone(_settingConfig);
+            ControlConfiguration control = Clone(_controlConfig);
+            await RunBusy("Generating instance…", () => GenerateFromConfigs(layout, setting, control, Log));
+        }
+
+        /// <summary>
+        /// Generates an instance from the given configurations (same preparations as the WPF visualization).
+        /// </summary>
+        public static Instance GenerateFromConfigs(LayoutConfiguration layout, SettingConfiguration setting, ControlConfiguration control, Action<string> log)
+        {
+            setting.Name = setting.GetMetaInfoBasedConfigName();
+            control.Name = control.GetMetaInfoBasedConfigName();
+            // Find the specified resource files
+            var inventory = setting.InventoryConfiguration;
+            if (inventory.ColoredWordConfiguration != null)
+                inventory.ColoredWordConfiguration.WordFile = IOHelper.FindResourceFile(inventory.ColoredWordConfiguration.WordFile, ".");
+            if (inventory.FixedInventoryConfiguration != null)
+                inventory.FixedInventoryConfiguration.OrderFile = IOHelper.FindResourceFile(inventory.FixedInventoryConfiguration.OrderFile, ".");
+            if (inventory.SimpleItemConfiguration != null)
+                inventory.SimpleItemConfiguration.GeneratorConfigFile = IOHelper.FindResourceFile(inventory.SimpleItemConfiguration.GeneratorConfigFile, ".");
+            setting.VisualizationAttached = true;
+            setting.LogAction = log;
+            Instance instance = InstanceGenerator.GenerateLayout(layout, setting, control, log);
+            instance.Name = instance.GetMetaInfoBasedInstanceName();
+            return instance;
+        }
+
+        /// <summary>
+        /// Deep copies a configuration via XML serialization (the same mechanism used for writing configuration files).
+        /// </summary>
+        private static T Clone<T>(T config)
+        {
+            var serializer = new XmlSerializer(typeof(T));
+            using var writer = new StringWriter();
+            serializer.Serialize(writer, config);
+            using var reader = new StringReader(writer.ToString());
+            return (T)serializer.Deserialize(reader);
         }
 
         private async void ButtonLoad_Click(object sender, RoutedEventArgs e)
@@ -173,6 +220,188 @@ namespace RAWSimO.Visualization.Avalonia
                 FileTypeFilter = new[] { new FilePickerFileType(filterName) { Patterns = patterns }, FilePickerFileTypes.All },
             });
             return files.Count > 0 ? files[0].TryGetLocalPath() : null;
+        }
+
+        #endregion
+
+        #region Configuration panel
+
+        private void ResetConfigs()
+        {
+            _layoutConfig = new LayoutConfiguration();
+            _settingConfig = new SettingConfiguration();
+            _controlConfig = new ControlConfiguration();
+            _simpleItemConfig = new OrderGenerator.SimpleItemGeneratorPreConfiguration();
+            _alphabetOrderParameters = new AlphabetOrderParameters();
+            EditorLayout.Content = ConfigEditor.Create(_layoutConfig);
+            EditorSetting.Content = ConfigEditor.Create(_settingConfig);
+            EditorControl.Content = ConfigEditor.Create(_controlConfig);
+            EditorSimpleItems.Content = ConfigEditor.Create(_simpleItemConfig);
+            EditorAlphabetOrders.Content = ConfigEditor.Create(_alphabetOrderParameters);
+        }
+
+        private void ButtonResetConfigs_Click(object sender, RoutedEventArgs e) => ResetConfigs();
+
+        private void TogglePanel_Changed(object sender, RoutedEventArgs e)
+        {
+            bool show = TogglePanel.IsChecked == true;
+            ColumnDefinition column = MainGrid.ColumnDefinitions[0];
+            if (!show && column.Width.Value > 0)
+                _sidePanelWidth = column.Width;
+            column.Width = show ? _sidePanelWidth : new GridLength(0);
+            SidePanel.IsVisible = show;
+            SidePanelSplitter.IsVisible = show;
+        }
+
+        private async void ButtonSanityCheck_Click(object sender, RoutedEventArgs e)
+        {
+            if (_instance == null) { await MessageDialog.Show(this, "Sanity check", "Generate or load an instance first."); return; }
+            string message;
+            try
+            {
+                var errors = _instance.SanityCheck();
+                if (!errors.Any())
+                    message = "No errors encountered!";
+                else
+                {
+                    var sb = new StringBuilder("Sanity checking the instance returned negative!\nThe following errors were found:\n");
+                    foreach (var errorType in errors.Select(err => err.Item1).Distinct())
+                        sb.AppendLine(errorType + ": " + _instance.SanityGetDescription(errorType));
+                    sb.AppendLine("\nThe detailed error list follows:");
+                    foreach (var error in errors)
+                        sb.AppendLine(error.Item1 + ": " + error.Item2);
+                    message = sb.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                message = "An exception occurred while sanity-checking:\n" + ex;
+            }
+            await MessageDialog.Show(this, "Sanity check", message);
+        }
+
+        private async void ButtonSaveInstance_Click(object sender, RoutedEventArgs e)
+        {
+            if (_instance == null) { await MessageDialog.Show(this, "Save instance", "Generate or load an instance first."); return; }
+            string file = await PickSaveFile("Save instance", _instance.GetMetaInfoBasedInstanceName(), "xinst", "Instance files");
+            if (file == null) return;
+            await RunSafe(() =>
+            {
+                _instance.Name = Path.GetFileNameWithoutExtension(file);
+                InstanceIO.WriteInstance(file, _instance);
+                Log("Saved instance to " + file);
+            });
+        }
+
+        private async void ButtonSaveLayout_Click(object sender, RoutedEventArgs e)
+        {
+            string file = await PickSaveFile("Save layout configuration", _layoutConfig.GetMetaInfoBasedLayoutName(), "xlayo", "Layout files");
+            if (file == null) return;
+            await RunSafe(() =>
+            {
+                LayoutConfiguration layout = Clone(_layoutConfig);
+                layout.NameLayout = Path.GetFileNameWithoutExtension(file);
+                InstanceIO.WriteLayout(file, layout);
+                Log("Saved layout configuration to " + file);
+            });
+        }
+
+        private async void ButtonSaveSetting_Click(object sender, RoutedEventArgs e)
+        {
+            SettingConfiguration setting = Clone(_settingConfig);
+            string file = await PickSaveFile("Save setting configuration", setting.GetMetaInfoBasedConfigName(), "xsett", "Setting files");
+            if (file == null) return;
+            await RunSafe(() =>
+            {
+                // Only store the file names of resource files (they are searched for when loading)
+                var inventory = setting.InventoryConfiguration;
+                if (inventory.ColoredWordConfiguration != null)
+                    inventory.ColoredWordConfiguration.WordFile = Path.GetFileName(inventory.ColoredWordConfiguration.WordFile);
+                if (inventory.FixedInventoryConfiguration != null)
+                    inventory.FixedInventoryConfiguration.OrderFile = Path.GetFileName(inventory.FixedInventoryConfiguration.OrderFile);
+                if (inventory.SimpleItemConfiguration != null)
+                    inventory.SimpleItemConfiguration.GeneratorConfigFile = Path.GetFileName(inventory.SimpleItemConfiguration.GeneratorConfigFile);
+                setting.Name = Path.GetFileNameWithoutExtension(file);
+                InstanceIO.WriteSetting(file, setting);
+                Log("Saved setting configuration to " + file);
+            });
+        }
+
+        private async void ButtonSaveControl_Click(object sender, RoutedEventArgs e)
+        {
+            ControlConfiguration control = Clone(_controlConfig);
+            string file = await PickSaveFile("Save controller configuration", control.GetMetaInfoBasedConfigName(), "xconf", "Configuration files");
+            if (file == null) return;
+            await RunSafe(() =>
+            {
+                control.Name = Path.GetFileNameWithoutExtension(file);
+                InstanceIO.WriteConfiguration(file, control);
+                Log("Saved controller configuration to " + file);
+            });
+        }
+
+        private async void ButtonSaveSimpleItemConfig_Click(object sender, RoutedEventArgs e)
+        {
+            SimpleItemGeneratorConfiguration config;
+            try { config = OrderGenerator.GenerateSimpleItemConfiguration(_simpleItemConfig); }
+            catch (Exception ex) { await MessageDialog.Show(this, "Error", "Failure while generating the config:\n" + ex.Message); return; }
+            string file = await PickSaveFile("Save simple item generator configuration", config.GetMetaInfoBasedName(), "xgenc", "Item generator configurations");
+            if (file == null) return;
+            await RunSafe(() =>
+            {
+                config.Name = Path.GetFileNameWithoutExtension(file);
+                InstanceIO.WriteSimpleItemGeneratorConfigFile(file, config);
+                Log("Saved item generator configuration to " + file);
+                try
+                {
+                    InventoryInfoProcessor.PlotSimpleInventoryFrequencies(file);
+                    Log("Generated a frequency diagram for the item configuration.");
+                }
+                catch (Exception ex)
+                {
+                    Log("Could not plot the item frequencies (is gnuplot installed and on the PATH?): " + ex.Message);
+                }
+            });
+        }
+
+        private async void ButtonSaveAlphabetOrders_Click(object sender, RoutedEventArgs e)
+        {
+            OrderList list;
+            try { list = _alphabetOrderParameters.Generate(); }
+            catch (Exception ex) { await MessageDialog.Show(this, "Error", "Failure while generating the order list:\n" + ex.Message); return; }
+            string file = await PickSaveFile("Save order list", list.GetMetaInfoBasedOrderListName(), "xitem", "Order lists");
+            if (file == null) return;
+            await RunSafe(() =>
+            {
+                InstanceIO.WriteOrders(file, list);
+                Log("Saved order list to " + file);
+            });
+        }
+
+        private async Task<string> PickSaveFile(string title, string suggestedName, string extension, string description)
+        {
+            IStorageFile file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = title,
+                SuggestedFileName = suggestedName + "." + extension,
+                DefaultExtension = extension,
+                ShowOverwritePrompt = true,
+                FileTypeChoices = new[] { new FilePickerFileType(description) { Patterns = new[] { "*." + extension } } },
+            });
+            return file?.TryGetLocalPath();
+        }
+
+        /// <summary>
+        /// Executes the given action and shows errors in a dialog.
+        /// </summary>
+        private async Task RunSafe(Action action)
+        {
+            try { action(); }
+            catch (Exception ex)
+            {
+                Log("Error: " + ex.Message);
+                await MessageDialog.Show(this, "Error", ex.Message);
+            }
         }
 
         #endregion
