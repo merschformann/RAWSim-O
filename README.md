@@ -45,6 +45,8 @@ Image showing a heatmap rendered using RAWSim-O that shows the locations robots 
 
 ## Demonstrator video
 
+The demonstrator applications can be found in [demo/](demo/).
+
 A short video of the demonstrator application done with RAWSim-O and vacuum cleaning robots can be found here: 
 [![Demonstrator](Material/Wiki/youtube-thumbnails/demonstrator-player.PNG)](https://youtu.be/bZHIXCxpXyc "Demonstrator")
 
@@ -54,18 +56,11 @@ Some of the functionality of RAWSim-O requires an installation of GnuPlot (see h
 
 # License
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+RAWSim-O is licensed under the [MIT License](LICENSE).
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+The real-life demonstrator in [demo/](demo/) (robot, server and station applications as well as hardware drivers) is an exception: it depends on the GPL-3.0 licensed Emgu CV library and is therefore licensed under the [GNU General Public License v3.0](demo/LICENSE). The simulation itself (core, visualization, CLI, etc.) does not depend on the demonstrator.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Licenses of third-party components can be found in [ThirdPartyLicenses.txt](ThirdPartyLicenses.txt) and [demo/ThirdPartyLicenses.txt](demo/ThirdPartyLicenses.txt).
 
 # Publications
 

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
+    <ProjectReference Include="..\..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

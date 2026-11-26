@@ -23,22 +23,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
+    <ProjectReference Include="..\..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
     <ProjectReference Include="..\RAWSimO.Hardware\RAWSimO.Hardware.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="DirectShowLib-2005">
-      <HintPath>..\Material\Lib\DirectShowLib-2005.dll</HintPath>
+      <HintPath>..\Lib\DirectShowLib-2005.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV">
-      <HintPath>..\Material\Lib\Emgu.CV.dll</HintPath>
+      <HintPath>..\Lib\Emgu.CV.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.UI">
-      <HintPath>..\Material\Lib\Emgu.CV.UI.dll</HintPath>
+      <HintPath>..\Lib\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.Util">
-      <HintPath>..\Material\Lib\Emgu.Util.dll</HintPath>
+      <HintPath>..\Lib\Emgu.Util.dll</HintPath>
     </Reference>
   </ItemGroup>
 

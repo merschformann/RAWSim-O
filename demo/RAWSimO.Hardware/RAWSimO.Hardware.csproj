@@ -78,8 +78,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
-    <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj" />
+    <ProjectReference Include="..\..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
+    <ProjectReference Include="..\..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,22 +92,22 @@
 
   <ItemGroup>
     <Reference Include="Emgu.CV">
-      <HintPath>..\Material\Lib\Emgu.CV.dll</HintPath>
+      <HintPath>..\Lib\Emgu.CV.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV.UI">
-      <HintPath>..\Material\Lib\Emgu.CV.UI.dll</HintPath>
+      <HintPath>..\Lib\Emgu.CV.UI.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.Util">
-      <HintPath>..\Material\Lib\Emgu.Util.dll</HintPath>
+      <HintPath>..\Lib\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="HidLibrary">
-      <HintPath>..\Material\Lib\HidLibrary.dll</HintPath>
+      <HintPath>..\Lib\HidLibrary.dll</HintPath>
     </Reference>
     <Reference Include="ThingM.Blink1">
-      <HintPath>..\Material\Lib\ThingM.Blink1.dll</HintPath>
+      <HintPath>..\Lib\ThingM.Blink1.dll</HintPath>
     </Reference>
     <Reference Include="zxing">
-      <HintPath>..\Material\Lib\x86\zxing.dll</HintPath>
+      <HintPath>..\Lib\x86\zxing.dll</HintPath>
     </Reference>
   </ItemGroup>
 
