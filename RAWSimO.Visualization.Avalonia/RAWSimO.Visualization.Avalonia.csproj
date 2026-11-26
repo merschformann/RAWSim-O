@@ -25,6 +25,7 @@
     <ProjectReference Include="..\RAWSimO.Core\RAWSimO.Core.csproj" />
     <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj" />
     <ProjectReference Include="..\RAWSimO.DataPreparation\RAWSimO.DataPreparation.csproj" />
+    <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
   </ItemGroup>
 
 </Project>

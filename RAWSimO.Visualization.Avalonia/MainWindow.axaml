@@ -188,6 +188,44 @@
             </StackPanel>
           </ScrollViewer>
         </TabItem>
+        <TabItem Header="Remote">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander Header="Remote connection" IsExpanded="True" HorizontalAlignment="Stretch"
+                        ToolTip.Tip="Connect the simulation as controller to the server of the demonstrator (see demo/), which manages the communication with the real robots and stations">
+                <StackPanel Spacing="6">
+                  <Grid ColumnDefinitions="Auto,*,Auto,90" RowDefinitions="Auto">
+                    <TextBlock Text="Server" VerticalAlignment="Center" Margin="0,0,6,0" />
+                    <TextBox x:Name="TextRemoteIp" Grid.Column="1" Text="127.0.0.1" />
+                    <TextBlock Grid.Column="2" Text="Port" VerticalAlignment="Center" Margin="8,0,6,0" />
+                    <TextBox x:Name="TextRemotePort" Grid.Column="3" Text="888" />
+                  </Grid>
+                  <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button x:Name="ButtonRemoteConnect" Content="Connect" Click="ButtonRemoteConnect_Click" ToolTip.Tip="Connect to the server (an instance has to be loaded)" />
+                    <Button x:Name="ButtonRemoteDisconnect" Content="Disconnect" IsEnabled="False" Click="ButtonRemoteDisconnect_Click" />
+                    <TextBlock x:Name="TextRemoteStatus" Text="Not connected" VerticalAlignment="Center" Margin="6,0,0,0" Foreground="#555" />
+                  </StackPanel>
+                </StackPanel>
+              </Expander>
+              <Expander Header="Fire virtual events" HorizontalAlignment="Stretch"
+                        ToolTip.Tip="Manually fire robot events (for testing the remote control without hardware)">
+                <StackPanel Spacing="6">
+                  <Grid ColumnDefinitions="Auto,*,Auto,*">
+                    <TextBlock Text="Bot ID" VerticalAlignment="Center" Margin="0,0,6,0" />
+                    <TextBox x:Name="TextEventBot" Grid.Column="1" />
+                    <TextBlock Grid.Column="2" Text="Waypoint ID" VerticalAlignment="Center" Margin="8,0,6,0" />
+                    <TextBox x:Name="TextEventWaypoint" Grid.Column="3" />
+                  </Grid>
+                  <WrapPanel>
+                    <Button Content="OnWaypointReached" Margin="0,0,4,4" Click="ButtonEventWaypointReached_Click" />
+                    <Button Content="OnPickedUpPod" Margin="0,0,4,4" Click="ButtonEventPickedUpPod_Click" />
+                    <Button Content="OnSetDownPod" Margin="0,0,4,4" Click="ButtonEventSetDownPod_Click" />
+                  </WrapPanel>
+                </StackPanel>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
       </TabControl>
       <GridSplitter x:Name="SidePanelSplitter" Grid.Column="1" Width="5" ResizeDirection="Columns" Background="#e6e6e6" />
       <c:SimulationView x:Name="View" Grid.Column="2" />

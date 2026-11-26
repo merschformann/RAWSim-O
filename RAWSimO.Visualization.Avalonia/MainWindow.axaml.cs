@@ -73,7 +73,12 @@ namespace RAWSimO.Visualization.Avalonia
             InitHeatmapUi();
             View.SelectionChanged += _ => UpdateInfo();
             KeyDown += MainWindow_KeyDown;
-            Closing += (_, _) => _runner?.Stop();
+            Closing += (_, _) =>
+            {
+                _runner?.Stop();
+                if (_controlClient?.IsConnected == true)
+                    try { _controlClient.Disconnect(); } catch (Exception) { /* Closing anyway */ }
+            };
 
             // Periodically refresh the textual UI (time, fps, info panel, log)
             _uiTimer = new DispatcherTimer(TimeSpan.FromMilliseconds(250), DispatcherPriority.Background, (_, _) => RefreshUi());

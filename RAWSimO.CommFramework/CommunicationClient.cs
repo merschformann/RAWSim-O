@@ -142,7 +142,8 @@ namespace RAWSimO.CommFramework
             }
 
             // Start listening for incoming messages
-            _thread = new Thread(new ThreadStart(ReceiveMsg));
+            // Background thread: must not keep the application alive after it was closed
+            _thread = new Thread(new ThreadStart(ReceiveMsg)) { IsBackground = true };
             _thread.Start();
 
             // Tell the server who we are

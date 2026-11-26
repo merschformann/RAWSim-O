@@ -52,6 +52,10 @@ namespace RAWSimO.CommFramework
         /// <param name="port">The port the server uses.</param>
         public void Connect(string ip, string port) { _client.Connect(ip, port); }
         /// <summary>
+        /// Indicates whether the client is currently connected to the server.
+        /// </summary>
+        public bool IsConnected => _client.IsConnected;
+        /// <summary>
         /// Terminates the connection.
         /// </summary>
         public void Disconnect() { _client.SendMsg(CommunicationConstants.COMM_DISCONNECT_MSG); }
