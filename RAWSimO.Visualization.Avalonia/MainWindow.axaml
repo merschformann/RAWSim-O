@@ -53,12 +53,16 @@
         </StackPanel>
         <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="12" Margin="0,2">
           <Separator Classes="vertical" />
-          <CheckBox x:Name="CheckHeat" Content="Pod heat" ToolTip.Tip="Color pods by their heat value" IsCheckedChanged="RenderOption_Changed" />
+          <StackPanel Orientation="Horizontal" Spacing="4" ToolTip.Tip="Color pods by their heat according to the selected measure">
+            <TextBlock Classes="label" Text="Pod heat" VerticalAlignment="Center" />
+            <ComboBox x:Name="ComboHeatMode" MinWidth="150" SelectionChanged="RenderOption_Changed" />
+          </StackPanel>
           <CheckBox x:Name="CheckGoal" Content="Goal" ToolTip.Tip="Draw a line from each bot to its current goal" IsCheckedChanged="RenderOption_Changed" />
           <CheckBox x:Name="CheckDestination" Content="Destination" ToolTip.Tip="Draw a line from each bot to its destination" IsCheckedChanged="RenderOption_Changed" />
           <CheckBox x:Name="CheckPath" Content="Path" ToolTip.Tip="Draw the planned path of each bot" IsCheckedChanged="RenderOption_Changed" />
           <Separator Classes="vertical" />
           <Button x:Name="ButtonFit" Content="Fit" ToolTip.Tip="Fit the tier into the view (F or double click)" Click="ButtonFit_Click" />
+          <Button x:Name="ButtonSnapshot" Content="Snapshot…" ToolTip.Tip="Export the complete tier as PNG or SVG (vector graphics)" Click="ButtonSnapshot_Click" />
         </StackPanel>
       </WrapPanel>
     </Border>
@@ -123,6 +127,22 @@
                   <ContentControl x:Name="EditorAlphabetOrders" />
                   <Button Content="Generate and save order list…" Click="ButtonSaveAlphabetOrders_Click"
                           ToolTip.Tip="Generate an order list based on colored words for the fixed inventory mode (.xitem)" />
+                </StackPanel>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Misc">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander Header="Statistics" IsExpanded="True" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <CheckBox x:Name="CheckWriteStatistics" Content="Write statistics to folder when the simulation stops"
+                            ToolTip.Tip="If disabled, statistics are only written when the simulation horizon is reached (to a folder in the working directory)" />
+                  <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="Browse…" Margin="4,0,0,0" Click="ButtonBrowseStatistics_Click" />
+                    <TextBox x:Name="TextStatisticsFolder" PlaceholderText="Statistics output folder" />
+                  </DockPanel>
                 </StackPanel>
               </Expander>
             </StackPanel>

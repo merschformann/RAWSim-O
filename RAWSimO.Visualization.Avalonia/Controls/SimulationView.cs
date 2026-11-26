@@ -48,6 +48,11 @@ namespace RAWSimO.Visualization.Avalonia.Controls
         }
 
         /// <summary>
+        /// The renderer of the currently displayed scene (null, if none).
+        /// </summary>
+        public SceneRenderer Renderer => _renderer;
+
+        /// <summary>
         /// The options used for rendering. Changes are picked up with the next frame.
         /// </summary>
         public SceneOptions Options { get; } = new SceneOptions();

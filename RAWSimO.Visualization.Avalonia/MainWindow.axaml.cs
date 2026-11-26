@@ -18,6 +18,7 @@ using RAWSimO.Core.Generator;
 using RAWSimO.Core.Info;
 using RAWSimO.Core.IO;
 using RAWSimO.Core.Items;
+using RAWSimO.Core.Management;
 using RAWSimO.DataPreparation;
 using RAWSimO.Visualization.Avalonia.Controls;
 using RAWSimO.Visualization.Avalonia.Generation;
@@ -48,6 +49,9 @@ namespace RAWSimO.Visualization.Avalonia
         private AlphabetOrderParameters _alphabetOrderParameters;
         private GridLength _sidePanelWidth = new GridLength(440);
 
+        // Statistics output requested for the current run (captured at start, used when the simulation finishes)
+        private string _statisticsFolder;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -57,6 +61,8 @@ namespace RAWSimO.Visualization.Avalonia
             ComboDetail.SelectedItem = DetailLevel.Debug;
             ComboBotColors.ItemsSource = Enum.GetValues<BotColorMode>();
             ComboBotColors.SelectedIndex = 0;
+            ComboHeatMode.ItemsSource = Enum.GetValues<HeatMode>();
+            ComboHeatMode.SelectedItem = HeatMode.None;
             _suppressEvents = false;
 
             ResetConfigs();
@@ -86,7 +92,23 @@ namespace RAWSimO.Visualization.Avalonia
                 Log($"Simulation cannot keep up, reducing speed to {speed}");
                 _suppressEvents = true; NumericSpeed.Value = (decimal)speed; _suppressEvents = false;
             });
-            _runner.Finished += () => Dispatcher.UIThread.Post(() => { Log("Simulation finished."); UpdateButtons(); });
+            Instance runnerInstance = instance;
+            _runner.Finished += () =>
+            {
+                // Called on the simulation thread after the simulation stopped
+                string folder = _statisticsFolder;
+                if (folder != null)
+                {
+                    try
+                    {
+                        runnerInstance.SettingConfig.StatisticsDirectory = folder;
+                        runnerInstance.WriteStatistics();
+                        Log("Statistics written to " + folder);
+                    }
+                    catch (Exception ex) { Log("Error while writing statistics: " + ex.Message); }
+                }
+                Dispatcher.UIThread.Post(() => { Log("Simulation finished."); UpdateButtons(); });
+            };
 
             _suppressEvents = true;
             _tiers = instance.GetInfoTiers().ToList();
@@ -117,7 +139,11 @@ namespace RAWSimO.Visualization.Avalonia
 
         private void ApplyRenderOptions()
         {
-            View.Options.HeatMode = CheckHeat.IsChecked == true;
+            var heatMode = (HeatMode)(ComboHeatMode.SelectedItem ?? HeatMode.None);
+            View.Options.HeatMode = heatMode != HeatMode.None;
+            // The pods calculate their heat value according to the instance's heat mode
+            if (_instance != null && heatMode != HeatMode.None)
+                _instance.SettingConfig.HeatMode = heatMode;
             View.Options.DrawGoal = CheckGoal.IsChecked == true;
             View.Options.DrawDestination = CheckDestination.IsChecked == true;
             View.Options.DrawPath = CheckPath.IsChecked == true;
@@ -416,6 +442,11 @@ namespace RAWSimO.Visualization.Avalonia
                 if (_instance.Controller.CurrentTime > 0)
                     return; // Already executed - a new instance has to be generated / loaded
                 PrepareExecution();
+                _statisticsFolder = CheckWriteStatistics.IsChecked == true && Directory.Exists(TextStatisticsFolder.Text) ? TextStatisticsFolder.Text : null;
+                if (CheckWriteStatistics.IsChecked == true && _statisticsFolder == null)
+                    Log("Statistics folder does not exist - statistics will only be written at the end of the simulation horizon.");
+                if (_statisticsFolder != null)
+                    _instance.SettingConfig.StatisticsDirectory = _statisticsFolder;
                 _runner.Start(_instance.SettingConfig.SimulationWarmupTime + _instance.SettingConfig.SimulationDuration);
                 Log("Simulation started.");
             }
@@ -464,6 +495,42 @@ namespace RAWSimO.Visualization.Avalonia
         private void ButtonPlayPause_Click(object sender, RoutedEventArgs e) => StartOrTogglePause();
         private void ButtonStop_Click(object sender, RoutedEventArgs e) => StopSimulation();
         private void ButtonFit_Click(object sender, RoutedEventArgs e) => View.FitToView();
+
+        private async void ButtonSnapshot_Click(object sender, RoutedEventArgs e)
+        {
+            if (_runner == null || View.Renderer == null) { await MessageDialog.Show(this, "Snapshot", "Generate or load an instance first."); return; }
+            IStorageFile target = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "Export snapshot",
+                SuggestedFileName = $"{_instance.GetInfoName()}-{DateTime.Now:yyyyMMddHHmmss}.png",
+                DefaultExtension = "png",
+                ShowOverwritePrompt = true,
+                FileTypeChoices = new[]
+                {
+                    new FilePickerFileType("PNG image") { Patterns = new[] { "*.png" } },
+                    new FilePickerFileType("SVG vector graphics") { Patterns = new[] { "*.svg" } },
+                },
+            });
+            string file = target?.TryGetLocalPath();
+            if (file == null) return;
+            SceneRenderer renderer = View.Renderer;
+            SceneSnapshot snapshot = _runner.Snapshot;
+            SceneOptions options = View.Options.Clone();
+            await RunSafe(() =>
+            {
+                SceneExporter.Export(file, renderer, snapshot, options);
+                Log("Snapshot written to " + file);
+            });
+        }
+
+        private async void ButtonBrowseStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            var folders = await StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions { Title = "Statistics output folder", AllowMultiple = false });
+            string path = folders.Count > 0 ? folders[0].TryGetLocalPath() : null;
+            if (path == null) return;
+            TextStatisticsFolder.Text = path;
+            CheckWriteStatistics.IsChecked = true;
+        }
 
         private void NumericSpeed_ValueChanged(object sender, NumericUpDownValueChangedEventArgs e)
         {

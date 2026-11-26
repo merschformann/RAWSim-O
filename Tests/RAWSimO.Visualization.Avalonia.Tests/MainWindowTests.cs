@@ -68,6 +68,54 @@ namespace RAWSimO.Visualization.Avalonia.Tests
         }
 
         [AvaloniaFact]
+        public void ExportsSnapshotsAsPngAndSvg()
+        {
+            Instance instance = GenerateDefaultInstance();
+            var tier = System.Linq.Enumerable.First(instance.GetInfoTiers());
+            var renderer = new SceneRenderer(instance, tier, DetailLevel.Full);
+            var snapshot = new SceneSnapshotBuilder(instance, () => 0).Build();
+            Directory.CreateDirectory(SnapshotDir);
+            string png = Path.Combine(SnapshotDir, "export.png"), svg = Path.Combine(SnapshotDir, "export.svg");
+            SceneExporter.Export(png, renderer, snapshot, new SceneOptions(), maxPixelSize: 2000);
+            SceneExporter.Export(svg, renderer, snapshot, new SceneOptions());
+            using (var bitmap = SkiaSharp.SKBitmap.Decode(png))
+                Assert.Equal(2000, Math.Max(bitmap.Width, bitmap.Height));
+            string svgText = File.ReadAllText(svg);
+            Assert.StartsWith("<?xml", svgText);
+            Assert.Contains("<svg", svgText);
+            Assert.True(svgText.Length > 100_000, "SVG seems to be missing content");
+        }
+
+        [AvaloniaFact]
+        public void AppliesHeatModeAndWritesStatisticsOnStop()
+        {
+            var window = new MainWindow();
+            window.Show();
+            Instance instance = GenerateDefaultInstance();
+            window.SetInstance(instance);
+
+            // Heat mode is applied to the instance (the pods calculate their heat according to it)
+            window.FindControl<ComboBox>("ComboHeatMode").SelectedItem = RAWSimO.Core.Management.HeatMode.NumItemsHandled;
+            Assert.Equal(RAWSimO.Core.Management.HeatMode.NumItemsHandled, instance.SettingConfig.HeatMode);
+            Assert.True(window.FindControl<SimulationView>("View").Options.HeatMode);
+
+            // Statistics are written to the given folder when stopping
+            string folder = Path.Combine(AppContext.BaseDirectory, "stats-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(folder);
+            window.FindControl<CheckBox>("CheckWriteStatistics").IsChecked = true;
+            window.FindControl<TextBox>("TextStatisticsFolder").Text = folder;
+            window.KeyPress(Key.D4, RawInputModifiers.None, PhysicalKey.Digit4, "4");
+            window.KeyPress(Key.Space, RawInputModifiers.None, PhysicalKey.Space, " ");
+            Thread.Sleep(500);
+            Dispatcher.UIThread.RunJobs();
+            window.FindControl<Button>("ButtonStop").RaiseEvent(new global::Avalonia.Interactivity.RoutedEventArgs(Button.ClickEvent));
+            Dispatcher.UIThread.RunJobs();
+            Assert.NotEmpty(Directory.GetFiles(folder, "*", SearchOption.AllDirectories));
+            window.Close();
+            Directory.Delete(folder, true);
+        }
+
+        [AvaloniaFact]
         public void ShowsConfigurationPanel()
         {
             var window = new MainWindow { Width = 1400, Height = 900 };
