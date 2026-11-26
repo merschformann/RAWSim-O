@@ -1,0 +1,7 @@
+<Project>
+  <!-- Settings shared by all projects in the repository. -->
+  <PropertyGroup>
+    <!-- Allows compiling the Windows-only (WPF) projects on Linux/macOS (they still only run on Windows). -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+</Project>

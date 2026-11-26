@@ -9,11 +9,11 @@ jobs:
         runs-on: windows-latest # Must build on windows to work correctly (otherwise console window is shown)
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
 
-            - uses: actions/setup-dotnet@v1
+            - uses: actions/setup-dotnet@v4
               with:
-                  dotnet-version: "6.0.x" # SDK Version to use.
+                  dotnet-version: "10.0.x" # SDK Version to use.
 
             - name: Publish project
               run: |

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
 	  <UseWPF>true</UseWPF>
 	  <Configurations>Debug;Release;XPlat;XPlatRelease</Configurations>
 	  <Platforms>AnyCPU</Platforms>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Windows.Extensions" Version="6.0.0" />
+    <PackageReference Include="System.Windows.Extensions" Version="10.0.15" />
   </ItemGroup>
 
 </Project>

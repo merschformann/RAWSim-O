@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>bot.ico</ApplicationIcon>
     <Configurations>Debug;Release;XPlat;XPlatRelease</Configurations>
@@ -50,9 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HelixToolkit" Version="2.20.0" />
-    <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.20.0" />
-    <PackageReference Include="WriteableBitmapEx" Version="1.6.8" />
+    <PackageReference Include="HelixToolkit" Version="2.27.3" />
+    <PackageReference Include="HelixToolkit.Core.Wpf" Version="2.27.3" />
+    <PackageReference Include="WriteableBitmapEx" Version="1.6.11" />
   </ItemGroup>
 
   <ItemGroup>
