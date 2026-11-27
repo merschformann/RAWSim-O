@@ -526,7 +526,7 @@ namespace RAWSimO.Core.Elements
         /// Gets the information queue.
         /// </summary>
         /// <returns>Queue</returns>
-        public string GetInfoQueue() { return (Queues == null || Queues.Count == 0) ? "" : Queues.First().Value.Select(w => w.ID.ToString()).Aggregate((current, next) => current + ", " + next); }
+        public string GetInfoQueue() { return (Queues == null || Queues.Count == 0) ? "" : string.Join(", ", Queues.First().Value.Select(w => w.ID.ToString())); }
         /// <summary>
         /// Indicates whether the station is currently activated (available for new assignments).
         /// </summary>
