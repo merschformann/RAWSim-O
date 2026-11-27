@@ -11,3 +11,6 @@ packages/
 .vs/
 .idea/
 publish/
+
+# Simulation output folders (<instance>-<setting>-<control>-<seed>) created when running from the repository root
+/*-*[0-9]/

@@ -29,4 +29,5 @@ for png in "$out"/*.png; do
     [[ -f "$png" ]] || continue
     ffmpeg -loglevel error -y -i "$png" -vf "split[a][b];[a]palettegen=max_colors=256[p];[b][p]paletteuse=dither=none" "$wiki/$(basename "$png")"
 done
+rmdir "$repo"/readme-default-default-* 2>/dev/null || true # empty simulation output folders
 echo "Updated visuals in $wiki"
