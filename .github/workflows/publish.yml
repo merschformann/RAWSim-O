@@ -1,39 +1,40 @@
 name: publish
 
+# Attaches the visualization (self-contained, i.e. no .NET installation needed) for each platform to a newly created release.
 on:
     release:
         types: [created]
 
+permissions:
+    contents: write # upload release assets
+
 jobs:
     deploy:
-        runs-on: windows-latest # Must build on windows to work correctly (otherwise console window is shown)
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                rid: [linux-x64, win-x64, osx-arm64, osx-x64]
 
         steps:
             - uses: actions/checkout@v4
 
             - uses: actions/setup-dotnet@v4
               with:
-                  dotnet-version: "10.0.x" # SDK Version to use.
+                  dotnet-version: "10.0.x"
 
-            - name: Publish project
-              run: |
-                  dotnet publish -c Release -o publish/RAWSimO RAWSimO.Visualization/RAWSimO.Visualization.csproj
+            - name: Publish visualization
+              run: dotnet publish RAWSimO.Visualization.Avalonia/RAWSimO.Visualization.Avalonia.csproj -c Release -r ${{ matrix.rid }} --self-contained -o publish/RAWSimO
+
             - name: Copy resource files
               run: |
-                  mkdir publish/RAWSimO/Resources
+                  mkdir -p publish/RAWSimO/Resources
                   cp -r Material/Resources/* publish/RAWSimO/Resources
-            - name: Zip output
+
+            - name: Zip and upload to release
+              env:
+                  GH_TOKEN: ${{ github.token }}
               run: |
                   cd publish
-                  7z a RAWSimO.zip *
-                  echo "Dir content:"
-                  ls
-            - name: Upload binaries to release
-              uses: svenstaro/upload-release-action@v2
-              with:
-                  repo_token: ${{ secrets.GITHUB_TOKEN }}
-                  file: publish/RAWSimO.zip
-                  asset_name: RAWSimO-${{ github.ref_name }}.zip
-                  tag: ${{ github.ref }}
-                  overwrite: true
-                  body: "RAWSimO zip file"
+                  zip -qr ../RAWSimO-${{ github.ref_name }}-${{ matrix.rid }}.zip RAWSimO
+                  cd ..
+                  gh release upload ${{ github.ref_name }} RAWSimO-${{ github.ref_name }}-${{ matrix.rid }}.zip --clobber

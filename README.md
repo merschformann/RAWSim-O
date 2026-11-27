@@ -3,6 +3,9 @@
 RAWSim-O is a discrete event-based simulation for Robotic Mobile Fulfillment Systems. The intention of the simulation framework is to provide a tool for researching effects of multiple decision problems that occur when running such a system. For this, the framework enables easy extensibility for implementing new decision methods for the different decision problems.
 Copyright (C) 2017 Marius Merschformann
 
+> [!NOTE]
+> The modernization of RAWSim-O (.NET 10, cross-platform visualization, 3D view) was implemented with the support of AI coding tools. The simulation itself predates them.
+
 ## First impressions
 
 2D view in action:
@@ -15,9 +18,17 @@ Copyright (C) 2017 Marius Merschformann
 
 ## Quick start
 
-Open RAWSimO.sln with Visual Studio and select RAWSimO.Visualization as the project to execute. Under the "Instances" tab press the checkmark button to generate a default instance. Then go to the "Base Controls" tab and press the play button. Depending on the instance size and simulation settings instance generation and simulation initialization may take longer. You should see a first simulation running now.
+Download the visualization for your platform (Linux, Windows, macOS) from the [releases](https://github.com/merschformann/RAWSim-O/releases) and run `RAWSimO.Visualization.Avalonia` in the extracted folder. Alternatively, run it from source with the [.NET 10 SDK](https://dotnet.microsoft.com/download):
 
-In the following video you can find a short tutorial of RAWSim-O's core functionality for a quick start:
+```bash
+dotnet run --project RAWSimO.Visualization.Avalonia -c XPlat
+```
+
+Press "Generate" to generate a default instance (its parameters can be changed in the "Instance" tab of the setup panel), then press "▶ Start". Depending on the instance size and simulation settings, instance generation and simulation initialization may take a while. You should see a first simulation running now. "3D" switches to a 3D view of all tiers.
+
+The `XPlat` configuration builds all cross-platform projects. The Windows-only [demonstrator](demo/) applications are built by the `Debug` / `Release` configurations.
+
+The following video gives a short tutorial of RAWSim-O's core functionality (recorded with the previous, Windows-only visualization):
 [![Quick tutorial](Material/Wiki/youtube-thumbnails/quick-intro-player.PNG)](https://youtu.be/l3qwDnbEPhI "Quick intro")
 
 ## Controller implementation quick start
@@ -60,7 +71,7 @@ RAWSim-O is licensed under the [MIT License](LICENSE).
 
 The real-life demonstrator in [demo/](demo/) (robot, server and station applications as well as hardware drivers) is an exception: it depends on the GPL-3.0 licensed Emgu CV library and is therefore licensed under the [GNU General Public License v3.0](demo/LICENSE). The simulation itself (core, visualization, CLI, etc.) does not depend on the demonstrator.
 
-Licenses of third-party components can be found in [ThirdPartyLicenses.txt](ThirdPartyLicenses.txt) and [demo/ThirdPartyLicenses.txt](demo/ThirdPartyLicenses.txt).
+Licenses of third-party components of the demonstrator can be found in [demo/ThirdPartyLicenses.txt](demo/ThirdPartyLicenses.txt).
 
 # Publications
 
@@ -90,10 +101,12 @@ Hazard, Christopher J., Peter R. Wurman, and Raffaello D’Andrea. "Alphabet sou
 
 # Used software:
 Thanks go out to the developers of the following software for enabling a more easy implementation of RAWSim-O.
-## Helix Toolkit: ##
-https://github.com/helix-toolkit/helix-toolkit
-## WriteableBitmapEx ##
-https://writeablebitmapex.codeplex.com/
+## Avalonia ##
+https://avaloniaui.net/
+## SkiaSharp ##
+https://github.com/mono/SkiaSharp
+## Aquarium ##
+https://github.com/merschformann/aquarium
 ## Emgu CV ##
 http://www.emgu.com/
 ## Open CV ##
