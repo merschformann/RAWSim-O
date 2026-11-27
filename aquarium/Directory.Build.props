@@ -1,0 +1,13 @@
+<Project>
+  <!-- Settings shared by all Aquarium projects (stops MSBuild from picking up settings of a surrounding repository). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AvaloniaVersion>12.1.6</AvaloniaVersion>
+    <Authors>Marius Merschformann</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+</Project>
