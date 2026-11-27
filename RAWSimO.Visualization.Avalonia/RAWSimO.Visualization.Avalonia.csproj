@@ -10,6 +10,16 @@
     <Configurations>Debug;Release;XPlat;XPlatRelease</Configurations>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- Location of the Aquarium repository (can be overridden, e.g. dotnet build -p:AquariumDir=/path/to/aquarium/) -->
+    <AquariumDir Condition=" '$(AquariumDir)' == '' ">$(MSBuildThisFileDirectory)..\..\aquarium\</AquariumDir>
+  </PropertyGroup>
+
+  <Target Name="CheckAquarium" BeforeTargets="PrepareForBuild;_CheckForInvalidConfigurationAndPlatform;CollectPackageReferences">
+    <Error Condition="!Exists('$(AquariumDir)src\Aquarium.Avalonia\Aquarium.Avalonia.csproj')"
+           Text="The 3D component Aquarium was not found at '$(AquariumDir)'. Clone https://github.com/merschformann/aquarium next to RAWSim-O (or set AquariumDir)." />
+  </Target>
+
   <PropertyGroup Condition=" '$(Configuration)' == 'XPlatRelease' ">
     <Optimize>true</Optimize>
   </PropertyGroup>
@@ -26,8 +36,8 @@
     <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj" />
     <ProjectReference Include="..\RAWSimO.DataPreparation\RAWSimO.DataPreparation.csproj" />
     <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
-    <!-- 3D rendering (prepared to move into its own repository) -->
-    <ProjectReference Include="..\aquarium\src\Aquarium.Avalonia\Aquarium.Avalonia.csproj" />
+    <!-- 3D rendering: the Aquarium repository (https://github.com/merschformann/aquarium) checked out next to this one -->
+    <ProjectReference Include="$(AquariumDir)src\Aquarium.Avalonia\Aquarium.Avalonia.csproj" />
   </ItemGroup>
 
   <ItemGroup>
