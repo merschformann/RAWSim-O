@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.OpenGL;
 using Avalonia.OpenGL.Controls;
+using Avalonia.Rendering;
 using Avalonia.Threading;
 
 namespace Aquarium.Avalonia;
@@ -12,7 +13,7 @@ namespace Aquarium.Avalonia;
 /// Displays a <see cref="Aquarium.Scene"/> using OpenGL.
 /// Mouse: left drag = orbit, right / middle drag (or shift + left drag) = pan, wheel = zoom, click = pick, double click = fit.
 /// </summary>
-public class AquariumView : OpenGlControlBase
+public class AquariumView : OpenGlControlBase, ICustomHitTest
 {
     public static readonly StyledProperty<Scene?> SceneProperty = AvaloniaProperty.Register<AquariumView, Scene?>(nameof(Scene));
 
@@ -29,6 +30,12 @@ public class AquariumView : OpenGlControlBase
         Focusable = true;
         ClipToBounds = true;
     }
+
+    /// <summary>
+    /// The OpenGL content is not part of the regular hit testing (the control itself draws nothing), hence, without this
+    /// the control would never receive pointer events.
+    /// </summary>
+    public bool HitTest(Point point) => new Rect(Bounds.Size).Contains(point);
 
     /// <summary>
     /// The scene to display.

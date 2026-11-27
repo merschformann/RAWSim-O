@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquarium.Tests", "tests\Aquarium.Tests\Aquarium.Tests.csproj", "{1D0300E7-60A7-4806-AD2F-58A6E4128E20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquarium.Avalonia.Tests", "tests\Aquarium.Avalonia.Tests\Aquarium.Avalonia.Tests.csproj", "{F5847350-75CB-4B5F-BBC4-254768EB3B08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,18 @@ Global
 		{1D0300E7-60A7-4806-AD2F-58A6E4128E20}.Release|x64.Build.0 = Release|Any CPU
 		{1D0300E7-60A7-4806-AD2F-58A6E4128E20}.Release|x86.ActiveCfg = Release|Any CPU
 		{1D0300E7-60A7-4806-AD2F-58A6E4128E20}.Release|x86.Build.0 = Release|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Debug|x64.Build.0 = Debug|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Debug|x86.Build.0 = Debug|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Release|x64.ActiveCfg = Release|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Release|x64.Build.0 = Release|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Release|x86.ActiveCfg = Release|Any CPU
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,5 +98,6 @@ Global
 		{280A225B-ECB5-465A-AFD7-B3CF282198EA} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{5A730C4C-0899-457E-A4FA-1F9A31BD9E20} = {5D20AA90-6969-D8BD-9DCD-8634F4692FDA}
 		{1D0300E7-60A7-4806-AD2F-58A6E4128E20} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
+		{F5847350-75CB-4B5F-BBC4-254768EB3B08} = {0AB3BF05-4346-4AA6-1389-037BE0695223}
 	EndGlobalSection
 EndGlobal
