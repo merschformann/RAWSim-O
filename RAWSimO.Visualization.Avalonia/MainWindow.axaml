@@ -107,7 +107,7 @@
     </Border>
 
     <!-- Setup panel | view and log | info panel -->
-    <Grid x:Name="MainGrid" ColumnDefinitions="440,Auto,*,Auto,360">
+    <Grid x:Name="MainGrid" ColumnDefinitions="440,Auto,*,Auto,400">
       <TabControl x:Name="SidePanel" Grid.Column="0" Classes="panel" Padding="0" Margin="4,0,0,0">
         <TabItem Header="Instance">
           <DockPanel>

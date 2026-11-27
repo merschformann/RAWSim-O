@@ -35,7 +35,7 @@ namespace RAWSimO.Visualization.Avalonia
         };
 
         private GridLength _sidePanelWidth = new GridLength(440);
-        private GridLength _infoPanelWidth = new GridLength(360);
+        private GridLength _infoPanelWidth = new GridLength(400);
         private GridLength _logHeight = new GridLength(140);
         private Overview _shownOverview;
         // Cells of the statistics / stations / selection tables (reused as long as the structure does not change)

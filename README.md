@@ -4,17 +4,17 @@ RAWSim-O is a discrete event-based simulation for Robotic Mobile Fulfillment Sys
 Copyright (C) 2017 Marius Merschformann
 
 > [!NOTE]
-> The modernization of RAWSim-O (.NET 10, cross-platform visualization, 3D view) was implemented with the support of AI coding tools. The simulation itself predates them.
+> RAWSim-O started long before AI coding tools. Today, they help keep it maintained, which my limited time would not allow otherwise.
 
 ## First impressions
 
 2D view in action:
 
-![Larger instance](Material/Wiki/rawsim-o-2d.gif)
+![2D view](Material/Wiki/rawsim-o-2d.gif)
 
 3D view in action:
 
-![Larger instance](Material/Wiki/rawsim-o-3d.gif)
+![3D view](Material/Wiki/rawsim-o-3d.gif)
 
 ## Quick start
 
@@ -46,7 +46,7 @@ Image showing a multi-level instance being simulated:
 
 ![Multi floor instance](Material/Wiki/multi-floor-3d.png)
 
-Image showing more detailed information for path planning engines:
+Image showing the planned paths of the bots (path planning with WHCA*):
 
 ![Path sample](Material/Wiki/paths-2d.png)
 
