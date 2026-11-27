@@ -26,6 +26,8 @@
     <ProjectReference Include="..\RAWSimO.Toolbox\RAWSimO.Toolbox.csproj" />
     <ProjectReference Include="..\RAWSimO.DataPreparation\RAWSimO.DataPreparation.csproj" />
     <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
+    <!-- 3D rendering (prepared to move into its own repository) -->
+    <ProjectReference Include="..\aquarium\src\Aquarium.Avalonia\Aquarium.Avalonia.csproj" />
   </ItemGroup>
 
   <ItemGroup>

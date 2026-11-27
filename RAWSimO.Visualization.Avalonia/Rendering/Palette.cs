@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SkiaSharp;
 
 namespace RAWSimO.Visualization.Avalonia.Rendering
@@ -91,6 +92,30 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
             value = Math.Clamp(value, 0, 1);
             // Interpolation in HSV space between Purple (300°, 100%, 50.2%) and Red (0°, 100%, 100%)
             return SKColor.FromHsv((float)(300 * (1 - value)), 100, (float)((0.502 + 0.498 * value) * 100));
+        }
+    }
+
+    /// <summary>
+    /// Determines the colors of bots (stable per-bot colors for the rainbow modes).
+    /// </summary>
+    public sealed class BotColors
+    {
+        private readonly SKColor[] _rainbowColors;
+
+        public BotColors(int botCount)
+        {
+            _rainbowColors = Enumerable.Range(0, botCount).Select(i => Palette.GetRainbowColor(botCount > 1 ? (double)i / (botCount - 1) : 0)).ToArray();
+        }
+
+        public SKColor Get(in BotSnapshot bot, BotColorMode mode)
+        {
+            SKColor rainbow = bot.Index < _rainbowColors.Length ? _rainbowColors[bot.Index] : Palette.Bot;
+            return mode switch
+            {
+                BotColorMode.RainbowBotSingleState => bot.State == "Move" ? rainbow : Palette.StateHidden,
+                BotColorMode.RainbowBotDefaultState => bot.State == "Move" ? rainbow : Palette.GetStateColor(bot.State),
+                _ => Palette.GetStateColor(bot.State),
+            };
         }
     }
 }

@@ -133,6 +133,7 @@ namespace RAWSimO.Visualization.Avalonia
             _suppressEvents = false;
 
             BuildScene(keepView: false);
+            Reset3D();
             ResetInfoPanel();
             TextStatus.Text =
                 $"{instance.GetInfoName()}: {_tiers.Count} tier(s), {instance.GetInfoBots().Count()} bots, {instance.GetInfoPods().Count()} pods, " +
@@ -168,6 +169,7 @@ namespace RAWSimO.Visualization.Avalonia
             if (_runner != null)
                 _runner.CapturePaths = View.Options.DrawPath;
             View.Invalidate();
+            Update3D(force: true);
         }
 
         private Task RunBusy(string status, Func<Instance> work) => RunBusy(status, () => (work(), (HeatmapOverlay)null, false), runnable: true);
@@ -509,7 +511,13 @@ namespace RAWSimO.Visualization.Avalonia
 
         private void ButtonPlayPause_Click(object sender, RoutedEventArgs e) => StartOrTogglePause();
         private void ButtonStop_Click(object sender, RoutedEventArgs e) => StopSimulation();
-        private void ButtonFit_Click(object sender, RoutedEventArgs e) => View.FitToView();
+        private void ButtonFit_Click(object sender, RoutedEventArgs e) => FitView();
+
+        private void FitView()
+        {
+            if (Is3D) View3D.FitToScene();
+            else View.FitToView();
+        }
 
         private async void ButtonSnapshot_Click(object sender, RoutedEventArgs e)
         {
@@ -520,14 +528,27 @@ namespace RAWSimO.Visualization.Avalonia
                 SuggestedFileName = $"{_instance.GetInfoName()}-{DateTime.Now:yyyyMMddHHmmss}.png",
                 DefaultExtension = "png",
                 ShowOverwritePrompt = true,
-                FileTypeChoices = new[]
-                {
-                    new FilePickerFileType("PNG image") { Patterns = new[] { "*.png" } },
-                    new FilePickerFileType("SVG vector graphics") { Patterns = new[] { "*.svg" } },
-                },
+                FileTypeChoices = Is3D
+                    ? new[] { new FilePickerFileType("PNG image") { Patterns = new[] { "*.png" } } }
+                    : new[]
+                    {
+                        new FilePickerFileType("PNG image") { Patterns = new[] { "*.png" } },
+                        new FilePickerFileType("SVG vector graphics") { Patterns = new[] { "*.svg" } },
+                    },
             });
             string file = target?.TryGetLocalPath();
             if (file == null) return;
+            if (Is3D)
+            {
+                // The 3D view exports what it currently shows
+                try
+                {
+                    await Export3D(file);
+                    Log("Snapshot written to " + file);
+                }
+                catch (Exception ex) { await MessageDialog.Show(this, "Snapshot", "Exporting the 3D view failed: " + ex.Message); }
+                return;
+            }
             SceneRenderer renderer = View.Renderer;
             SceneSnapshot snapshot = _runner.Snapshot;
             SceneOptions options = View.Options.Clone();
@@ -560,7 +581,9 @@ namespace RAWSimO.Visualization.Avalonia
 
         private void ComboDetail_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!_suppressEvents) BuildScene(keepView: true);
+            if (_suppressEvents) return;
+            BuildScene(keepView: true);
+            Reset3D();
         }
 
         private void RenderOption_Changed(object sender, RoutedEventArgs e)
@@ -573,7 +596,7 @@ namespace RAWSimO.Visualization.Avalonia
             // Panel toggles
             if (e.KeyModifiers == KeyModifiers.Control)
             {
-                ToggleButton toggle = e.Key switch { Key.B => TogglePanel, Key.I => ToggleInfo, Key.L => ToggleLog, _ => null };
+                ToggleButton toggle = e.Key switch { Key.B => TogglePanel, Key.I => ToggleInfo, Key.L => ToggleLog, Key.D3 => Toggle3D, _ => null };
                 if (toggle != null)
                 {
                     toggle.IsChecked = toggle.IsChecked != true;
@@ -595,7 +618,7 @@ namespace RAWSimO.Visualization.Avalonia
                 case Key.D4: case Key.NumPad4: SetSpeed(400); break;
                 case Key.PageUp: if (ComboTier.SelectedIndex < _tiers.Count - 1) ComboTier.SelectedIndex++; break;
                 case Key.PageDown: if (ComboTier.SelectedIndex > 0) ComboTier.SelectedIndex--; break;
-                case Key.F: View.FitToView(); break;
+                case Key.F: FitView(); break;
                 default: return;
             }
             e.Handled = true;

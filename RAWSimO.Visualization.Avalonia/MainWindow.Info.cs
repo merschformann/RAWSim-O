@@ -86,6 +86,7 @@ namespace RAWSimO.Visualization.Avalonia
             }
             _runner.RequestOverview();
             UpdateInfoPanel();
+            Update3D(force: true); // Selection highlight
         }
 
         private void ResetInfoPanel()

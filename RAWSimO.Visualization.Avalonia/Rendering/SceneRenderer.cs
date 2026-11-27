@@ -19,8 +19,7 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
         private readonly SKPicture _staticPicture;
         private readonly float _stroke;
         private readonly DetailLevel _detailLevel;
-        private readonly int _botCount;
-        private readonly SKColor[] _rainbowColors;
+        private readonly BotColors _botColors;
         private readonly IInputStationInfo[] _inputStations;
         private readonly IOutputStationInfo[] _outputStations;
         private readonly IWaypointInfo[] _waypoints;
@@ -35,8 +34,7 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
             double waypointRadius = anyWaypoint != null ? anyWaypoint.GetInfoLength() / 2.0 : 0.1;
             _stroke = (float)(0.2 * waypointRadius);
             // Stable per-bot colors for the rainbow modes
-            _botCount = instance.GetInfoBots().Count();
-            _rainbowColors = Enumerable.Range(0, _botCount).Select(i => Palette.GetRainbowColor(_botCount > 1 ? (double)i / (_botCount - 1) : 0)).ToArray();
+            _botColors = new BotColors(instance.GetInfoBots().Count());
             // Keep static objects for hit testing
             _inputStations = tier.GetInfoInputStations().ToArray();
             _outputStations = tier.GetInfoOutputStations().ToArray();
@@ -361,16 +359,7 @@ namespace RAWSimO.Visualization.Avalonia.Rendering
             canvas.DrawRoundRect(b, 3 * pixelSize, 3 * pixelSize, paint);
         }
 
-        private SKColor GetBotColor(in BotSnapshot bot, BotColorMode mode)
-        {
-            SKColor rainbow = bot.Index < _rainbowColors.Length ? _rainbowColors[bot.Index] : Palette.Bot;
-            return mode switch
-            {
-                BotColorMode.RainbowBotSingleState => bot.State == "Move" ? rainbow : Palette.StateHidden,
-                BotColorMode.RainbowBotDefaultState => bot.State == "Move" ? rainbow : Palette.GetStateColor(bot.State),
-                _ => Palette.GetStateColor(bot.State),
-            };
-        }
+        private SKColor GetBotColor(in BotSnapshot bot, BotColorMode mode) => _botColors.Get(bot, mode);
 
         #endregion
 
