@@ -13,7 +13,7 @@
   <!-- 3D rendering: Aquarium (https://github.com/merschformann/aquarium) from NuGet. For working on both at the same time,
        a local checkout can be used instead (absolute path): dotnet build -p:AquariumDir=$PWD/../aquarium/ -->
   <PropertyGroup>
-    <AquariumVersion>0.1.0</AquariumVersion>
+    <AquariumVersion>0.1.2</AquariumVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(AquariumDir)' == '' ">
     <PackageReference Include="Aquarium.Avalonia" Version="$(AquariumVersion)" />
