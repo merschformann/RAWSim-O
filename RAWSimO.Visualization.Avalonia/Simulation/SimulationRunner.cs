@@ -30,6 +30,13 @@ namespace RAWSimO.Visualization.Avalonia.Simulation
         private volatile bool _paused;
         private double _speed;
         private SceneSnapshot _snapshot;
+        private readonly OverviewBuilder _overviewBuilder;
+        private Overview _overview;
+        private volatile bool _overviewRequested;
+        /// <summary>
+        /// Minimal wall-clock time between two overviews.
+        /// </summary>
+        private static readonly TimeSpan MinOverviewDelay = TimeSpan.FromMilliseconds(250);
 
         public SimulationRunner(Instance instance, double speed)
         {
@@ -38,6 +45,34 @@ namespace RAWSimO.Visualization.Avalonia.Simulation
             _snapshotBuilder = new SceneSnapshotBuilder(instance, () => instance.Controller.CurrentTime);
             // Initial snapshot (simulation is not running yet, hence, it is safe to do this on the calling thread)
             _snapshot = _snapshotBuilder.Build();
+            _overviewBuilder = new OverviewBuilder(instance, () => instance.Controller.CurrentTime);
+        }
+
+        /// <summary>
+        /// The most recent overview (statistics, stations, orders, selection details) or null, if none was requested yet.
+        /// </summary>
+        public Overview Overview => Volatile.Read(ref _overview);
+
+        /// <summary>
+        /// The last error that occurred while creating an overview (if any).
+        /// </summary>
+        public volatile Exception OverviewError;
+
+        /// <summary>
+        /// The object to describe in the <see cref="Overview"/>.
+        /// </summary>
+        public object OverviewSelection { get => _overviewBuilder.Selected; set => _overviewBuilder.Selected = value; }
+
+        /// <summary>
+        /// Requests a fresh <see cref="Overview"/>. While the simulation is running (or paused), it is created by the simulation thread
+        /// (within <see cref="MinOverviewDelay"/>), otherwise immediately.
+        /// </summary>
+        public void RequestOverview()
+        {
+            if (IsRunning)
+                _overviewRequested = true;
+            else
+                PublishOverview();
         }
 
         /// <summary>
@@ -125,6 +160,7 @@ namespace RAWSimO.Visualization.Avalonia.Simulation
             var clock = Stopwatch.StartNew();
             TimeSpan lastUpdate = clock.Elapsed;
             TimeSpan lastSnapshot = TimeSpan.Zero;
+            TimeSpan lastOverview = TimeSpan.Zero;
             try
             {
                 while (!_stopRequested && _instance.Controller.CurrentTime < simulationEndTime)
@@ -133,7 +169,12 @@ namespace RAWSimO.Visualization.Avalonia.Simulation
                     if (_paused)
                     {
                         PublishSnapshot();
-                        _resumeEvent.Wait();
+                        while (_paused && !_stopRequested)
+                        {
+                            if (_overviewRequested)
+                                PublishOverview();
+                            _resumeEvent.Wait(MinOverviewDelay);
+                        }
                         lastUpdate = clock.Elapsed;
                         continue;
                     }
@@ -163,6 +204,11 @@ namespace RAWSimO.Visualization.Avalonia.Simulation
                         PublishSnapshot();
                         lastSnapshot = clock.Elapsed;
                     }
+                    if (_overviewRequested && clock.Elapsed - lastOverview >= MinOverviewDelay)
+                    {
+                        PublishOverview();
+                        lastOverview = clock.Elapsed;
+                    }
 
                     // Sleep if time is left
                     TimeSpan remaining = MinUpdateDelay - (clock.Elapsed - now);
@@ -178,10 +224,18 @@ namespace RAWSimO.Visualization.Avalonia.Simulation
                 // Finish prequels
                 _instance.StopExecutionTiming();
                 PublishSnapshot();
+                PublishOverview();
                 Finished?.Invoke();
             }
         }
 
         private void PublishSnapshot() => Volatile.Write(ref _snapshot, _snapshotBuilder.Build());
+
+        private void PublishOverview()
+        {
+            _overviewRequested = false;
+            try { Volatile.Write(ref _overview, _overviewBuilder.Build()); }
+            catch (Exception ex) { OverviewError = ex; /* Informative only - a failing overview must never stop the simulation */ }
+        }
     }
 }

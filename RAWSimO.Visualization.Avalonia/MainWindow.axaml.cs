@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
@@ -51,7 +52,6 @@ namespace RAWSimO.Visualization.Avalonia
         private ControlConfiguration _controlConfig;
         private OrderGenerator.SimpleItemGeneratorPreConfiguration _simpleItemConfig;
         private AlphabetOrderParameters _alphabetOrderParameters;
-        private GridLength _sidePanelWidth = new GridLength(440);
 
         // Statistics output requested for the current run (captured at start, used when the simulation finishes)
         private string _statisticsFolder;
@@ -71,7 +71,7 @@ namespace RAWSimO.Visualization.Avalonia
 
             ResetConfigs();
             InitHeatmapUi();
-            View.SelectionChanged += _ => UpdateInfo();
+            View.SelectionChanged += OnSelectionChanged;
             KeyDown += MainWindow_KeyDown;
             Closing += (_, _) =>
             {
@@ -133,6 +133,7 @@ namespace RAWSimO.Visualization.Avalonia
             _suppressEvents = false;
 
             BuildScene(keepView: false);
+            ResetInfoPanel();
             TextStatus.Text =
                 $"{instance.GetInfoName()}: {_tiers.Count} tier(s), {instance.GetInfoBots().Count()} bots, {instance.GetInfoPods().Count()} pods, " +
                 $"{_tiers.Sum(t => t.GetInfoWaypoints().Count())} waypoints";
@@ -289,17 +290,6 @@ namespace RAWSimO.Visualization.Avalonia
         }
 
         private void ButtonResetConfigs_Click(object sender, RoutedEventArgs e) => ResetConfigs();
-
-        private void TogglePanel_Changed(object sender, RoutedEventArgs e)
-        {
-            bool show = TogglePanel.IsChecked == true;
-            ColumnDefinition column = MainGrid.ColumnDefinitions[0];
-            if (!show && column.Width.Value > 0)
-                _sidePanelWidth = column.Width;
-            column.Width = show ? _sidePanelWidth : new GridLength(0);
-            SidePanel.IsVisible = show;
-            SidePanelSplitter.IsVisible = show;
-        }
 
         private async void ButtonSanityCheck_Click(object sender, RoutedEventArgs e)
         {
@@ -471,6 +461,8 @@ namespace RAWSimO.Visualization.Avalonia
                     _instance.SettingConfig.StatisticsDirectory = _statisticsFolder;
                 _runner.Start(_instance.SettingConfig.SimulationWarmupTime + _instance.SettingConfig.SimulationDuration);
                 Log("Simulation started.");
+                // Make room for the simulation (the setup panel is mostly needed before)
+                TogglePanel.IsChecked = false;
             }
             else if (_runner.IsPaused)
                 _runner.Resume();
@@ -578,6 +570,17 @@ namespace RAWSimO.Visualization.Avalonia
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            // Panel toggles
+            if (e.KeyModifiers == KeyModifiers.Control)
+            {
+                ToggleButton toggle = e.Key switch { Key.B => TogglePanel, Key.I => ToggleInfo, Key.L => ToggleLog, _ => null };
+                if (toggle != null)
+                {
+                    toggle.IsChecked = toggle.IsChecked != true;
+                    e.Handled = true;
+                }
+                return;
+            }
             // Do not steal keys from text input controls
             if (e.Source is TextBox) return;
             switch (e.Key)
@@ -602,90 +605,19 @@ namespace RAWSimO.Visualization.Avalonia
 
         #region Status, info and log
 
-        private void RefreshUi()
+        /// <summary>
+        /// Refreshes the textual UI (called periodically, internal for tests as headless timers do not tick in real time).
+        /// </summary>
+        internal void RefreshUi()
         {
             SceneSnapshot snapshot = _runner?.Snapshot;
             if (snapshot != null)
                 TextTime.Text = TimeSpan.FromSeconds(snapshot.Time).ToString(@"hh\:mm\:ss");
             TextFps.Text = $"{View.MeasureFps(),5:0} fps";
-            if (View.SelectedObject != null)
-                UpdateInfo();
+            UpdateInfoPanel();
             FlushLog();
             if (_runner != null && !_runner.IsRunning && ButtonStop.IsEnabled)
                 UpdateButtons();
-        }
-
-        private void UpdateInfo()
-        {
-            object selected = View.SelectedObject;
-            TextInfo.Text = selected == null ? "Click on a bot, pod or station to see details." : DescribeObject(selected);
-        }
-
-        private static string DescribeObject(object obj)
-        {
-            // Note: this reads live simulation state from the UI thread (as the WPF visualization did) - values are informative only
-            var sb = new StringBuilder();
-            string F(double v) => v.ToString("0.##", CultureInfo.InvariantCulture);
-            try
-            {
-                switch (obj)
-                {
-                    case IBotInfo bot:
-                        sb.AppendLine($"Bot {bot.GetInfoID()}");
-                        sb.AppendLine($"State:       {bot.GetInfoState()}");
-                        sb.AppendLine($"Task:        {bot.GetInfoTask()}");
-                        sb.AppendLine($"Position:    {F(bot.GetInfoCenterX())}, {F(bot.GetInfoCenterY())}");
-                        sb.AppendLine($"Orientation: {F(bot.GetInfoOrientation() * 180 / Math.PI)}°");
-                        sb.AppendLine($"Speed:       {F(bot.GetInfoSpeed())}");
-                        sb.AppendLine($"Current WP:  {bot.GetInfoCurrentWaypoint()?.GetInfoID().ToString() ?? "-"}");
-                        sb.AppendLine($"Goal WP:     {bot.GetInfoGoalWaypoint()?.GetInfoID().ToString() ?? "-"}");
-                        sb.AppendLine($"Dest. WP:    {bot.GetInfoDestinationWaypoint()?.GetInfoID().ToString() ?? "-"}");
-                        sb.AppendLine($"Blocked:     {bot.GetInfoBlocked()}");
-                        sb.AppendLine($"Queueing:    {bot.GetInfoIsQueueing()}");
-                        break;
-                    case IPodInfo pod:
-                        sb.AppendLine($"Pod {pod.GetInfoID()}");
-                        sb.AppendLine($"Position:    {F(pod.GetInfoCenterX())}, {F(pod.GetInfoCenterY())}");
-                        sb.AppendLine($"Capacity:    {F(pod.GetInfoCapacityUsed())} / {F(pod.GetInfoCapacity())}");
-                        sb.AppendLine($"Reserved:    {F(pod.GetInfoCapacityReserved())}");
-                        sb.AppendLine($"Heat:        {F(pod.GetInfoHeatValue())}");
-                        sb.AppendLine($"Refill:      {pod.GetInfoReadyForRefill()}");
-                        break;
-                    case IInputStationInfo station:
-                        sb.AppendLine($"Input station {station.GetInfoID()}");
-                        sb.AppendLine($"Position:    {F(station.GetInfoCenterX())}, {F(station.GetInfoCenterY())}");
-                        sb.AppendLine($"Active:      {station.GetInfoActive()}");
-                        sb.AppendLine($"Capacity:    {F(station.GetInfoCapacityUsed())} / {F(station.GetInfoCapacity())}");
-                        sb.AppendLine($"Requests:    {station.GetInfoOpenRequests()}");
-                        sb.AppendLine($"Blocked:     {station.GetInfoBlocked()}");
-                        sb.AppendLine($"Queue:       {station.GetInfoQueue()}");
-                        break;
-                    case IOutputStationInfo station:
-                        sb.AppendLine($"Output station {station.GetInfoID()}");
-                        sb.AppendLine($"Position:    {F(station.GetInfoCenterX())}, {F(station.GetInfoCenterY())}");
-                        sb.AppendLine($"Active:      {station.GetInfoActive()}");
-                        sb.AppendLine($"Capacity:    {F(station.GetInfoCapacityUsed())} / {F(station.GetInfoCapacity())}");
-                        sb.AppendLine($"Requests:    {station.GetInfoOpenRequests()}");
-                        sb.AppendLine($"Blocked:     {station.GetInfoBlocked()}");
-                        sb.AppendLine($"Queue:       {station.GetInfoQueue()}");
-                        break;
-                    case IWaypointInfo wp:
-                        sb.AppendLine($"Waypoint {wp.GetInfoID()}");
-                        sb.AppendLine($"Position:    {F(wp.GetInfoCenterX())}, {F(wp.GetInfoCenterY())}");
-                        sb.AppendLine($"Storage:     {wp.GetInfoStorageLocation()}");
-                        sb.AppendLine($"Connections: {string.Join(", ", wp.GetInfoConnectedWaypoints().Select(o => o.GetInfoID()))}");
-                        break;
-                    default:
-                        sb.AppendLine(obj.ToString());
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Concurrent modification by the simulation thread - simply show what we have, the next refresh will be fine
-                sb.AppendLine($"({ex.GetType().Name} while reading)");
-            }
-            return sb.ToString();
         }
 
         /// <summary>
@@ -701,7 +633,8 @@ namespace RAWSimO.Visualization.Avalonia
             if (_logLines.Count > MaxLogLines)
                 _logLines.RemoveRange(0, _logLines.Count - MaxLogLines);
             TextLog.Text = string.Join(Environment.NewLine, _logLines);
-            TextLog.CaretIndex = TextLog.Text.Length;
+            // Scroll to the start of the last line (the caret at the very end would scroll long lines horizontally)
+            TextLog.CaretIndex = TextLog.Text.Length - _logLines[^1].Length;
         }
 
         #endregion

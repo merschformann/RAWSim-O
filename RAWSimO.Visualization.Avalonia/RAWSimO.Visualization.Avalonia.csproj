@@ -28,4 +28,7 @@
     <ProjectReference Include="..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="RAWSimO.Visualization.Avalonia.Tests" />
+  </ItemGroup>
 </Project>

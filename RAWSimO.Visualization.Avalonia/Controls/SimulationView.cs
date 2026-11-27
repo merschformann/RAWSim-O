@@ -303,7 +303,10 @@ namespace RAWSimO.Visualization.Avalonia.Controls
             e.Pointer.Capture(null);
         }
 
-        private void Select(object obj)
+        /// <summary>
+        /// Selects the given object (null to clear the selection).
+        /// </summary>
+        public void Select(object obj)
         {
             if (ReferenceEquals(obj, SelectedObject)) return;
             SelectedObject = obj;
