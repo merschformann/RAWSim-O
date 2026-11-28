@@ -1,0 +1,12 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="RAWSimO.Visualization.Avalonia.App"
+             RequestedThemeVariant="Light">
+  <Application.Styles>
+    <FluentTheme DensityStyle="Compact" />
+    <!-- Let expander headers use the full width (used by the configuration editors) -->
+    <Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+  </Application.Styles>
+</Application>

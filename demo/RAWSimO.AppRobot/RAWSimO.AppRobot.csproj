@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>bot-blue.ico</ApplicationIcon>
+    <Configurations>Debug;Release;XPlat;XPlatRelease</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <LangVersion>default</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'XPlatRelease' ">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="bot-blue.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="10.0.15" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RAWSimO.CommFramework\RAWSimO.CommFramework.csproj" />
+    <ProjectReference Include="..\RAWSimO.Hardware\RAWSimO.Hardware.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DirectShowLib-2005">
+      <HintPath>..\Lib\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV">
+      <HintPath>..\Lib\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI">
+      <HintPath>..\Lib\Emgu.CV.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util">
+      <HintPath>..\Lib\Emgu.Util.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="bot-blue.ico" />
+  </ItemGroup>
+
+</Project>

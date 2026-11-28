@@ -1,0 +1,305 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="using:RAWSimO.Visualization.Avalonia.Controls"
+        xmlns:aq="using:Aquarium.Avalonia"
+        x:Class="RAWSimO.Visualization.Avalonia.MainWindow"
+        Title="RAWSim-O"
+        Width="1400" Height="900" MinWidth="800" MinHeight="500">
+
+  <Window.Styles>
+    <Style Selector="StackPanel.toolbar > :is(Control)">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBlock.label">
+      <Setter Property="Margin" Value="8,0,4,0" />
+      <Setter Property="Foreground" Value="#555" />
+    </Style>
+    <Style Selector="TabControl.panel > TabItem">
+      <Setter Property="FontSize" Value="15" />
+      <Setter Property="MinHeight" Value="32" />
+      <Setter Property="Padding" Value="10,4" />
+    </Style>
+    <Style Selector="Separator.vertical">
+      <Setter Property="Width" Value="1" />
+      <Setter Property="Height" Value="22" />
+      <Setter Property="Margin" Value="6,0" />
+      <Setter Property="Background" Value="#ccc" />
+    </Style>
+    <Style Selector="TextBlock.section">
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Margin" Value="0,10,0,4" />
+    </Style>
+    <Style Selector="TextBlock.key">
+      <Setter Property="Foreground" Value="#555" />
+      <Setter Property="Margin" Value="0,1,12,1" />
+    </Style>
+    <Style Selector="Grid.table TextBlock">
+      <Setter Property="Margin" Value="0,1,10,1" />
+    </Style>
+    <Style Selector="GridSplitter">
+      <Setter Property="Background" Value="#e6e6e6" />
+    </Style>
+  </Window.Styles>
+
+  <DockPanel>
+    <!-- Toolbar -->
+    <Border DockPanel.Dock="Top" BorderBrush="#ddd" BorderThickness="0,0,0,1" Padding="6">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Right" Classes="toolbar" Orientation="Horizontal" Spacing="4" Margin="0,2">
+          <ToggleButton x:Name="ToggleInfo" Content="Info" IsChecked="True" ToolTip.Tip="Show / hide the info panel (Ctrl+I)" IsCheckedChanged="TogglePanes_Changed" />
+          <ToggleButton x:Name="ToggleLog" Content="Log" IsChecked="True" ToolTip.Tip="Show / hide the log (Ctrl+L)" IsCheckedChanged="TogglePanes_Changed" />
+        </StackPanel>
+        <WrapPanel Orientation="Horizontal">
+          <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="4" Margin="0,2">
+            <ToggleButton x:Name="TogglePanel" Content="☰ Setup" IsChecked="True" ToolTip.Tip="Show / hide the setup panel (Ctrl+B)" IsCheckedChanged="TogglePanes_Changed" />
+            <Button x:Name="ButtonGenerate" Content="Generate" ToolTip.Tip="Generate an instance using the layout, setting and controller configuration of the 'Instance' panel" Click="ButtonGenerate_Click" />
+            <Button x:Name="ButtonLoad" Content="Load…" ToolTip.Tip="Load an instance or layout file together with a setting and a control configuration" Click="ButtonLoad_Click" />
+            <Separator Classes="vertical" />
+            <Button x:Name="ButtonPlayPause" Content="▶ Start" MinWidth="80" ToolTip.Tip="Start / pause the simulation (Space)" Click="ButtonPlayPause_Click" />
+            <Button x:Name="ButtonStop" Content="■ Stop" ToolTip.Tip="Stop the simulation" Click="ButtonStop_Click" />
+            <TextBlock Classes="label" Text="Speed" />
+            <NumericUpDown x:Name="NumericSpeed" Minimum="1" Maximum="400" Increment="1" Value="1" FormatString="0" Width="110"
+                           ToolTip.Tip="Simulated seconds per real second (+ / - / 0-4)" ValueChanged="NumericSpeed_ValueChanged" />
+            <TextBlock x:Name="TextTime" Classes="label" Text="00:00:00" FontFamily="monospace" MinWidth="80" ToolTip.Tip="Current simulation time" />
+          </StackPanel>
+          <StackPanel Classes="toolbar" Orientation="Horizontal" Spacing="4" Margin="0,2">
+            <Separator Classes="vertical" />
+            <TextBlock Classes="label" Text="Tier" />
+            <ComboBox x:Name="ComboTier" MinWidth="60" ToolTip.Tip="Tier to display (PageUp / PageDown)" SelectionChanged="ComboTier_SelectionChanged" />
+            <ToggleButton x:Name="Toggle3D" Content="3D" ToolTip.Tip="Switch between the 2D and the 3D view (all tiers; Ctrl+3). 3D: left drag = rotate, right drag = pan, wheel = zoom" IsCheckedChanged="Toggle3D_Changed" />
+            <DropDownButton Content="View" ToolTip.Tip="What to draw and how">
+              <DropDownButton.Flyout>
+                <Flyout Placement="BottomEdgeAlignedLeft">
+                  <Grid ColumnDefinitions="Auto,200" RowDefinitions="Auto,Auto,Auto,Auto" Margin="2">
+                    <Grid.Styles>
+                      <Style Selector="Grid > TextBlock"><Setter Property="VerticalAlignment" Value="Center" /><Setter Property="Margin" Value="0,0,10,0" /></Style>
+                      <Style Selector="Grid > ComboBox"><Setter Property="HorizontalAlignment" Value="Stretch" /><Setter Property="Margin" Value="0,2" /></Style>
+                    </Grid.Styles>
+                    <TextBlock Text="Detail" />
+                    <ComboBox x:Name="ComboDetail" Grid.Column="1" ToolTip.Tip="Level of detail of the static content" SelectionChanged="ComboDetail_SelectionChanged" />
+                    <TextBlock Grid.Row="1" Text="Bot colors" />
+                    <ComboBox x:Name="ComboBotColors" Grid.Row="1" Grid.Column="1" SelectionChanged="RenderOption_Changed" />
+                    <TextBlock Grid.Row="2" Text="Pod heat" />
+                    <ComboBox x:Name="ComboHeatMode" Grid.Row="2" Grid.Column="1" ToolTip.Tip="Color pods by their heat according to the selected measure" SelectionChanged="RenderOption_Changed" />
+                    <TextBlock Grid.Row="3" Text="Draw" />
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
+                      <CheckBox x:Name="CheckGoal" Content="Goal" ToolTip.Tip="Draw a line from each bot to its current goal" IsCheckedChanged="RenderOption_Changed" />
+                      <CheckBox x:Name="CheckDestination" Content="Destination" ToolTip.Tip="Draw a line from each bot to its destination" IsCheckedChanged="RenderOption_Changed" />
+                      <CheckBox x:Name="CheckPath" Content="Path" ToolTip.Tip="Draw the planned path of each bot" IsCheckedChanged="RenderOption_Changed" />
+                    </StackPanel>
+                  </Grid>
+                </Flyout>
+              </DropDownButton.Flyout>
+            </DropDownButton>
+            <Button x:Name="ButtonFit" Content="Fit" ToolTip.Tip="Fit the tier into the view (F or double click)" Click="ButtonFit_Click" />
+            <Button x:Name="ButtonSnapshot" Content="Snapshot…" ToolTip.Tip="Export the complete tier as PNG or SVG (vector graphics)" Click="ButtonSnapshot_Click" />
+          </StackPanel>
+        </WrapPanel>
+      </DockPanel>
+    </Border>
+
+    <!-- Status bar -->
+    <Border DockPanel.Dock="Bottom" BorderBrush="#ddd" BorderThickness="0,1,0,0" Padding="8,3">
+      <DockPanel>
+        <TextBlock x:Name="TextFps" DockPanel.Dock="Right" FontFamily="monospace" Foreground="#555" />
+        <TextBlock x:Name="TextStatus" Text="Generate or load an instance to start." TextTrimming="CharacterEllipsis" />
+      </DockPanel>
+    </Border>
+
+    <!-- Setup panel | view and log | info panel -->
+    <Grid x:Name="MainGrid" ColumnDefinitions="440,Auto,*,Auto,400">
+      <TabControl x:Name="SidePanel" Grid.Column="0" Classes="panel" Padding="0" Margin="4,0,0,0">
+        <TabItem Header="Instance">
+          <DockPanel>
+            <WrapPanel DockPanel.Dock="Top" Margin="6,4">
+              <Button Content="Generate" Margin="0,0,4,4" Click="ButtonGenerate_Click" ToolTip.Tip="Generate an instance with the parameters below" />
+              <Button x:Name="ButtonSanityCheck" Content="Sanity check" Margin="0,0,4,4" Click="ButtonSanityCheck_Click" ToolTip.Tip="Check the current instance for obvious errors" />
+              <Button Content="Reset" Margin="0,0,4,4" Click="ButtonResetConfigs_Click" ToolTip.Tip="Reset all parameters below to their defaults" />
+              <Button x:Name="ButtonSaveInstance" Content="Save instance…" Margin="0,0,4,4" Click="ButtonSaveInstance_Click" ToolTip.Tip="Save the current instance (.xinst)" />
+              <Button Content="Save layout…" Margin="0,0,4,4" Click="ButtonSaveLayout_Click" ToolTip.Tip="Save the layout configuration (.xlayo)" />
+              <Button Content="Save setting…" Margin="0,0,4,4" Click="ButtonSaveSetting_Click" ToolTip.Tip="Save the setting configuration (.xsett)" />
+              <Button Content="Save controller…" Margin="0,0,4,4" Click="ButtonSaveControl_Click" ToolTip.Tip="Save the controller configuration (.xconf)" />
+            </WrapPanel>
+            <ScrollViewer>
+              <StackPanel Margin="6,0,14,6" Spacing="4">
+                <Expander Header="Layout" IsExpanded="True" HorizontalAlignment="Stretch"><ContentControl x:Name="EditorLayout" /></Expander>
+                <Expander Header="Setting" HorizontalAlignment="Stretch"><ContentControl x:Name="EditorSetting" /></Expander>
+                <Expander Header="Controller" HorizontalAlignment="Stretch"><ContentControl x:Name="EditorControl" /></Expander>
+                <Expander Header="Statistics output" HorizontalAlignment="Stretch">
+                  <StackPanel Spacing="6">
+                    <CheckBox x:Name="CheckWriteStatistics" Content="Write statistics to folder when the simulation stops"
+                              ToolTip.Tip="If disabled, statistics are only written when the simulation horizon is reached (to a folder in the working directory)" />
+                    <DockPanel>
+                      <Button DockPanel.Dock="Right" Content="Browse…" Margin="4,0,0,0" Click="ButtonBrowseStatistics_Click" />
+                      <TextBox x:Name="TextStatisticsFolder" PlaceholderText="Statistics output folder" />
+                    </DockPanel>
+                  </StackPanel>
+                </Expander>
+              </StackPanel>
+            </ScrollViewer>
+          </DockPanel>
+        </TabItem>
+        <TabItem Header="Order files">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander Header="Simple item generator" IsExpanded="True" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <ContentControl x:Name="EditorSimpleItems" />
+                  <Button Content="Generate and save item config…" Click="ButtonSaveSimpleItemConfig_Click"
+                          ToolTip.Tip="Generate a configuration for the online generation of simple items (.xgenc) and plot its frequencies (requires gnuplot)" />
+                </StackPanel>
+              </Expander>
+              <Expander Header="Alphabet order list" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <ContentControl x:Name="EditorAlphabetOrders" />
+                  <Button Content="Generate and save order list…" Click="ButtonSaveAlphabetOrders_Click"
+                          ToolTip.Tip="Generate an order list based on colored words for the fixed inventory mode (.xitem)" />
+                </StackPanel>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Heatmaps">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander Header="Heatmap rendering" IsExpanded="True" HorizontalAlignment="Stretch">
+                <StackPanel Spacing="6">
+                  <DockPanel>
+                    <Button DockPanel.Dock="Left" Content="Instance…" Width="90" Margin="0,0,6,0" Click="ButtonHeatInstance_Click" ToolTip.Tip="Select the instance (.xinst) the data belongs to" />
+                    <TextBlock x:Name="TextHeatInstance" Text="(none)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                  </DockPanel>
+                  <DockPanel>
+                    <Button DockPanel.Dock="Left" Content="Data…" Width="90" Margin="0,0,6,0" Click="ButtonHeatData_Click" ToolTip.Tip="Select the heat data file (.heat) of a simulation run" />
+                    <ComboBox x:Name="ComboHeatValue" DockPanel.Dock="Right" MinWidth="120" Margin="6,0,0,0" ToolTip.Tip="The value of the data to render" />
+                    <TextBlock x:Name="TextHeatData" Text="(none)" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                  </DockPanel>
+                  <WrapPanel>
+                    <TextBlock Text="Draw:" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <CheckBox x:Name="CheckHeatBots" Content="Bots" Margin="0,0,10,0" />
+                    <CheckBox x:Name="CheckHeatPods" Content="Pods" Margin="0,0,10,0" />
+                    <CheckBox x:Name="CheckHeatStations" Content="Stations" Margin="0,0,10,0" />
+                    <CheckBox x:Name="CheckHeatSemaphores" Content="Semaphores" />
+                  </WrapPanel>
+                  <Expander Header="Bot task filter (location data)" HorizontalAlignment="Stretch">
+                    <WrapPanel x:Name="PanelHeatBotTasks" />
+                  </Expander>
+                  <Expander Header="Parameters" HorizontalAlignment="Stretch">
+                    <ContentControl x:Name="EditorHeatmap" />
+                  </Expander>
+                  <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="Opacity" VerticalAlignment="Center" Margin="0,0,8,0" />
+                    <Slider x:Name="SliderHeatOpacity" Minimum="0" Maximum="1" Value="0.7" ValueChanged="SliderHeatOpacity_ValueChanged" />
+                  </DockPanel>
+                  <WrapPanel>
+                    <Button x:Name="ButtonHeatRender" Content="Render" Margin="0,0,4,4" Click="ButtonHeatRender_Click" ToolTip.Tip="Show the instance with the heatmap of the selected data" />
+                    <Button Content="Show instance" Margin="0,0,4,4" Click="ButtonHeatShowInstance_Click" ToolTip.Tip="Only show the selected instance (without heat data)" />
+                    <Button Content="Clear" Margin="0,0,4,4" Click="ButtonHeatClear_Click" ToolTip.Tip="Remove the heatmap" />
+                    <Button x:Name="ButtonHeatAll" Content="All result folders…" Margin="0,0,4,4" Click="ButtonHeatAll_Click"
+                            ToolTip.Tip="Render heatmaps (locations and trips) as PNG into all result folders below a root folder (instances are taken from a separate folder)" />
+                    <Button x:Name="ButtonHeatTimeWindows" Content="Time windows…" Margin="0,0,4,4" Click="ButtonHeatTimeWindows_Click"
+                            ToolTip.Tip="Render one heatmap per time window (see parameters) of the selected data as PNG into a folder" />
+                  </WrapPanel>
+                  <TextBlock x:Name="TextHeatInfo" Foreground="#555" TextWrapping="Wrap" />
+                </StackPanel>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Remote">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander Header="Remote connection" IsExpanded="True" HorizontalAlignment="Stretch"
+                        ToolTip.Tip="Connect the simulation as controller to the server of the demonstrator (see demo/), which manages the communication with the real robots and stations">
+                <StackPanel Spacing="6">
+                  <Grid ColumnDefinitions="Auto,*,Auto,90" RowDefinitions="Auto">
+                    <TextBlock Text="Server" VerticalAlignment="Center" Margin="0,0,6,0" />
+                    <TextBox x:Name="TextRemoteIp" Grid.Column="1" Text="127.0.0.1" />
+                    <TextBlock Grid.Column="2" Text="Port" VerticalAlignment="Center" Margin="8,0,6,0" />
+                    <TextBox x:Name="TextRemotePort" Grid.Column="3" Text="888" />
+                  </Grid>
+                  <StackPanel Orientation="Horizontal" Spacing="4">
+                    <Button x:Name="ButtonRemoteConnect" Content="Connect" Click="ButtonRemoteConnect_Click" ToolTip.Tip="Connect to the server (an instance has to be loaded)" />
+                    <Button x:Name="ButtonRemoteDisconnect" Content="Disconnect" IsEnabled="False" Click="ButtonRemoteDisconnect_Click" />
+                    <TextBlock x:Name="TextRemoteStatus" Text="Not connected" VerticalAlignment="Center" Margin="6,0,0,0" Foreground="#555" />
+                  </StackPanel>
+                </StackPanel>
+              </Expander>
+              <Expander Header="Fire virtual events" HorizontalAlignment="Stretch"
+                        ToolTip.Tip="Manually fire robot events (for testing the remote control without hardware)">
+                <StackPanel Spacing="6">
+                  <Grid ColumnDefinitions="Auto,*,Auto,*">
+                    <TextBlock Text="Bot ID" VerticalAlignment="Center" Margin="0,0,6,0" />
+                    <TextBox x:Name="TextEventBot" Grid.Column="1" />
+                    <TextBlock Grid.Column="2" Text="Waypoint ID" VerticalAlignment="Center" Margin="8,0,6,0" />
+                    <TextBox x:Name="TextEventWaypoint" Grid.Column="3" />
+                  </Grid>
+                  <WrapPanel>
+                    <Button Content="OnWaypointReached" Margin="0,0,4,4" Click="ButtonEventWaypointReached_Click" />
+                    <Button Content="OnPickedUpPod" Margin="0,0,4,4" Click="ButtonEventPickedUpPod_Click" />
+                    <Button Content="OnSetDownPod" Margin="0,0,4,4" Click="ButtonEventSetDownPod_Click" />
+                  </WrapPanel>
+                </StackPanel>
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+      </TabControl>
+      <GridSplitter x:Name="SidePanelSplitter" Grid.Column="1" Width="5" ResizeDirection="Columns" />
+
+      <Grid x:Name="CenterGrid" Grid.Column="2" RowDefinitions="*,Auto,140">
+        <c:SimulationView x:Name="View" />
+        <aq:AquariumView x:Name="View3D" IsVisible="False" />
+        <TextBlock x:Name="Text3DError" IsVisible="False" TextWrapping="Wrap" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#a00" />
+        <GridSplitter x:Name="LogSplitter" Grid.Row="1" Height="5" ResizeDirection="Rows" />
+        <TextBox x:Name="TextLog" Grid.Row="2" IsReadOnly="True" AcceptsReturn="True" TextWrapping="NoWrap"
+                 FontFamily="monospace" FontSize="11" BorderThickness="0" CornerRadius="0" />
+      </Grid>
+
+      <GridSplitter x:Name="InfoPanelSplitter" Grid.Column="3" Width="5" ResizeDirection="Columns" />
+      <TabControl x:Name="InfoPanel" Grid.Column="4" Classes="panel" Padding="0" Margin="0,0,4,0">
+        <TabItem Header="Overview">
+          <ScrollViewer>
+            <StackPanel Margin="6,0,14,6">
+              <TextBlock Classes="section" Text="Statistics" />
+              <Grid x:Name="GridStatistics" ColumnDefinitions="Auto,*" />
+              <TextBlock Classes="section" Text="Stations" />
+              <TextBlock Text="Click a station to select it." Foreground="#888" FontSize="11" Margin="0,0,0,4" />
+              <Grid x:Name="GridStations" Classes="table" />
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+        <TabItem Header="Orders">
+          <ScrollViewer>
+            <StackPanel Margin="6,4,14,6" Spacing="4">
+              <Expander x:Name="ExpanderOpenOrders" Header="Open orders" IsExpanded="True" HorizontalAlignment="Stretch"
+                        ToolTip.Tip="Orders assigned to an output station (prefixed with the station). Served / demanded quantity per position.">
+                <c:ChipListView x:Name="ChipsOpenOrders" />
+              </Expander>
+              <Expander x:Name="ExpanderPendingOrders" Header="Backlog" HorizontalAlignment="Stretch" ToolTip.Tip="Orders not yet assigned to a station">
+                <c:ChipListView x:Name="ChipsPendingOrders" />
+              </Expander>
+              <Expander x:Name="ExpanderCompletedOrders" Header="Completed orders" HorizontalAlignment="Stretch" ToolTip.Tip="Most recently completed first">
+                <c:ChipListView x:Name="ChipsCompletedOrders" />
+              </Expander>
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+        <TabItem x:Name="TabSelection" Header="Selection">
+          <ScrollViewer>
+            <StackPanel Margin="6,0,14,6">
+              <TextBlock x:Name="TextSelectionTitle" Classes="section" Text="Nothing selected" />
+              <TextBlock x:Name="TextSelectionHint" Text="Click on a bot, pod, station or waypoint (or a station in the overview)." Foreground="#888" TextWrapping="Wrap" />
+              <Grid x:Name="GridSelection" ColumnDefinitions="Auto,*" />
+              <TextBlock x:Name="TextSelectionChips" Classes="section" IsVisible="False" />
+              <c:ChipListView x:Name="ChipsSelection" IsVisible="False" />
+              <TextBlock x:Name="TextSelectionOpenOrders" Classes="section" IsVisible="False" />
+              <c:ChipListView x:Name="ChipsSelectionOpenOrders" IsVisible="False" />
+              <TextBlock x:Name="TextSelectionCompletedOrders" Classes="section" IsVisible="False" />
+              <c:ChipListView x:Name="ChipsSelectionCompletedOrders" IsVisible="False" />
+            </StackPanel>
+          </ScrollViewer>
+        </TabItem>
+      </TabControl>
+    </Grid>
+  </DockPanel>
+</Window>
